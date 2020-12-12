@@ -1,0 +1,169 @@
+let mapleader        = "\<Space>"
+let s:fileLastInsert = ""
+
+function! s:setFilePathLastInsert(filePath)
+    let s:fileLastInsert = a:filePath
+endfunction
+
+function! s:getFilePathLastInsert()
+    return s:fileLastInsert
+endfunction
+
+function! s:putToLastInsertPoint()
+    if <SID>getFilePathLastInsert() ==# ""
+        return
+    endif
+
+    let currentFileName = expand('%;p')
+    if <SID>getFilePathLastInsert() ==# currentFileName
+        execute "normal gi\<C-r>0"
+        return
+    endif
+
+    execute "e " . s:getFilePathLastInsert()
+    execute "normal gi\<C-r>0"
+endfunction
+
+function! s:attachAltNotation(keyNotation)
+    if has('unix')
+        " check what key is alt by [Ctrl+V] and [Alt+f]
+        return "" . a:keyNotation
+    elseif has('win32')
+        return '<M-' . a:keyNotation . '>'
+    endif
+endfunction
+
+function! s:searchVmode()
+    let temp = @s
+    norm! gv"sy
+    let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
+    let @s = temp
+endfunction
+
+function! s:replaceInBuf()
+    execute "%s//" . @0 . "/g"
+endfunction
+
+function! s:replaceInVisual()
+    execute "'<,'>s//" . @0 . "/g"
+endfunction
+
+runtime   macros/matchit.vim
+filetype  plugin indent on
+syntax    enable
+highlight cursorcolumn                                ctermbg=blue
+highlight cursorcolumn                 ctermfg=green
+highlight CursorColumn cterm=NONE                     ctermbg=239
+highlight CursorLine   cterm=underline ctermfg=NONE   ctermbg=NONE
+highlight incsearch                                   ctermbg=Black
+highlight incsearch                    ctermfg=Yellow
+highlight Search                                      ctermbg=Yellow
+highlight Search                       ctermfg=Black
+set autoindent
+set autoread
+set cursorcolumn
+set cursorline
+set expandtab
+set fileencodings=utf-8,sjis,euc-jp,latin1
+set fileformats=unix,dos,mac
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
+set list
+set listchars=tab:>-,trail:-,nbsp:%
+set matchtime=1
+set nobackup
+set nocompatible
+set number
+set pastetoggle=<f5>
+set ruler
+set shiftwidth=4
+set showcmd
+set showmatch
+set smartcase
+set tabstop=4
+set title
+set wildmenu
+set wildmode=full
+set statusline=%f\ [%l/%L]
+set hidden
+nnoremap i :call <SID>setFilePathLastInsert(expand('%;p'))<CR>i
+nnoremap I :call <SID>setFilePathLastInsert(expand('%;p'))<CR>I
+nnoremap a :call <SID>setFilePathLastInsert(expand('%;p'))<CR>a
+nnoremap A :call <SID>setFilePathLastInsert(expand('%;p'))<CR>A
+nnoremap gi :call <SID>setFilePathLastInsert(expand('%;p'))<CR>gi
+nnoremap c :call <SID>setFilePathLastInsert(expand('%;p'))<CR>c
+nnoremap C :call <SID>setFilePathLastInsert(expand('%;p'))<CR>C
+nnoremap s :call <SID>setFilePathLastInsert(expand('%;p'))<CR>s
+nnoremap S :call <SID>setFilePathLastInsert(expand('%;p'))<CR>S
+nnoremap o :call <SID>setFilePathLastInsert(expand('%;p'))<CR>o
+nnoremap O :call <SID>setFilePathLastInsert(expand('%;p'))<CR>O
+nnoremap <leader>p yiw:call <SID>putToLastInsertPoint()<CR>
+nnoremap <leader>i yiw:call <SID>putToLastInsertPoint()<CR>a
+vnoremap <leader>p y:call <SID>putToLastInsertPoint()<CR>
+vnoremap <leader>i y:call <SID>putToLastInsertPoint()<CR>a
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+nnoremap / /\v
+nnoremap * *N
+nnoremap # #N
+nnoremap <C-p> "0p
+vnoremap <C-p> "0p
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+nnoremap <leader>j 10gj
+nnoremap <leader>k 10gk
+vnoremap <leader>j 10gj
+vnoremap <leader>k 10gk
+nnoremap <C-j> 5gj
+nnoremap <C-k> 5gk
+vnoremap <C-j> 5gj
+vnoremap <C-k> 5gk
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
+vnoremap <C-e> 5<C-e>
+vnoremap <C-y> 5<C-y>
+nnoremap <C-h> g<S-^>
+nnoremap <C-n> g<S-$>
+vnoremap <C-h> g<S-^>
+vnoremap <C-n> g<S-$><Left>
+nnoremap <leader>n g<S-$>F
+vnoremap <leader>n g<S-$><Left>F
+nnoremap <leader>l `l
+nnoremap <leader>L `L
+nnoremap <leader>w :w<CR>
+nnoremap <leader>e :Explore<CR>
+nnoremap <leader>E :e!<CR>
+nnoremap <leader>Q :qall!<CR>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+xnoremap * :<C-u>call <SID>searchVmode()<CR>/<C-R>=@/<CR><CR>N
+xnoremap # :<C-u>call <SID>searchVmode()<CR>?<C-R>=@/<CR><CR>N
+nnoremap <leader>S :call <SID>replaceInBuf()<CR>
+vnoremap <leader>S :<C-u>call <SID>replaceInVisual()<CR>
+nnoremap <leader>s :%s///g<Left><Left>
+vnoremap <leader>s :s///g<Left><Left>
+inoremap jk <Esc>
+nnoremap <Del> :bdelete<CR>
+nnoremap cc "0yy"_ddi
+nnoremap dd "_dd
+vnoremap d "_d
+" like emacs
+cnoremap <C-h> <BS>
+cnoremap <C-d> <Del>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+execute "cnoremap " . s:attachAltNotation('b') . " <C-Left>"
+execute "cnoremap " . s:attachAltNotation('f') . " <C-Right>"
+cnoremap <C-o> <C-f>
+" buf control map
+execute "nnoremap <silent>" . s:attachAltNotation('k') . " :bprevious\<CR>"
+execute "nnoremap <silent>" . s:attachAltNotation('j') . " :bnext\<CR>"
+execute "nnoremap <silent>" . s:attachAltNotation('h') . " :bfirst\<CR>"
+execute "nnoremap <silent>" . s:attachAltNotation('n') . " :blast\<CR>"
+
