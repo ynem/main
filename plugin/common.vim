@@ -1,4 +1,4 @@
-let mapleader        = "\<Space>"
+let mapleader            = "\<Space>"
 let s:filePathLastInsert = ""
 
 function! s:setFilePathLastInsert(filePath)
@@ -14,8 +14,8 @@ function! s:putStrToLastInsertPoint(str)
         return
     endif
 
-    let currentFileName = expand('%')
-    if <SID>getFilePathLastInsert() !=# currentFileName
+    let currentFilePath = expand('%')
+    if <SID>getFilePathLastInsert() !=# currentFilePath
         execute "e " . s:getFilePathLastInsert()
     endif
 
