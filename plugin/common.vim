@@ -1,27 +1,29 @@
 let mapleader        = "\<Space>"
-let s:fileLastInsert = ""
+let s:filePathLastInsert = ""
 
 function! s:setFilePathLastInsert(filePath)
-    let s:fileLastInsert = a:filePath
+    let s:filePathLastInsert = a:filePath
 endfunction
 
 function! s:getFilePathLastInsert()
-    return s:fileLastInsert
+    return s:filePathLastInsert
 endfunction
 
-function! s:putToLastInsertPoint()
+function! s:putStrToLastInsertPoint(str)
     if <SID>getFilePathLastInsert() ==# ""
         return
     endif
 
-    let currentFileName = expand('%;p')
-    if <SID>getFilePathLastInsert() ==# currentFileName
-        execute "normal gi\<C-r>0"
-        return
+    let currentFileName = expand('%')
+    if <SID>getFilePathLastInsert() !=# currentFileName
+        execute "e " . s:getFilePathLastInsert()
     endif
 
-    execute "e " . s:getFilePathLastInsert()
+    let bak = @0
+    let @0 = a:str
     execute "normal gi\<C-r>0"
+    let @0 = bak
+    return
 endfunction
 
 function! s:attachAltNotation(keyNotation)
@@ -88,21 +90,21 @@ set wildmenu
 set wildmode=full
 set statusline=%f\ [%l/%L]
 set hidden
-nnoremap i :call <SID>setFilePathLastInsert(expand('%;p'))<CR>i
-nnoremap I :call <SID>setFilePathLastInsert(expand('%;p'))<CR>I
-nnoremap a :call <SID>setFilePathLastInsert(expand('%;p'))<CR>a
-nnoremap A :call <SID>setFilePathLastInsert(expand('%;p'))<CR>A
-nnoremap gi :call <SID>setFilePathLastInsert(expand('%;p'))<CR>gi
-nnoremap c :call <SID>setFilePathLastInsert(expand('%;p'))<CR>c
-nnoremap C :call <SID>setFilePathLastInsert(expand('%;p'))<CR>C
-nnoremap s :call <SID>setFilePathLastInsert(expand('%;p'))<CR>s
-nnoremap S :call <SID>setFilePathLastInsert(expand('%;p'))<CR>S
-nnoremap o :call <SID>setFilePathLastInsert(expand('%;p'))<CR>o
-nnoremap O :call <SID>setFilePathLastInsert(expand('%;p'))<CR>O
-nnoremap <leader>p yiw:call <SID>putToLastInsertPoint()<CR>
-nnoremap <leader>i yiw:call <SID>putToLastInsertPoint()<CR>a
-vnoremap <leader>p y:call <SID>putToLastInsertPoint()<CR>
-vnoremap <leader>i y:call <SID>putToLastInsertPoint()<CR>a
+nnoremap i :call <SID>setFilePathLastInsert(expand('%'))<CR>i
+nnoremap I :call <SID>setFilePathLastInsert(expand('%'))<CR>I
+nnoremap a :call <SID>setFilePathLastInsert(expand('%'))<CR>a
+nnoremap A :call <SID>setFilePathLastInsert(expand('%'))<CR>A
+nnoremap gi :call <SID>setFilePathLastInsert(expand('%'))<CR>gi
+nnoremap c :call <SID>setFilePathLastInsert(expand('%'))<CR>c
+nnoremap C :call <SID>setFilePathLastInsert(expand('%'))<CR>C
+nnoremap s :call <SID>setFilePathLastInsert(expand('%'))<CR>s
+nnoremap S :call <SID>setFilePathLastInsert(expand('%'))<CR>S
+nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
+nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
+nnoremap <leader>p yiw:call <SID>putStrToLastInsertPoint(@0)<CR>
+nnoremap <leader>i yiw:call <SID>putStrToLastInsertPoint(@0)<CR>a
+vnoremap <leader>p y:call <SID>putStrToLastInsertPoint(@0)<CR>
+vnoremap <leader>i y:call <SID>putStrToLastInsertPoint(@0)<CR>a
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
@@ -151,7 +153,7 @@ nnoremap <Del> :bdelete<CR>
 nnoremap cc "0yy"_ddi
 nnoremap dd "_dd
 vnoremap d "_d
-" like emacs
+" emacs like
 cnoremap <C-h> <BS>
 cnoremap <C-d> <Del>
 cnoremap <C-b> <Left>

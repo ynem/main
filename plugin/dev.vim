@@ -8,7 +8,7 @@ augroup format-unix
 augroup END
 
 " vba
-autocmd BufNewFile,BufRead *.bas,*.cls,*.frm e ++ff=dos ++enc=sjis | syntax enable
+autocmd BufNewFile,BufRead *.bas,*.cls,*.frm e ++ff=dos ++enc=sjis
 
 " grep
 nnoremap <leader>d :call grep#do('', '.')<Left><Left><Left><Left><Left><Left><Left>
