@@ -96,11 +96,18 @@ nnoremap a :call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap A :call <SID>setFilePathLastInsert(expand('%'))<CR>A
 nnoremap gi :call <SID>setFilePathLastInsert(expand('%'))<CR>gi
 nnoremap c :call <SID>setFilePathLastInsert(expand('%'))<CR>c
+vnoremap c c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap C :call <SID>setFilePathLastInsert(expand('%'))<CR>C
+vnoremap C C<Space><C-h><Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap s :call <SID>setFilePathLastInsert(expand('%'))<CR>s
+vnoremap s s<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap S :call <SID>setFilePathLastInsert(expand('%'))<CR>S
+vnoremap S S<Space><C-h><Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
+nnoremap diw :call <SID>setFilePathLastInsert(expand('%'))<CR>diwa<Esc>
+nnoremap dw :call <SID>setFilePathLastInsert(expand('%'))<CR>dwa<Esc>
+vnoremap d "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>l
 nnoremap <leader>p yiw:call <SID>putStrToLastInsertPoint(@0)<CR>
 nnoremap <leader>i yiw:call <SID>putStrToLastInsertPoint(@0)<CR>a
 vnoremap <leader>p y:call <SID>putStrToLastInsertPoint(@0)<CR>
@@ -152,7 +159,6 @@ inoremap jk <Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap cc "0yy"_ddi
 nnoremap dd "_dd
-vnoremap d "_d
 " emacs like
 cnoremap <C-h> <BS>
 cnoremap <C-d> <Del>
