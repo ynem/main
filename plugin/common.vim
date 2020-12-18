@@ -124,14 +124,14 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-nnoremap <leader>j 10gj
-nnoremap <leader>k 10gk
-vnoremap <leader>j 10gj
-vnoremap <leader>k 10gk
-nnoremap <C-j> 5gj
-nnoremap <C-k> 5gk
-vnoremap <C-j> 5gj
-vnoremap <C-k> 5gk
+nnoremap <S-j> 10gj
+nnoremap <S-k> 10gk
+vnoremap <S-j> 10gj
+vnoremap <S-k> 10gk
+nnoremap <C-j> 3gj
+nnoremap <C-k> 3gk
+vnoremap <C-j> 3gj
+vnoremap <C-k> 3gk
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 vnoremap <C-e> 5<C-e>
@@ -151,14 +151,22 @@ nnoremap <leader>Q :qall!<CR>
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 xnoremap * :<C-u>call <SID>searchVmode()<CR>/<C-R>=@/<CR><CR>N
 xnoremap # :<C-u>call <SID>searchVmode()<CR>?<C-R>=@/<CR><CR>N
-nnoremap <leader>S :call <SID>replaceInBuf()<CR>
-vnoremap <leader>S :<C-u>call <SID>replaceInVisual()<CR>
+nnoremap <leader>r :call <SID>replaceInBuf()<CR>
+vnoremap <leader>r :<C-u>call <SID>replaceInVisual()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
 vnoremap <leader>s :s///g<Left><Left>
+nnoremap <leader>q :normal @q<CR>
+vnoremap <leader>q :normal @q<CR>
 inoremap jk <Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap cc "0yy"_ddi
 nnoremap dd "_dd
+nnoremap yo yiw
+nnoremap <leader>j <S-j>
+nnoremap <leader>o <Nop>
+nnoremap <leader>u <Nop>
+nnoremap <leader>t <Nop>
+nnoremap <leader>y <Nop>
 " emacs like
 cnoremap <C-h> <BS>
 cnoremap <C-d> <Del>
