@@ -124,10 +124,10 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-nnoremap <S-j> 10gj
-nnoremap <S-k> 10gk
-vnoremap <S-j> 10gj
-vnoremap <S-k> 10gk
+nnoremap <leader>j 10gj
+nnoremap <leader>k 10gk
+vnoremap <leader>j 10gj
+vnoremap <leader>k 10gk
 nnoremap <C-j> 3gj
 nnoremap <C-k> 3gk
 vnoremap <C-j> 3gj
@@ -162,7 +162,6 @@ nnoremap <Del> :bdelete<CR>
 nnoremap cc "0yy"_ddi
 nnoremap dd "_dd
 nnoremap yo yiw
-nnoremap <leader>j <S-j>
 nnoremap <leader>o <Nop>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
