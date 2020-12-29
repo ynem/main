@@ -26,7 +26,7 @@ function! s:putStrToLastInsertPoint(str)
     return
 endfunction
 
-function! s:attachAltNotation(keyNotation)
+function! s:toWithAltKey(keyNotation)
     if has('unix')
         " check what key is alt by [Ctrl+V] and [Alt+f]
         return "" . a:keyNotation
@@ -90,28 +90,28 @@ set wildmenu
 set wildmode=full
 set statusline=%f\ [%l/%L]
 set hidden
-nnoremap i :call <SID>setFilePathLastInsert(expand('%'))<CR>i
-nnoremap I :call <SID>setFilePathLastInsert(expand('%'))<CR>I
-nnoremap a :call <SID>setFilePathLastInsert(expand('%'))<CR>a
-nnoremap A :call <SID>setFilePathLastInsert(expand('%'))<CR>A
-nnoremap gi :call <SID>setFilePathLastInsert(expand('%'))<CR>gi
-nnoremap c :call <SID>setFilePathLastInsert(expand('%'))<CR>c
-vnoremap c c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
-nnoremap C :call <SID>setFilePathLastInsert(expand('%'))<CR>C
-vnoremap C C<Space><C-h><Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
-nnoremap s :call <SID>setFilePathLastInsert(expand('%'))<CR>s
-vnoremap s s<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
-nnoremap S :call <SID>setFilePathLastInsert(expand('%'))<CR>S
-vnoremap S S<Space><C-h><Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
-nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
-nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
-nnoremap diw :call <SID>setFilePathLastInsert(expand('%'))<CR>diwa<Esc>
-nnoremap dw :call <SID>setFilePathLastInsert(expand('%'))<CR>dwa<Esc>
-vnoremap d "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>l
-nnoremap <leader>p yiw:call <SID>putStrToLastInsertPoint(@0)<CR>
-nnoremap <leader>i yiw:call <SID>putStrToLastInsertPoint(@0)<CR>a
-vnoremap <leader>p y:call <SID>putStrToLastInsertPoint(@0)<CR>
-vnoremap <leader>i y:call <SID>putStrToLastInsertPoint(@0)<CR>a
+nnoremap i :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>i
+nnoremap I :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>I
+nnoremap a :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>a
+nnoremap A :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>A
+nnoremap gi :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>gi
+nnoremap c :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>c
+vnoremap c c<Esc>:call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>a
+nnoremap C :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>C
+vnoremap C C<Space><C-h><Esc>:call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>a
+nnoremap s :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>s
+vnoremap s s<Esc>:call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>a
+nnoremap S :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>S
+vnoremap S S<Space><C-h><Esc>:call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>a
+nnoremap o :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>o
+nnoremap O :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>O
+nnoremap diw :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>diwa<Esc>
+nnoremap dw :call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>dwa<Esc>
+vnoremap d "_c<Esc>:call <SID>setFilePathLastInsert("<C-r>=expand('%')<CR>")<CR>l
+nnoremap <leader>p yiw:call <SID>putStrToLastInsertPoint("<C-r>=substitute(@0, '"', '\\"', 'g')<CR>")<CR>
+nnoremap <leader>i yiw:call <SID>putStrToLastInsertPoint("<C-r>=substitute(@0, '"', '\\"', 'g')<CR>")<CR>a
+vnoremap <leader>p y:call <SID>putStrToLastInsertPoint("<C-r>=substitute(@0, '"', '\\"', 'g')<CR>")<CR>
+vnoremap <leader>i y:call <SID>putStrToLastInsertPoint("<C-r>=substitute(@0, '"', '\\"', 'g')<CR>")<CR>a
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
@@ -173,12 +173,12 @@ cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-execute "cnoremap " . s:attachAltNotation('b') . " <C-Left>"
-execute "cnoremap " . s:attachAltNotation('f') . " <C-Right>"
+execute "cnoremap " . s:toWithAltKey('b') . " <C-Left>"
+execute "cnoremap " . s:toWithAltKey('f') . " <C-Right>"
 cnoremap <C-o> <C-f>
 " buf control map
-execute "nnoremap <silent>" . s:attachAltNotation('k') . " :bprevious\<CR>"
-execute "nnoremap <silent>" . s:attachAltNotation('j') . " :bnext\<CR>"
-execute "nnoremap <silent>" . s:attachAltNotation('h') . " :bfirst\<CR>"
-execute "nnoremap <silent>" . s:attachAltNotation('n') . " :blast\<CR>"
+execute "nnoremap <silent>" . s:toWithAltKey('k') . " :bprevious\<CR>"
+execute "nnoremap <silent>" . s:toWithAltKey('j') . " :bnext\<CR>"
+execute "nnoremap <silent>" . s:toWithAltKey('h') . " :bfirst\<CR>"
+execute "nnoremap <silent>" . s:toWithAltKey('n') . " :blast\<CR>"
 
