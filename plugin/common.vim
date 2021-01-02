@@ -97,7 +97,7 @@ nnoremap A :call <SID>setFilePathLastInsert(expand('%'))<CR>A
 nnoremap gi :call <SID>setFilePathLastInsert(expand('%'))<CR>gi
 nnoremap c :call <SID>setFilePathLastInsert(expand('%'))<CR>c
 vnoremap c c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
-nnoremap C :call <SID>setFilePathLastInsert(expand('%')))<CR>C
+nnoremap C :call <SID>setFilePathLastInsert(expand('%'))<CR>C
 vnoremap C C<Space><C-h><Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap s :call <SID>setFilePathLastInsert(expand('%'))<CR>s
 vnoremap s s<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
