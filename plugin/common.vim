@@ -26,7 +26,7 @@ function! s:putStrToLastInsertPoint(str)
     return
 endfunction
 
-function! s:toWithAltKey(keyNotation)
+function! s:attachAltKeyNotation(keyNotation)
     if has('unix')
         " check what key is alt by [Ctrl+V] and [Alt+f]
         return "" . a:keyNotation
@@ -173,12 +173,12 @@ cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-execute "cnoremap " . s:toWithAltKey('b') . " <C-Left>"
-execute "cnoremap " . s:toWithAltKey('f') . " <C-Right>"
+execute "cnoremap " . s:attachAltKeyNotation('b') . " <C-Left>"
+execute "cnoremap " . s:attachAltKeyNotation('f') . " <C-Right>"
 cnoremap <C-o> <C-f>
 " buf control map
-execute "nnoremap <silent>" . s:toWithAltKey('k') . " :bprevious\<CR>"
-execute "nnoremap <silent>" . s:toWithAltKey('j') . " :bnext\<CR>"
-execute "nnoremap <silent>" . s:toWithAltKey('h') . " :bfirst\<CR>"
-execute "nnoremap <silent>" . s:toWithAltKey('n') . " :blast\<CR>"
+execute "nnoremap <silent>" . s:attachAltKeyNotation('k') . " :bprevious\<CR>"
+execute "nnoremap <silent>" . s:attachAltKeyNotation('j') . " :bnext\<CR>"
+execute "nnoremap <silent>" . s:attachAltKeyNotation('h') . " :bfirst\<CR>"
+execute "nnoremap <silent>" . s:attachAltKeyNotation('n') . " :blast\<CR>"
 
