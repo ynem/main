@@ -124,6 +124,7 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+nnoremap <leader>j <S-j>
 nnoremap <S-j> 10gj
 nnoremap <S-k> 10gk
 vnoremap <S-j> 10gj
