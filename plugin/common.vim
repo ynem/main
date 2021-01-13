@@ -162,11 +162,11 @@ inoremap jk <Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap cc "0yy"_ddi
 nnoremap dd "_dd
-onoremap o iw
 nnoremap <leader>o <Nop>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>y <Nop>
+onoremap o iw
 " emacs like
 cnoremap <C-h> <BS>
 cnoremap <C-d> <Del>
