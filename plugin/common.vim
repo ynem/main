@@ -162,7 +162,7 @@ inoremap jk <Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap cc "0yy"_ddi
 nnoremap dd "_dd
-nnoremap yo yiw
+onoremap o iw
 nnoremap <leader>o <Nop>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
