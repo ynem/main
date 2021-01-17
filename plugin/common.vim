@@ -166,6 +166,8 @@ nnoremap <leader>o <Nop>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>y <Nop>
+nnoremap <leader>; @:
+vnoremap <leader>; @:
 onoremap o iw
 " emacs like
 cnoremap <C-h> <BS>
