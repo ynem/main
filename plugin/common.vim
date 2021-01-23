@@ -158,7 +158,7 @@ nnoremap <leader>s :%s///g<Left><Left>
 vnoremap <leader>s :s///g<Left><Left>
 nnoremap <leader>q :normal @q<CR>
 vnoremap <leader>q :normal @q<CR>
-inoremap jk <Esc>
+inoremap jk <Space><C-h><Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap cc "0yy"_ddi
 nnoremap dd "_dd
