@@ -26,6 +26,28 @@ function! s:putStrToLastInsertPoint(str)
     return
 endfunction
 
+function! s:putStrToLastInsertPointInVmode(str, vmodeType)
+    if <SID>getFilePathLastInsert() ==# ""
+        return
+    endif
+
+    let currentFilePath = expand('%')
+    if <SID>getFilePathLastInsert() !=# currentFilePath
+        execute "e " . s:getFilePathLastInsert()
+    endif
+
+    let bak = @0
+    let @0 = a:str
+    if a:vmodeType ==# 'V'
+        execute "normal gi\<C-r>\<C-p>0"
+        execute "normal ddk\$"
+    elseif a:vmodeType ==# 'v'
+        execute "normal gi\<C-r>0"
+    endif
+
+    let @0 = bak
+endfunction
+
 function! s:attachAltKeyNotation(keyNotation)
     if has('unix')
         " check what key is alt by [Ctrl+V] and [Alt+f]
@@ -110,8 +132,8 @@ nnoremap dw :call <SID>setFilePathLastInsert(expand('%'))<CR>dwa<Esc>
 vnoremap d "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>l
 nnoremap <leader>p yiw:call <SID>putStrToLastInsertPoint(@0)<CR>
 nnoremap <leader>i yiw:call <SID>putStrToLastInsertPoint(@0)<CR>a
-vnoremap <leader>p y:call <SID>putStrToLastInsertPoint(@0)<CR>
-vnoremap <leader>i y:call <SID>putStrToLastInsertPoint(@0)<CR>a
+vnoremap <leader>p y:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
+vnoremap <leader>i y:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>a
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
