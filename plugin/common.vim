@@ -64,15 +64,15 @@ function! s:searchVmode()
     let @s = temp
 endfunction
 
-function! s:replaceInBuf()
+function! s:replaceToBuf()
     execute "%s//" . @0 . "/g"
 endfunction
 
-function! s:replaceInVisual()
+function! s:replaceToBufInVisual()
     execute "'<,'>s//" . @0 . "/g"
 endfunction
 
-function! s:replaceInVisualByBuf()
+function! s:replaceToBufInLastSelected()
     execute "'<,'>s//" . @0 . "/g"
 endfunction
 
@@ -178,12 +178,12 @@ nnoremap <leader>Q :qall!<CR>
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 xnoremap * :<C-u>call <SID>searchVmode()<CR>/<C-R>=@/<CR><CR>N
 xnoremap # :<C-u>call <SID>searchVmode()<CR>?<C-R>=@/<CR><CR>N
-nnoremap <leader>r :call <SID>replaceInBuf()<CR>
-vnoremap <leader>r :<C-u>call <SID>replaceInVisual()<CR>
+nnoremap <leader>r :call <SID>replaceToBuf()<CR>
+vnoremap <leader>r :<C-u>call <SID>replaceToBufInVisual()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
 vnoremap <leader>s :s///g<Left><Left>
 nnoremap <leader>a gv:s///g<Left><Left>
-nnoremap <leader>t gv:<C-u>call <SID>replaceInVisualByBuf()<CR>
+nnoremap <leader>t gv:<C-u>call <SID>replaceToBufInLastSelected()<CR>
 nnoremap <leader>q :normal @q<CR>
 vnoremap <leader>q :normal @q<CR>
 inoremap jk <Space><C-h><Esc>
