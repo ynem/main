@@ -72,6 +72,10 @@ function! s:replaceInVisual()
     execute "'<,'>s//" . @0 . "/g"
 endfunction
 
+function! s:replaceInVisualByBuf()
+    execute "'<,'>s//" . @0 . "/g"
+endfunction
+
 runtime   macros/matchit.vim
 filetype  plugin indent on
 syntax    enable
@@ -178,6 +182,8 @@ nnoremap <leader>r :call <SID>replaceInBuf()<CR>
 vnoremap <leader>r :<C-u>call <SID>replaceInVisual()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
 vnoremap <leader>s :s///g<Left><Left>
+nnoremap <leader>a gv:s///g<Left><Left>
+nnoremap <leader>t gv:<C-u>call <SID>replaceInVisualByBuf()<CR>
 nnoremap <leader>q :normal @q<CR>
 vnoremap <leader>q :normal @q<CR>
 inoremap jk <Space><C-h><Esc>
@@ -186,7 +192,6 @@ nnoremap cc "0yy"_ddi
 nnoremap dd "_dd
 nnoremap <leader>o <Nop>
 nnoremap <leader>u <Nop>
-nnoremap <leader>t <Nop>
 nnoremap <leader>y <Nop>
 nnoremap <leader>; @:
 vnoremap <leader>; @:
