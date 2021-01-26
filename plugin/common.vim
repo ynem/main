@@ -73,15 +73,15 @@ function! s:searchInVmode()
 endfunction
 
 function! s:replaceToBuf()
-    execute "%s//" . @0 . "/g"
+    execute "%s//" . escape(@0, '/\') . "/g"
 endfunction
 
 function! s:replaceToBufInVisual()
-    execute "'<,'>s//" . @0 . "/g"
+    execute "'<,'>s//" . escape(@0, '/\') . "/g"
 endfunction
 
 function! s:replaceToBufInLastSelected()
-    execute "'<,'>s//" . @0 . "/g"
+    execute "'<,'>s//" . escape(@0, '/\') . "/g"
 endfunction
 
 runtime   macros/matchit.vim
