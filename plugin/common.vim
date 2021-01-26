@@ -52,6 +52,10 @@ function! s:delInVmode(vmodeType)
     execute "normal! `<v`>\"_di\<Esc>"
 endfunction
 
+function! s:cutInVmode(vmodeType)
+    execute "`<v`>\"0c"
+endfunction
+
 function! s:attachAltKeyNotation(keyNotation)
     if has('unix')
         " check what key is alt by [Ctrl+V] and [Alt+f]
@@ -126,7 +130,7 @@ nnoremap a :call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap A :call <SID>setFilePathLastInsert(expand('%'))<CR>A
 nnoremap gi :call <SID>setFilePathLastInsert(expand('%'))<CR>gi
 nnoremap c :call <SID>setFilePathLastInsert(expand('%'))<CR>c
-vnoremap c c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
+vnoremap c :call <SID>setFilePathLastInsert(expand('%'))<CR> \| `<v`>"0c
 nnoremap C :call <SID>setFilePathLastInsert(expand('%'))<CR>C
 vnoremap C C<Space><C-h><Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap s :call <SID>setFilePathLastInsert(expand('%'))<CR>s
@@ -138,7 +142,7 @@ nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
 nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap dd "_dd
-vnoremap d :call <SID>setFilePathLastInsert(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
+vnoremap d :call <SID>setFilePathLastInsert(expand('%'))<CR> \| `<v`>"_di<Esc>
 nnoremap X V"0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 vnoremap x "0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap <leader>p yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
