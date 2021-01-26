@@ -131,8 +131,8 @@ nnoremap S :call <SID>setFilePathLastInsert(expand('%'))<CR>S
 vnoremap S S<Space><C-h><Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
-nnoremap dw :call <SID>setFilePathLastInsert(expand('%'))<CR>dwi<Esc>
-nnoremap diw :call <SID>setFilePathLastInsert(expand('%'))<CR>diwi<Esc>
+nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
+nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 vnoremap d "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>l
 nnoremap <leader>p yiwmK:call <SID>putStrToLastInsertPoint(@0)<CR>
 nnoremap <leader>i yiwmK:call <SID>putStrToLastInsertPoint(@0)<CR>a
@@ -173,7 +173,7 @@ vnoremap <leader>n g<S-$><Left>F
 nnoremap <leader>l `l
 nnoremap <leader>L `L
 nnoremap <leader>k `K
-nnoremap <leader>j diwi<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`K
+nnoremap <leader>j "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`K
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
