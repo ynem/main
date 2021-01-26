@@ -61,7 +61,7 @@ function! s:attachAltKeyNotation(keyNotation)
     endif
 endfunction
 
-function! s:searchVmode()
+function! s:searchInVmode()
     let temp = @s
     norm! gv"sy
     let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
@@ -186,8 +186,8 @@ nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
 nnoremap <leader>Q :qall!<CR>
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-xnoremap * :<C-u>call <SID>searchVmode()<CR>/<C-R>=@/<CR><CR>N
-xnoremap # :<C-u>call <SID>searchVmode()<CR>?<C-R>=@/<CR><CR>N
+xnoremap * :<C-u>call <SID>searchInVmode()<CR>/<C-R>=@/<CR><CR>N
+xnoremap # :<C-u>call <SID>searchInVmode()<CR>?<C-R>=@/<CR><CR>N
 nnoremap <leader>r :call <SID>replaceToBuf()<CR>
 vnoremap <leader>r :<C-u>call <SID>replaceToBufInVisual()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
