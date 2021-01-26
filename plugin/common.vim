@@ -131,13 +131,14 @@ nnoremap S :call <SID>setFilePathLastInsert(expand('%'))<CR>S
 vnoremap S S<Space><C-h><Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
-nnoremap diw :call <SID>setFilePathLastInsert(expand('%'))<CR>diwa<Esc>
-nnoremap dw :call <SID>setFilePathLastInsert(expand('%'))<CR>dwa<Esc>
+nnoremap dw :call <SID>setFilePathLastInsert(expand('%'))<CR>dwi<Esc>
+nnoremap diw :call <SID>setFilePathLastInsert(expand('%'))<CR>diwi<Esc>
 vnoremap d "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>l
-nnoremap <leader>p yiw:call <SID>putStrToLastInsertPoint(@0)<CR>
-nnoremap <leader>i yiw:call <SID>putStrToLastInsertPoint(@0)<CR>a
-vnoremap <leader>p y:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
-vnoremap <leader>i y:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>a
+nnoremap <leader>p yiwmk:call <SID>putStrToLastInsertPoint(@0)<CR>
+nnoremap <leader>i yiwmk:call <SID>putStrToLastInsertPoint(@0)<CR>a
+nnoremap <leader>c yiwdiwmk:call <SID>putStrToLastInsertPoint(@0)<CR>
+vnoremap <leader>p ymk:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
+vnoremap <leader>i ymk:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>a
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
@@ -150,7 +151,7 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-nnoremap <leader>j <S-j>
+nnoremap <leader>y <S-j>
 nnoremap <S-j> 10gj
 nnoremap <S-k> 10gk
 vnoremap <S-j> 10gj
@@ -171,6 +172,8 @@ nnoremap <leader>n g<S-$>F
 vnoremap <leader>n g<S-$><Left>F
 nnoremap <leader>l `l
 nnoremap <leader>L `L
+nnoremap <leader>k `k
+nnoremap <leader>j diwi<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`k
 nnoremap <leader>w :w<CR>
 nnoremap <leader>e :Explore<CR>
 nnoremap <leader>E :e!<CR>
@@ -192,7 +195,6 @@ nnoremap cc "0yy"_ddi
 nnoremap dd "_dd
 nnoremap <leader>o <Nop>
 nnoremap <leader>u <Nop>
-nnoremap <leader>y <Nop>
 nnoremap <leader>; @:
 vnoremap <leader>; @:
 onoremap o iw
