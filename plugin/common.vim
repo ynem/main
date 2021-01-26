@@ -140,6 +140,7 @@ nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap dd "_dd
 vnoremap d :call <SID>setFilePathLastInsert(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
 nnoremap X V"0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
+vnoremap x "0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap <leader>p yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
 nnoremap <leader>i yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>a
 nnoremap <leader>c yiwdiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
