@@ -48,6 +48,10 @@ function! s:putStrToLastInsertPointInVmode(str, vmodeType)
     let @0 = bak
 endfunction
 
+function! s:delInVmode(vmodeType)
+    execute "normal! `<v`>\"_di\<Esc>"
+endfunction
+
 function! s:attachAltKeyNotation(keyNotation)
     if has('unix')
         " check what key is alt by [Ctrl+V] and [Alt+f]
@@ -133,7 +137,9 @@ nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
 nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
-vnoremap d "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>l
+nnoremap dd "_dd
+vnoremap d :call <SID>setFilePathLastInsert(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
+nnoremap X V"0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap <leader>p yiwmK:call <SID>putStrToLastInsertPoint(@0)<CR>
 nnoremap <leader>i yiwmK:call <SID>putStrToLastInsertPoint(@0)<CR>a
 nnoremap <leader>c yiwdiwmK:call <SID>putStrToLastInsertPoint(@0)<CR>
@@ -192,7 +198,6 @@ vnoremap <leader>q :normal @q<CR>
 inoremap jk <Space><C-h><Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap cc "0yy"_ddi
-nnoremap dd "_dd
 nnoremap <leader>o <Nop>
 nnoremap <leader>u <Nop>
 nnoremap <leader>; @:
