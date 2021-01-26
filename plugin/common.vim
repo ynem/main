@@ -175,7 +175,7 @@ nnoremap <leader>L `L
 nnoremap <leader>k `K
 nnoremap <leader>j diwi<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`K
 nnoremap <leader>w :w<CR>
-nnoremap <leader>e :Explore<CR>
+nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
 nnoremap <leader>Q :qall!<CR>
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
@@ -186,7 +186,7 @@ vnoremap <leader>r :<C-u>call <SID>replaceToBufInVisual()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
 vnoremap <leader>s :s///g<Left><Left>
 nnoremap <leader>a gv:s///g<Left><Left>
-nnoremap <leader>t gv:<C-u>call <SID>replaceToBufInLastSelected()<CR>
+nnoremap <leader>e gv:<C-u>call <SID>replaceToBufInLastSelected()<CR>
 nnoremap <leader>q :normal @q<CR>
 vnoremap <leader>q :normal @q<CR>
 inoremap jk <Space><C-h><Esc>
