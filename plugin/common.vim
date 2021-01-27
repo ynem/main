@@ -147,7 +147,8 @@ nnoremap X V"0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 vnoremap x "0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap <leader>p yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
 nnoremap <leader>i yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>a
-nnoremap <leader>c yiwdiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
+nnoremap <leader>c "0diwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
+vnoremap <leader>c "0dmO:call <SID>putStrToLastInsertPoint(@0)<CR>
 vnoremap <leader>p ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
 vnoremap <leader>i ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>a
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
