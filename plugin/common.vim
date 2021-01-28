@@ -141,9 +141,10 @@ nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
 nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
-nnoremap dd "_dd
+nnoremap df "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
+nnoremap dd "_ddi<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR><S-^>
 vnoremap d :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>`<v`>"_di<Esc>
-nnoremap X V"0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
+nnoremap X V"0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR><S-^>
 vnoremap x "0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap <leader>p yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
 nnoremap <leader>i yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>a
@@ -203,7 +204,7 @@ nnoremap <leader>q :normal @q<CR>
 vnoremap <leader>q :normal @q<CR>
 inoremap jk <Space><C-h><Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap cc "0yy"_ddi
+nnoremap cc "0yy"_dd<S-^>i
 nnoremap <leader>u <Nop>
 nnoremap <leader>; @:
 vnoremap <leader>; @:
