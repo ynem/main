@@ -51,15 +51,6 @@ function! s:putStrToLastInsertPointInVmode(str, vmodeType)
     let @0 = bak
 endfunction
 
-function! s:actionInVmode(action, vmodeType)
-    if a:action ==# 'c'
-        if a:vmodeType ==# 'V'
-            execute "normal "
-        endif
-    elseif a:action ==# 'd'
-    endif
-endfunction
-
 function! s:attachAltKeyNotation(keyNotation)
     if has('unix')
         " check what key is alt by [Ctrl+V] and [Alt+f]
@@ -139,26 +130,25 @@ nnoremap ciw :call <SID>setFilePathLastInsert(expand('%'))<CR>ciw
 nnoremap cc :call <SID>setFilePathLastInsert(expand('%'))<CR>cc
 nnoremap C :call <SID>setFilePathLastInsert(expand('%'))<CR>C
 vnoremap c :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvc
-vnoremap C :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvC
 nnoremap s :call <SID>setFilePathLastInsert(expand('%'))<CR>s
 nnoremap S :call <SID>setFilePathLastInsert(expand('%'))<CR>S
 vnoremap s :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvs
-vnoremap S :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvS
 nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
 nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap df "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
 nnoremap dd "_ddi<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR><S-^>
-vnoremap d :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>`<v`>"_di<Esc>
-nnoremap X V"0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR><S-^>
-vnoremap x "0di<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
-nnoremap <leader>p yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
-nnoremap <leader>i yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>a
+nnoremap D :call <SID>setFilePathLastInsert(expand('%'))<CR>"_C<Esc>
+vnoremap d :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"_di<Esc>`<
+nnoremap X :call <SID>setFilePathLastInsert(expand('%'))<CR>V"0di<Esc>`<
+vnoremap x :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"0di<Esc>`<
+nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
+vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
+nnoremap <leader>i "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>a
+vnoremap <leader>i "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>a
 nnoremap <leader>c "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>`Odiw<C-o>
 vnoremap <leader>c "0ymO:call <SID>putStrToLastInsertPoint(@0)<CR>`<v`>"0d<C-o>
-vnoremap <leader>p ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
-vnoremap <leader>i ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>a
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
