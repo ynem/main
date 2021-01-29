@@ -233,6 +233,7 @@ nnoremap <leader>l `l
 nnoremap <leader>L `L
 nnoremap <leader>o `O
 nnoremap <leader>j "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`O
+vnoremap <leader>j "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`O
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
