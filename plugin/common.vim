@@ -93,6 +93,55 @@ function! s:moveToLastInsertPoint(markSymbol)
     return
 endfunction
 
+function! s:moveToLastInsertPointInVmode(markSymbol, vmodeType)
+    if a:vmodeType ==# 'v'
+        call <SID>moveToLastInsertPointInVmodeCharWise(a:markSymbol)
+    endif
+endfunction
+
+function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
+    if <SID>getFilePathLastInsert() ==# ""
+        return
+    endif
+
+    let currentFilePath = expand('%')
+    if <SID>getFilePathLastInsert() !=# currentFilePath
+        execute "e " . s:getFilePathLastInsert()
+    endif
+
+    let bak = @0
+    execute "normal `<v`>y"
+    let currentRow = line('.')
+    let currentCol = col('.')
+
+    execute "normal gi"
+    call <SID>shiftBasedDel('right')
+    let targetRow = line('.')
+    let targetCol = col('.')
+    if currentRow !=# targetRow
+        execute "normal gi\<C-r>0"
+        call cursor(currentRow, currentCol)
+        execute "normal `<v`>\"_d"
+        execute "normal m" . a:markSymbol
+        call cursor(targetRow, targetCol)
+    elseif currentCol < targetCol
+        execute "normal gi\<C-r>0"
+        call cursor(currentRow, currentCol)
+        execute "normal `<v`>\"_d"
+        execute "normal m" . a:markSymbol
+        call cursor(targetRow, (targetCol - len(@0)))
+    elseif currentCol > targetCol
+        execute "normal gi\<C-r>0"
+        call cursor(currentRow, (currentCol + len(@0)))
+        execute "normal `<v`>\"_d"
+        execute "normal m" . a:markSymbol
+        call cursor(targetRow, targetCol)
+    endif
+
+    let @0 = bak
+    return
+endfunction
+
 function! s:shiftBasedDel(dirction)
     if a:dirction ==# 'right'
         if col('.') !=# 1
@@ -200,6 +249,7 @@ vnoremap <leader>i "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode
 nnoremap <leader>j "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`O
 vnoremap <leader>j "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`O
 nnoremap <leader>c :call <SID>moveToLastInsertPoint('O')<CR>
+vnoremap <leader>c :<C-u>call <SID>moveToLastInsertPointInVmode('O', visualmode())<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
