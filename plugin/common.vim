@@ -172,8 +172,8 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
     let targetCol = col('.')
 
     let downCntSymbol = ""
-    if (rowCnt - 1) > 0
-        downCntSymbol = (rowCnt - 1) . "j"
+    if (rowCnt - 1) > 1
+        let downCntSymbol = string((rowCnt - 1) . "j")
     endif
 
     if currentRow < targetRow
