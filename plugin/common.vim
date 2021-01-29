@@ -96,6 +96,8 @@ endfunction
 function! s:moveToLastInsertPointInVmode(markSymbol, vmodeType)
     if a:vmodeType ==# 'v'
         call <SID>moveToLastInsertPointInVmodeCharWise(a:markSymbol)
+    elseif a:vmodeType ==# 'V'
+        call <SID>moveToLastInsertPointInVmodeLineWise(a:markSymbol)
     endif
 endfunction
 
@@ -110,7 +112,7 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
     endif
 
     let bak = @0
-    execute "normal `<v`>\"0y"
+    execute "normal gv\"0y"
     let currentRow = line('.')
     let currentCol = col('.')
 
@@ -121,19 +123,64 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
     if currentRow !=# targetRow
         execute "normal gi\<C-r>0"
         call cursor(currentRow, currentCol)
-        execute "normal `<v`>\"_d"
+        execute "normal gv\"_d"
         execute "normal m" . a:markSymbol
         call cursor(targetRow, targetCol)
     elseif currentCol < targetCol
         execute "normal gi\<C-r>0"
         call cursor(currentRow, currentCol)
-        execute "normal `<v`>\"_d"
+        execute "normal gv\"_d"
         execute "normal m" . a:markSymbol
         call cursor(targetRow, (targetCol - len(@0)))
     elseif currentCol > targetCol
         execute "normal gi\<C-r>0"
         call cursor(currentRow, (currentCol + len(@0)))
         execute "normal v" . (len(@0) - 1) . "l" . "\"_d"
+        execute "normal m" . a:markSymbol
+        call cursor(targetRow, targetCol)
+    endif
+
+    let @0 = bak
+    return
+endfunction
+
+function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
+    if <SID>getFilePathLastInsert() ==# ""
+        return
+    endif
+
+    let currentFilePath = expand('%')
+    if <SID>getFilePathLastInsert() !=# currentFilePath
+        execute "e " . s:getFilePathLastInsert()
+    endif
+
+    let bak = @0
+    execute "normal `<\<S-^>v`>h\"0y"
+    execute "normal `<"
+    let currentRow = line('.')
+    let currentCol = col('.')
+
+    let rowFirst = line('.')
+    execute "normal `>"
+    let rowLast = line('.')
+    let rowCnt = (rowLast - rowFirst + 1)
+    call cursor(currentRow, currentCol)
+
+    execute "normal gi"
+    call <SID>shiftBasedDel('right')
+    let targetRow = line('.')
+    let targetCol = col('.')
+
+    if currentRow < targetRow
+        execute "normal gi\<C-r>\<C-p>0"
+        call cursor(currentRow, currentCol)
+        execute "normal V" . (rowCnt - 1) . "j" . "\"_d"
+        execute "normal m" . a:markSymbol
+        call cursor((targetRow - rowCnt), targetCol)
+    elseif targetRow < currentRow
+        execute "normal gi\<C-r>\<C-p>0"
+        call cursor((currentRow + rowCnt - 1), currentCol)
+        execute "normal V" . (rowCnt - 1) . "j" . "\"_d"
         execute "normal m" . a:markSymbol
         call cursor(targetRow, targetCol)
     endif
