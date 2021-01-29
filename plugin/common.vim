@@ -290,7 +290,7 @@ nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>
 nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap df "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap D :call <SID>setFilePathLastInsert(expand('%'))<CR>"_C<Esc>
-vnoremap d :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"_di<Esc>`<
+vnoremap d :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"_c<Esc>:call <SID>shiftBasedDel('right')<CR>
 nnoremap X :call <SID>setFilePathLastInsert(expand('%'))<CR>V"0di<Esc>`<
 vnoremap x :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"0di<Esc>`<
 nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
