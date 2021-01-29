@@ -1,5 +1,4 @@
 " can't use dot key -> dd
-" can't swap in case(\*) -> git branch | grep -iE 'ms-' | sed -r 's/^\s+\*?(.+)/\1/g'
 " can't use <leader>j when vmode
 let mapleader            = "\<Space>"
 let s:filePathLastInsert = ""
@@ -51,7 +50,7 @@ function! s:putStrToLastInsertPointInVmode(str, vmodeType)
     let @0 = bak
 endfunction
 
-function! s:moveLastInsertPoint(markSymbol)
+function! s:moveToLastInsertPoint(markSymbol)
     if <SID>getFilePathLastInsert() ==# ""
         return
     endif
@@ -198,7 +197,7 @@ nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
 vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
 nnoremap <leader>i "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>a
 vnoremap <leader>i "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>a
-nnoremap <leader>c :call <SID>moveLastInsertPoint('O')<CR>
+nnoremap <leader>c :call <SID>moveToLastInsertPoint('O')<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
