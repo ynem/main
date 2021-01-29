@@ -51,6 +51,48 @@ function! s:putStrToLastInsertPointInVmode(str, vmodeType)
     let @0 = bak
 endfunction
 
+function! s:moveLastInsertPoint(markSymbol)
+    if <SID>getFilePathLastInsert() ==# ""
+        return
+    endif
+
+    let currentFilePath = expand('%')
+    if <SID>getFilePathLastInsert() !=# currentFilePath
+        execute "e " . s:getFilePathLastInsert()
+    endif
+
+    let bak = @0
+    execute "normal yiw"
+    let currentRow = line('.')
+    let currentCol = col('.')
+
+    execute "normal gi"
+    let targetRow = line('.')
+    let targetCol = col('.')
+    if currentRow !=# targetRow
+        execute "normal gi\<C-r>0"
+        call cursor(currentRow, currentCol)
+        execute "normal \"_diw"
+        execute "normal m" . a:markSymbol
+        call cursor(targetRow, targetCol)
+    elseif currentCol < targetCol
+        execute "normal gi\<C-r>0"
+        call cursor(currentRow, currentCol)
+        execute "normal \"_diw"
+        execute "normal m" . a:markSymbol
+        call cursor(targetRow, (targetCol - len(@0)))
+    elseif currentCol > targetCol
+        execute "normal gi\<C-r>0"
+        call cursor(currentRow, (currentCol + len(@0)))
+        execute "normal \"_diw"
+        execute "normal m" . a:markSymbol
+        call cursor(targetRow, targetCol)
+    endif
+
+    let @0 = bak
+    return
+endfunction
+
 function! s:attachAltKeyNotation(keyNotation)
     if has('unix')
         " check what key is alt by [Ctrl+V] and [Alt+f]
@@ -147,8 +189,7 @@ nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
 vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
 nnoremap <leader>i "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>a
 vnoremap <leader>i "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>a
-nnoremap <leader>c "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>`Odiw<C-o>
-vnoremap <leader>c "0ymO:call <SID>putStrToLastInsertPoint(@0)<CR>`<v`>"0d<C-o>
+nnoremap <leader>c :call <SID>moveLastInsertPoint('O')<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
