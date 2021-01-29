@@ -194,6 +194,17 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
     return
 endfunction
 
+function! s:delInVmode(vmodeType)
+    if a:vmodeType ==# 'v'
+        execute "normal `<v`>\"_c"
+        call <SID>shiftBasedDel('right')
+    elseif a:vmodeType ==# 'V'
+        execute "normal `<V`>\"_c\<Esc>dd"
+        execute "normal \<S-^>i"
+        call <SID>shiftBasedDel('right')
+    endif
+endfunction
+
 function! s:shiftBasedDel(dirction)
     if a:dirction ==# 'right'
         if col('.') !=# 1
@@ -290,7 +301,7 @@ nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>
 nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap df "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap D :call <SID>setFilePathLastInsert(expand('%'))<CR>"_C<Esc>
-vnoremap d :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"_c<Esc>:call <SID>shiftBasedDel('right')<CR>
+vnoremap d :<C-u>call <SID>setFilePathLastInsert(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
 nnoremap X :call <SID>setFilePathLastInsert(expand('%'))<CR>V"0di<Esc>`<
 vnoremap x :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"0di<Esc>`<
 nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
