@@ -110,7 +110,7 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
     endif
 
     let bak = @0
-    execute "normal `<v`>y"
+    execute "normal `<v`>\"0y"
     let currentRow = line('.')
     let currentCol = col('.')
 
@@ -133,7 +133,7 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
     elseif currentCol > targetCol
         execute "normal gi\<C-r>0"
         call cursor(currentRow, (currentCol + len(@0)))
-        execute "normal `<v`>\"_d"
+        execute "normal v" . (len(@0) - 1) . "l" . "\"_d"
         execute "normal m" . a:markSymbol
         call cursor(targetRow, targetCol)
     endif
