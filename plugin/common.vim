@@ -51,12 +51,13 @@ function! s:putStrToLastInsertPointInVmode(str, vmodeType)
     let @0 = bak
 endfunction
 
-function! s:delInVmode(vmodeType)
-    execute "normal! `<v`>\"_di\<Esc>"
-endfunction
-
-function! s:cutInVmode(vmodeType)
-    execute "`<v`>\"0c"
+function! s:actionInVmode(action, vmodeType)
+    if a:action ==# 'c'
+        if a:vmodeType ==# 'V'
+            execute "normal "
+        endif
+    elseif a:action ==# 'd'
+    endif
 endfunction
 
 function! s:attachAltKeyNotation(keyNotation)
@@ -132,14 +133,17 @@ nnoremap I :call <SID>setFilePathLastInsert(expand('%'))<CR>I
 nnoremap a :call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap A :call <SID>setFilePathLastInsert(expand('%'))<CR>A
 nnoremap gi :call <SID>setFilePathLastInsert(expand('%'))<CR>gi
-nnoremap c :call <SID>setFilePathLastInsert(expand('%'))<CR>c
-vnoremap c :call <SID>setFilePathLastInsert(expand('%'))<CR>`<v`>"0c
+nnoremap cv :call <SID>setFilePathLastInsert(expand('%'))<CR>ciw
+nnoremap cw :call <SID>setFilePathLastInsert(expand('%'))<CR>cw
+nnoremap ciw :call <SID>setFilePathLastInsert(expand('%'))<CR>ciw
+nnoremap cc :call <SID>setFilePathLastInsert(expand('%'))<CR>cc
 nnoremap C :call <SID>setFilePathLastInsert(expand('%'))<CR>C
-vnoremap C C<Space><C-h><Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
+vnoremap c :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvc
+vnoremap C :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvC
 nnoremap s :call <SID>setFilePathLastInsert(expand('%'))<CR>s
-vnoremap s s<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
 nnoremap S :call <SID>setFilePathLastInsert(expand('%'))<CR>S
-vnoremap S S<Space><C-h><Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>a
+vnoremap s :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvs
+vnoremap S :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvS
 nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
 nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
@@ -207,7 +211,6 @@ nnoremap <leader>q :normal @q<CR>
 vnoremap <leader>q :normal @q<CR>
 inoremap jk <Space><C-h><Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap cc "0yy"_dd<S-^>i
 nnoremap <leader>u <Nop>
 nnoremap <leader>; @:
 vnoremap <leader>; @:
