@@ -67,6 +67,7 @@ function! s:moveLastInsertPoint(markSymbol)
     let currentCol = col('.')
 
     execute "normal gi"
+    call <SID>shiftBasedDel('right')
     let targetRow = line('.')
     let targetCol = col('.')
     if currentRow !=# targetRow
@@ -91,6 +92,14 @@ function! s:moveLastInsertPoint(markSymbol)
 
     let @0 = bak
     return
+endfunction
+
+function! s:shiftBasedDel(dirction)
+    if a:dirction ==# 'right'
+        if col('.') !=# 1
+            execute "normal l"
+        endif
+    endif
 endfunction
 
 function! s:attachAltKeyNotation(keyNotation)
@@ -177,9 +186,9 @@ nnoremap S :call <SID>setFilePathLastInsert(expand('%'))<CR>S
 vnoremap s :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvs
 nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
-nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
-nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
-nnoremap df "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>
+nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
+nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
+nnoremap df "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap dd "_ddi<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR><S-^>
 nnoremap D :call <SID>setFilePathLastInsert(expand('%'))<CR>"_C<Esc>
 vnoremap d :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"_di<Esc>`<
