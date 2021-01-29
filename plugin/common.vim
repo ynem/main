@@ -171,16 +171,21 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
     let targetRow = line('.')
     let targetCol = col('.')
 
+    let downCntSymbol = ""
+    if (rowCnt - 1) > 0
+        downCntSymbol = (rowCnt - 1) . "j"
+    endif
+
     if currentRow < targetRow
         execute "normal gi\<C-r>\<C-p>0"
         call cursor(currentRow, currentCol)
-        execute "normal V" . (rowCnt - 1) . "j" . "\"_d"
+        execute "normal V" . downCntSymbol . "\"_d"
         execute "normal m" . a:markSymbol
         call cursor((targetRow - rowCnt), targetCol)
     elseif targetRow < currentRow
         execute "normal gi\<C-r>\<C-p>0"
         call cursor((currentRow + rowCnt - 1), currentCol)
-        execute "normal V" . (rowCnt - 1) . "j" . "\"_d"
+        execute "normal V" . downCntSymbol . "\"_d"
         execute "normal m" . a:markSymbol
         call cursor(targetRow, targetCol)
     endif
