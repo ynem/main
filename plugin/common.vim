@@ -325,6 +325,7 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 nnoremap <leader>y <S-j>
+nnoremap <leader>f :find *
 nnoremap <S-j> 10gj
 nnoremap <S-k> 10gk
 vnoremap <S-j> 10gj

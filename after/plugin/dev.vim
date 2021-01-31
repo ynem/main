@@ -29,5 +29,5 @@ augroup END
 set updatetime=100
 
 " https://github.com/junegunn/fzf.vim
-nnoremap <leader>f :Files<CR>
+" nnoremap <leader>f :Files<CR>
 
