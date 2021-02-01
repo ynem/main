@@ -281,6 +281,7 @@ set wildmenu
 set wildmode=full
 set statusline=%f\ [%l/%L]
 set hidden
+set completeopt=menuone
 nnoremap i :call <SID>setFilePathLastInsert(expand('%'))<CR>i
 nnoremap I :call <SID>setFilePathLastInsert(expand('%'))<CR>I
 nnoremap a :call <SID>setFilePathLastInsert(expand('%'))<CR>a
@@ -384,4 +385,18 @@ execute "nnoremap <silent>" . s:attachAltKeyNotation('k') . " :bprevious\<CR>"
 execute "nnoremap <silent>" . s:attachAltKeyNotation('j') . " :bnext\<CR>"
 execute "nnoremap <silent>" . s:attachAltKeyNotation('h') . " :bfirst\<CR>"
 execute "nnoremap <silent>" . s:attachAltKeyNotation('n') . " :blast\<CR>"
+" complete
+inoremap <expr> <Tab>   pumvisible() ? '<C-n>' : '<Tab>'
+inoremap <expr> <S-Tab> pumvisible() ? '<C-p>' : '<Tab>'
+inoremap <expr> <C-j>   pumvisible() ? '<C-n>' : '<C-j>'
+inoremap <expr> <C-k>   pumvisible() ? '<C-p>' : '<C-k>'
+inoremap <expr> <C-p>   pumvisible() ? '<C-p><C-p><C-p>' : '<C-p>'
+inoremap <expr> <C-n>   pumvisible() ? '<C-n><C-n><C-n>' : '<C-n>'
+for k in split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_', '\zs')
+    let t = string(k)
+    let f = string(k . "\<C-p>\<C-n>")
+    execute "inoremap <expr> " . k . " pumvisible() ? " . t . " : " . f
+endfor
+" for abbreiviation.(conflict with autocomplete)
+inoremap <CR> <C-]><C-]><CR>
 
