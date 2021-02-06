@@ -345,8 +345,8 @@ vnoremap <C-h> g<S-^>
 vnoremap <C-n> g<S-$><Left>
 nnoremap <leader>n g<S-$>F
 vnoremap <leader>n g<S-$><Left>F
-nnoremap <leader>l `l
-nnoremap <leader>L `L
+nnoremap ml mL
+nnoremap <leader>l `L
 nnoremap <leader>o `O
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :Explore<CR>
