@@ -158,11 +158,8 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
     execute "normal `<"
     let currentRow = line('.')
     let currentCol = col('.')
-    if currentRow > 1
-        execute "normal k\<S-$>wv`>h\"0y"
-    else
-        execute "normal v`>h\"0y"
-    endif
+
+    execute "normal gv\"0y"
 
     let rowFirst = currentRow
     execute "normal `>"
@@ -176,7 +173,8 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
     let targetCol = col('.')
 
     execute "normal gi\<C-r>\<C-p>0"
-    execute "normal gv\<S-v>\"_d"
+    execute "normal ddk\$"
+    execute "normal gv\"_d"
     execute "normal m" . a:markSymbol
 
     if currentRow < targetRow
