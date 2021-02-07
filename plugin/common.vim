@@ -155,15 +155,19 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
     endif
 
     let bak = @0
-    execute "normal `<\<S-^>v`>h\"0y"
     execute "normal `<"
     let currentRow = line('.')
     let currentCol = col('.')
+    if currentRow > 1
+        execute "normal k\<S-$>wv`>h\"0y"
+    else
+        execute "normal v`>h\"0y"
+    endif
 
-    let rowFirst = line('.')
+    let rowFirst = currentRow
     execute "normal `>"
-    let rowLast = line('.')
-    let rowCnt = (rowLast - rowFirst + 1)
+    let rowLast  = line('.')
+    let rowCnt   = (rowLast - rowFirst + 1)
     call cursor(currentRow, currentCol)
 
     execute "normal gi"
@@ -176,17 +180,12 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
         let downCntSymbol = ((rowCnt - 1) . "j")
     endif
 
+    execute "normal gi\<C-r>\<C-p>0"
+    execute "normal gv\<S-v>\"_d"
+    execute "normal m" . a:markSymbol
     if currentRow < targetRow
-        execute "normal gi\<C-r>\<C-p>0"
-        call cursor(currentRow, currentCol)
-        execute "normal V" . downCntSymbol . "\"_d"
-        execute "normal m" . a:markSymbol
         call cursor((targetRow - rowCnt), targetCol)
     elseif targetRow < currentRow
-        execute "normal gi\<C-r>\<C-p>0"
-        call cursor((currentRow + rowCnt - 1), currentCol)
-        execute "normal V" . downCntSymbol . "\"_d"
-        execute "normal m" . a:markSymbol
         call cursor(targetRow, targetCol)
     endif
 
