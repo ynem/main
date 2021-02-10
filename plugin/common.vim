@@ -360,6 +360,9 @@ vnoremap <leader>q :normal @q<CR>
 inoremap jk <C-]><C-]><Space><C-h><Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap <leader>u <Nop>
+nnoremap <leader>k <Nop>
+" https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
+nmap - <Plug>NetrwBrowseUpDir
 nnoremap <leader>; @:
 vnoremap <leader>; @:
 onoremap o iw
