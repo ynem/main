@@ -4,7 +4,7 @@ set history=100
 " web
 augroup format-unix
     autocmd!
-    autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix | syntax enable
+    autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp | syntax enable
 augroup END
 
 " vba
