@@ -356,6 +356,7 @@ nnoremap <leader>a gv:s///g<Left><Left>
 nnoremap <leader>e gv:<C-u>call <SID>replaceToBufInLastSelected()<CR>
 nnoremap <leader>q :normal @q<CR>
 vnoremap <leader>q :normal @q<CR>
+nnoremap <C-^> <C-^>g`"
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-h><Esc>
 nnoremap <Del> :bdelete<CR>
