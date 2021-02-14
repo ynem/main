@@ -360,8 +360,7 @@ nnoremap <C-^> <C-^>`"
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-h><Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap <leader>lk <Nop>
-nnoremap <leader>k <Nop>
+nnoremap <leader>k gv
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>h <Nop>
