@@ -360,12 +360,21 @@ nnoremap <C-^> <C-^>`"
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-h><Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap <leader>u <Nop>
+nnoremap <leader>lk <Nop>
 nnoremap <leader>k <Nop>
+nnoremap <leader>u <Nop>
+nnoremap <leader>t <Nop>
+nnoremap <leader>h <Nop>
+nnoremap <leader>z <Nop>
+nnoremap <leader>x <Nop>
+nnoremap <leader>v <Nop>
+nnoremap <leader>; <Nop>
+nnoremap <leader>' <Nop>
+nnoremap <leader>. :echom 'foobar'<CR>
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
 nmap - <Plug>NetrwBrowseUpDir
-nnoremap <leader>; @:
-vnoremap <leader>; @:
+nnoremap <leader>/ @:
+vnoremap <leader>/ @:
 onoremap o iw
 " emacs like
 cnoremap <C-h> <BS>
