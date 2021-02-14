@@ -359,6 +359,7 @@ vnoremap <leader>q :normal @q<CR>
 nnoremap <C-^> <C-^>`"
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-h><Esc>
+vnoremap <leader>k <Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap <leader>k gv
 nnoremap <leader>u <Nop>
