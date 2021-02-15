@@ -23,7 +23,7 @@ function! s:putStrToLastInsertPoint(str)
 
     let bak = @0
     let @0 = a:str
-    execute "normal gi\<C-r>0"
+    execute "normal gi\<C-R>0"
     let @0 = bak
     return
 endfunction
@@ -41,10 +41,10 @@ function! s:putStrToLastInsertPointInVmode(str, vmodeType)
     let bak = @0
     let @0 = a:str
     if a:vmodeType ==# 'V'
-        execute "normal gi\<C-r>\<C-p>0"
+        execute "normal gi\<C-R>\<C-P>0"
         execute "normal ddk\$"
     elseif a:vmodeType ==# 'v'
-        execute "normal gi\<C-r>0"
+        execute "normal gi\<C-R>0"
     endif
 
     let @0 = bak
@@ -70,19 +70,19 @@ function! s:moveToLastInsertPoint(markSymbol)
     let targetRow = line('.')
     let targetCol = col('.')
     if currentRow !=# targetRow
-        execute "normal gi\<C-r>0"
+        execute "normal gi\<C-R>0"
         call cursor(currentRow, currentCol)
         execute "normal \"_diw"
         execute "normal m" . a:markSymbol
         call cursor(targetRow, targetCol)
     elseif currentCol < targetCol
-        execute "normal gi\<C-r>0"
+        execute "normal gi\<C-R>0"
         call cursor(currentRow, currentCol)
         execute "normal \"_diw"
         execute "normal m" . a:markSymbol
         call cursor(targetRow, (targetCol - len(@0)))
     elseif currentCol > targetCol
-        execute "normal gi\<C-r>0"
+        execute "normal gi\<C-R>0"
         call cursor(currentRow, (currentCol + len(@0)))
         execute "normal \"_diw"
         execute "normal m" . a:markSymbol
@@ -121,19 +121,19 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
     let targetRow = line('.')
     let targetCol = col('.')
     if currentRow !=# targetRow
-        execute "normal gi\<C-r>0"
+        execute "normal gi\<C-R>0"
         call cursor(currentRow, currentCol)
         execute "normal gv\"_d"
         execute "normal m" . a:markSymbol
         call cursor(targetRow, targetCol)
     elseif currentCol < targetCol
-        execute "normal gi\<C-r>0"
+        execute "normal gi\<C-R>0"
         call cursor(currentRow, currentCol)
         execute "normal gv\"_d"
         execute "normal m" . a:markSymbol
         call cursor(targetRow, (targetCol - len(@0)))
     elseif currentCol > targetCol
-        execute "normal gi\<C-r>0"
+        execute "normal gi\<C-R>0"
         call cursor(currentRow, (currentCol + len(@0)))
         execute "normal v" . (len(@0) - 1) . "l" . "\"_d"
         execute "normal m" . a:markSymbol
@@ -172,7 +172,7 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
     let targetRow = line('.')
     let targetCol = col('.')
 
-    execute "normal gi\<C-r>\<C-p>0"
+    execute "normal gi\<C-R>\<C-P>0"
     execute "normal ddk\$"
     execute "normal gv\"_d"
     execute "normal m" . a:markSymbol
@@ -285,19 +285,19 @@ nnoremap cw :call <SID>setFilePathLastInsert(expand('%'))<CR>cw
 nnoremap ciw :call <SID>setFilePathLastInsert(expand('%'))<CR>ciw
 nnoremap cc :call <SID>setFilePathLastInsert(expand('%'))<CR>cc
 nnoremap C :call <SID>setFilePathLastInsert(expand('%'))<CR>C
-vnoremap c :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvc
+vnoremap c :<C-U>call <SID>setFilePathLastInsert(expand('%'))<CR>gvc
 nnoremap s :call <SID>setFilePathLastInsert(expand('%'))<CR>s
 nnoremap S :call <SID>setFilePathLastInsert(expand('%'))<CR>S
-vnoremap s :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gvs
+vnoremap s :<C-U>call <SID>setFilePathLastInsert(expand('%'))<CR>gvs
 nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
 nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap df "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap D :call <SID>setFilePathLastInsert(expand('%'))<CR>"_C<Esc>
-vnoremap d :<C-u>call <SID>setFilePathLastInsert(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
+vnoremap d :<C-U>call <SID>setFilePathLastInsert(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
 nnoremap X :call <SID>setFilePathLastInsert(expand('%'))<CR>V"0di<Esc>`<
-vnoremap x :<C-u>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"0di<Esc>`<
+vnoremap x :<C-U>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"0di<Esc>`<
 nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
 vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
 nnoremap <leader>i "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>a
@@ -305,15 +305,15 @@ vnoremap <leader>i "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode
 nnoremap <leader>j "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`O
 vnoremap <leader>j "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`O
 nnoremap <leader>c :call <SID>moveToLastInsertPoint('O')<CR>
-vnoremap <leader>c :<C-u>call <SID>moveToLastInsertPointInVmode('O', visualmode())<CR>
+vnoremap <leader>c :<C-U>call <SID>moveToLastInsertPointInVmode('O', visualmode())<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
 nnoremap / /\v
 nnoremap * *N
 nnoremap # #N
-nnoremap <C-p> "0p
-vnoremap <C-p> "0p
+nnoremap <C-P> "0p
+vnoremap <C-P> "0p
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -324,18 +324,18 @@ nnoremap <S-j> 10gj
 nnoremap <S-k> 10gk
 vnoremap <S-j> 10gj
 vnoremap <S-k> 10gk
-nnoremap <C-j> 3gj
-nnoremap <C-k> 3gk
-vnoremap <C-j> 3gj
-vnoremap <C-k> 3gk
-nnoremap <C-e> 5<C-e>
-nnoremap <C-y> 5<C-y>
-vnoremap <C-e> 5<C-e>
-vnoremap <C-y> 5<C-y>
-nnoremap <C-h> g<S-^>
-nnoremap <C-n> g<S-$>
-vnoremap <C-h> g<S-^>
-vnoremap <C-n> g<S-$><Left>
+nnoremap <C-J> 3gj
+nnoremap <C-K> 3gk
+vnoremap <C-J> 3gj
+vnoremap <C-K> 3gk
+nnoremap <C-E> 5<C-E>
+nnoremap <C-Y> 5<C-Y>
+vnoremap <C-E> 5<C-E>
+vnoremap <C-Y> 5<C-Y>
+nnoremap <C-H> g<S-^>
+nnoremap <C-N> g<S-$>
+vnoremap <C-H> g<S-^>
+vnoremap <C-N> g<S-$><Left>
 nnoremap <leader>n g<S-$>F
 vnoremap <leader>n g<S-$><Left>F
 nnoremap ml mL
@@ -345,20 +345,20 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
 nnoremap <leader>Q :qall!<CR>
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-xnoremap * :<C-u>call <SID>searchInVmode()<CR>/<C-R>=@/<CR><CR>N
-xnoremap # :<C-u>call <SID>searchInVmode()<CR>?<C-R>=@/<CR><CR>N
+nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
+xnoremap * :<C-U>call <SID>searchInVmode()<CR>/<C-R>=@/<CR><CR>N
+xnoremap # :<C-U>call <SID>searchInVmode()<CR>?<C-R>=@/<CR><CR>N
 nnoremap <leader>r :call <SID>replaceToBuf()<CR>
-vnoremap <leader>r :<C-u>call <SID>replaceToBufInVisual()<CR>
+vnoremap <leader>r :<C-U>call <SID>replaceToBufInVisual()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
 vnoremap <leader>s :s///g<Left><Left>
 nnoremap <leader>a gv:s///g<Left><Left>
-nnoremap <leader>e gv:<C-u>call <SID>replaceToBufInLastSelected()<CR>
+nnoremap <leader>e gv:<C-U>call <SID>replaceToBufInLastSelected()<CR>
 nnoremap <leader>q :normal @q<CR>
 vnoremap <leader>q :normal @q<CR>
 nnoremap <C-^> <C-^>`"
 " for abbreviation
-inoremap jk <C-]><C-]><Space><C-h><Esc>
+inoremap jk <C-]><C-]><Space><C-H><Esc>
 vnoremap <leader>k <Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap <leader>k gv
@@ -377,15 +377,15 @@ nnoremap <leader>/ @:
 vnoremap <leader>/ @:
 onoremap o iw
 " emacs like
-cnoremap <C-h> <BS>
-cnoremap <C-d> <Del>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+cnoremap <C-H> <BS>
+cnoremap <C-D> <Del>
+cnoremap <C-B> <Left>
+cnoremap <C-F> <Right>
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
 execute "cnoremap " . s:attachAltKeyNotation('b') . " <C-Left>"
 execute "cnoremap " . s:attachAltKeyNotation('f') . " <C-Right>"
-cnoremap <C-o> <C-f>
+cnoremap <C-O> <C-F>
 " buf control map
 execute "nnoremap <silent>" . s:attachAltKeyNotation('k') . " :bprevious\<CR>"
 execute "nnoremap <silent>" . s:attachAltKeyNotation('j') . " :bnext\<CR>"
