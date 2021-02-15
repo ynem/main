@@ -392,15 +392,15 @@ execute "nnoremap <silent>" . s:attachAltKeyNotation('j') . " :bnext\<CR>"
 execute "nnoremap <silent>" . s:attachAltKeyNotation('h') . " :bfirst\<CR>"
 execute "nnoremap <silent>" . s:attachAltKeyNotation('n') . " :blast\<CR>"
 " complete
-inoremap <expr> <Tab>   pumvisible() ? '<C-n>' : '<Tab>'
-inoremap <expr> <S-Tab> pumvisible() ? '<C-p>' : '<Tab>'
-inoremap <expr> <C-j>   pumvisible() ? '<C-n>' : '<C-j>'
-inoremap <expr> <C-k>   pumvisible() ? '<C-p>' : '<C-k>'
-inoremap <expr> <C-p>   pumvisible() ? '<C-p><C-p><C-p>' : '<C-p>'
-inoremap <expr> <C-n>   pumvisible() ? '<C-n><C-n><C-n>' : '<C-n>'
+inoremap <expr> <Tab>   pumvisible() ? '<C-N>' : '<Tab>'
+inoremap <expr> <S-Tab> pumvisible() ? '<C-P>' : '<Tab>'
+inoremap <expr> <C-J>   pumvisible() ? '<C-N>' : '<C-J>'
+inoremap <expr> <C-K>   pumvisible() ? '<C-P>' : '<C-K>'
+inoremap <expr> <C-P>   pumvisible() ? '<C-P><C-P><C-P>' : '<C-P>'
+inoremap <expr> <C-N>   pumvisible() ? '<C-N><C-N><C-N>' : '<C-N>'
 for k in split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_', '\zs')
     let t = string(k)
-    let f = string(k . "\<C-p>\<C-n>")
+    let f = string(k . "\<C-N>\<C-P>")
     execute "inoremap <expr> " . k . " pumvisible() ? " . t . " : " . f
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
