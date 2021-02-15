@@ -403,6 +403,10 @@ for k in split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_', '\zs')
     let f = string(k . "\<C-p>\<C-n>")
     execute "inoremap <expr> " . k . " pumvisible() ? " . t . " : " . f
 endfor
+for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
+    let u = toupper(l)
+    execute "nnoremap '" . l . " `" . u . "`\""
+endfor
 " for abbreiviation.(conflict with autocomplete)
 inoremap <CR> <C-]><C-]><CR>
 
