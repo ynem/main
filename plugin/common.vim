@@ -405,7 +405,7 @@ for k in split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_', '\zs')
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
     let u = toupper(l)
-    execute "nnoremap '" . l . " `" . u . "`\""
+    execute "nnoremap '" . l . " `" . u . "`\"m" . u
 endfor
 " for abbreiviation.(conflict with autocomplete)
 inoremap <CR> <C-]><C-]><CR>
