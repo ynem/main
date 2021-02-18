@@ -50,6 +50,17 @@ function! s:putStrToLastInsertPointInVmode(str, vmodeType)
     let @0 = bak
 endfunction
 
+function! s:openLastInsertPoint()
+    if <SID>getFilePathLastInsert() ==# ""
+        return
+    endif
+
+    let currentFilePath = expand('%')
+    if <SID>getFilePathLastInsert() !=# currentFilePath
+        execute "e " . s:getFilePathLastInsert()
+    endif
+endfunction
+
 function! s:moveToLastInsertPoint(markSymbol)
     if <SID>getFilePathLastInsert() ==# ""
         return
@@ -355,16 +366,16 @@ vnoremap <leader>q :normal @q<CR>
 nnoremap <C-^> <C-^>`"
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-H><Esc>
-vnoremap <leader>k <Esc>
+vnoremap <leader>; <Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap <leader>k gv
+nnoremap <leader>; gv
+nnoremap <leader>k :<C-U>call <SID>openLastInsertPoint()<CR>`^
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>h <Nop>
 nnoremap <leader>z <Nop>
 nnoremap <leader>x <Nop>
 nnoremap <leader>v <Nop>
-nnoremap <leader>; <Nop>
 nnoremap <leader>' <Nop>
 nnoremap <leader>. :echom 'foobar'<CR>
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
