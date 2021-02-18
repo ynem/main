@@ -222,15 +222,11 @@ function! s:searchInVmode()
     let @s = temp
 endfunction
 
-function! s:replaceToBuf()
+function! s:replaceToRegister()
     execute "%s//" . escape(@0, '/\') . "/g"
 endfunction
 
-function! s:replaceToBufInVisual()
-    execute "'<,'>s//" . escape(@0, '/\') . "/g"
-endfunction
-
-function! s:replaceToBufInLastSelected()
+function! s:replaceToRegisterInLastSelected()
     execute "'<,'>s//" . escape(@0, '/\') . "/g"
 endfunction
 
@@ -348,12 +344,12 @@ nnoremap <leader>Q :qall!<CR>
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 xnoremap * :<C-U>call <SID>searchInVmode()<CR>/<C-R>=@/<CR><CR>N
 xnoremap # :<C-U>call <SID>searchInVmode()<CR>?<C-R>=@/<CR><CR>N
-nnoremap <leader>r :call <SID>replaceToBuf()<CR>
-vnoremap <leader>r :<C-U>call <SID>replaceToBufInVisual()<CR>
+nnoremap <leader>r :call <SID>replaceToRegister()<CR>
+vnoremap <leader>r :<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
 vnoremap <leader>s :s///g<Left><Left>
 nnoremap <leader>a gv:s///g<Left><Left>
-nnoremap <leader>e gv:<C-U>call <SID>replaceToBufInLastSelected()<CR>
+nnoremap <leader>e gv:<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
 nnoremap <leader>q :normal @q<CR>
 vnoremap <leader>q :normal @q<CR>
 nnoremap <C-^> <C-^>`"
