@@ -317,7 +317,7 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 nnoremap / /\v
-nnoremap * *N
+nnoremap * mL*N
 nnoremap # #N
 nnoremap <C-P> "0p
 vnoremap <C-P> "0p
@@ -353,7 +353,7 @@ nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
 nnoremap <leader>Q :qall!<CR>
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-xnoremap * :<C-U>call <SID>searchInVmode()<CR>/<C-R>=@/<CR><CR>N
+xnoremap * mL:<C-U>call <SID>searchInVmode()<CR>/<C-R>=@/<CR><CR>N
 xnoremap # :<C-U>call <SID>searchInVmode()<CR>?<C-R>=@/<CR><CR>N
 nnoremap <leader>r :call <SID>replaceToRegister()<CR>
 vnoremap <leader>r :<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
