@@ -66,16 +66,19 @@ function! s:moveToLastInsertPoint(markSymbol)
         return
     endif
 
-    let currentFilePath = expand('%')
-    if <SID>getFilePathLastInsert() !=# currentFilePath
-        execute "e " . s:getFilePathLastInsert()
-    endif
-
     let bak = @0
     execute "normal yiw"
+    let currentFilePath = expand('%')
+    if <SID>getFilePathLastInsert() !=# currentFilePath
+        execute "normal! \"_diw"
+        execute "e " . s:getFilePathLastInsert()
+        execute "normal gi\<C-R>0"
+        let @0 = bak
+        return
+    endif
+
     let currentRow = line('.')
     let currentCol = col('.')
-
     execute "normal gi"
     call <SID>shiftBasedDel('right')
     let targetRow = line('.')
