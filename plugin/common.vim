@@ -120,13 +120,16 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
         return
     endif
 
-    let currentFilePath = expand('%')
-    if <SID>getFilePathLastInsert() !=# currentFilePath
-        execute "e " . s:getFilePathLastInsert()
-    endif
-
     let bak = @0
     execute "normal gv\"0y"
+    let currentFilePath = expand('%')
+    if <SID>getFilePathLastInsert() !=# currentFilePath
+        execute "normal! gv\"_d"
+        execute "e " . s:getFilePathLastInsert()
+        execute "normal gi\<C-R>0"
+        let @0 = bak
+        return
+    endif
     let currentRow = line('.')
     let currentCol = col('.')
 
