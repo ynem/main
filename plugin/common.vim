@@ -67,9 +67,9 @@ function! s:moveToLastInsertPoint(markSymbol)
     endif
 
     let bak = @0
-    execute "normal yiw"
     let currentFilePath = expand('%')
     if <SID>getFilePathLastInsert() !=# currentFilePath
+        execute "normal! yiw"
         execute "normal! \"_diw"
         execute "e " . s:getFilePathLastInsert()
         execute "normal gi\<C-R>0"
@@ -77,6 +77,7 @@ function! s:moveToLastInsertPoint(markSymbol)
         return
     endif
 
+    execute "normal yiw"
     let currentRow = line('.')
     let currentCol = col('.')
     execute "normal gi"
@@ -121,18 +122,19 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
     endif
 
     let bak = @0
-    execute "normal gv\"0y"
     let currentFilePath = expand('%')
     if <SID>getFilePathLastInsert() !=# currentFilePath
+        execute "normal gv\"0y"
         execute "normal! gv\"_d"
         execute "e " . s:getFilePathLastInsert()
         execute "normal gi\<C-R>0"
         let @0 = bak
         return
     endif
+
+    execute "normal gv\"0y"
     let currentRow = line('.')
     let currentCol = col('.')
-
     execute "normal gi"
     call <SID>shiftBasedDel('right')
     let targetRow = line('.')
@@ -166,18 +168,23 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
         return
     endif
 
+    let bak = @0
     let currentFilePath = expand('%')
     if <SID>getFilePathLastInsert() !=# currentFilePath
+        execute "normal! gv\"0y"
+        execute "normal! gv\"_d"
         execute "e " . s:getFilePathLastInsert()
+        execute "normal gi\<C-R>\<C-P>0"
+        execute "normal ddk\$"
+        execute "normal m" . a:markSymbol
+        let @0 = bak
+        return
     endif
 
-    let bak = @0
     execute "normal `<"
     let currentRow = line('.')
     let currentCol = col('.')
-
     execute "normal gv\"0y"
-
     let rowFirst = currentRow
     execute "normal `>"
     let rowLast  = line('.')
