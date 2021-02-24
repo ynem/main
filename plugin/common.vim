@@ -381,7 +381,7 @@ nnoremap <C-^> <C-^>`"
 inoremap jk <C-]><C-]><Space><C-H><Esc>
 vnoremap <leader>; <Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap <leader>; gv
+nnoremap <leader>; <C-^>
 nnoremap <leader>k :<C-U>call <SID>openLastInsertPoint()<CR>`^
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
@@ -389,7 +389,7 @@ nnoremap <leader>h <Nop>
 nnoremap <leader>z <Nop>
 nnoremap <leader>x <Nop>
 nnoremap <leader>v <Nop>
-nnoremap <leader>' <C-^>
+nnoremap <leader>' gv
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
 nmap - <Plug>NetrwBrowseUpDir
 nnoremap <leader>/ @:
