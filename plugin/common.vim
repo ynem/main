@@ -389,7 +389,7 @@ nnoremap <leader>h <Nop>
 nnoremap <leader>z <Nop>
 nnoremap <leader>x <Nop>
 nnoremap <leader>v <Nop>
-nnoremap <leader>' <Nop>
+nnoremap <leader>' <C-^>
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
 nmap - <Plug>NetrwBrowseUpDir
 nnoremap <leader>/ @:
