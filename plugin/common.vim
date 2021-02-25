@@ -381,7 +381,7 @@ nnoremap <C-^> <C-^>`"
 inoremap jk <C-]><C-]><Space><C-H><Esc>
 vnoremap <leader>; <Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap <leader>; <C-^>
+nnoremap <leader>; <C-^>`"
 nnoremap <leader>k :<C-U>call <SID>openLastInsertPoint()<CR>`^
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
