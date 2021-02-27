@@ -257,14 +257,12 @@ endfunction
 runtime   macros/matchit.vim
 filetype  plugin indent on
 syntax    enable
-highlight cursorcolumn                                ctermbg=blue
-highlight cursorcolumn                 ctermfg=green
-highlight CursorColumn cterm=NONE                     ctermbg=239
+" highlight incsearch                                   ctermbg=Black
+" highlight Search                                      ctermbg=Yellow
+highlight CursorColumn cterm=NONE      ctermfg=NONE   ctermbg=239
 highlight CursorLine   cterm=underline ctermfg=NONE   ctermbg=NONE
-highlight incsearch                                   ctermbg=Black
-highlight incsearch                    ctermfg=Yellow
-highlight Search                                      ctermbg=Yellow
-highlight Search                       ctermfg=Black
+highlight incsearch                    ctermfg=Yellow ctermbg=Black
+highlight Search                       ctermfg=Black  ctermbg=Yellow
 set autoindent
 set autoread
 set cursorcolumn
