@@ -330,8 +330,8 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 nnoremap / /\v
-nnoremap * mL*N
-nnoremap # #N
+nnoremap * mL*N/<C-R>=@/ . '\C'<CR><CR>N
+nnoremap # mL#N?<C-R>=@/ . '\C'<CR><CR>N
 nnoremap <C-P> "0p
 vnoremap <C-P> "0p
 nnoremap j gj
