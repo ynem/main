@@ -23,7 +23,6 @@ function! s:putStrToLastInsertPoint(str)
     let @0 = a:str
     execute "normal! gi\<C-R>0"
     let @0 = bak
-    return
 endfunction
 
 function! s:putStrToLastInsertPointInVmode(str, vmodeType)
@@ -103,7 +102,6 @@ function! s:moveToLastInsertPoint(markSymbol)
     endif
 
     let @0 = bak
-    return
 endfunction
 
 function! s:moveToLastInsertPointInVmode(markSymbol, vmodeType)
@@ -158,7 +156,6 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
     endif
 
     let @0 = bak
-    return
 endfunction
 
 function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
@@ -206,7 +203,6 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
     endif
 
     let @0 = bak
-    return
 endfunction
 
 function! s:delInVmode(vmodeType)
