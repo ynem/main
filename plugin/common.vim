@@ -23,7 +23,7 @@ function! s:putStrToLastInsertPoint(str)
 
     let bak = @0
     let @0 = a:str
-    execute "normal gi\<C-R>0"
+    execute "normal! gi\<C-R>0"
     let @0 = bak
     return
 endfunction
@@ -41,10 +41,10 @@ function! s:putStrToLastInsertPointInVmode(str, vmodeType)
     let bak = @0
     let @0 = a:str
     if a:vmodeType ==# 'V'
-        execute "normal gi\<C-R>\<C-P>0"
-        execute "normal ddk\$"
+        execute "normal! gi\<C-R>\<C-P>0"
+        execute "normal! ddk\$"
     elseif a:vmodeType ==# 'v'
-        execute "normal gi\<C-R>0"
+        execute "normal! gi\<C-R>0"
     endif
 
     let @0 = bak
@@ -72,35 +72,35 @@ function! s:moveToLastInsertPoint(markSymbol)
         execute "normal! yiw"
         execute "normal! \"_diw"
         execute "e " . s:getFilePathLastInsert()
-        execute "normal gi\<C-R>0"
+        call <SID>putStrToLastInsertPoint(@0)
         let @0 = bak
         return
     endif
 
-    execute "normal yiw"
+    execute "normal! yiw"
     let currentRow = line('.')
     let currentCol = col('.')
-    execute "normal gi"
+    execute "normal! gi"
     call <SID>shiftBasedDel('right')
     let targetRow = line('.')
     let targetCol = col('.')
     if currentRow !=# targetRow
-        execute "normal gi\<C-R>0"
+        call <SID>putStrToLastInsertPoint(@0)
         call cursor(currentRow, currentCol)
-        execute "normal \"_diw"
-        execute "normal m" . a:markSymbol
+        execute "normal! \"_diw"
+        execute "normal! m" . a:markSymbol
         call cursor(targetRow, targetCol)
     elseif currentCol < targetCol
-        execute "normal gi\<C-R>0"
+        call <SID>putStrToLastInsertPoint(@0)
         call cursor(currentRow, currentCol)
-        execute "normal \"_diw"
-        execute "normal m" . a:markSymbol
+        execute "normal! \"_diw"
+        execute "normal! m" . a:markSymbol
         call cursor(targetRow, (targetCol - len(@0)))
     elseif currentCol > targetCol
-        execute "normal gi\<C-R>0"
+        call <SID>putStrToLastInsertPoint(@0)
         call cursor(currentRow, (currentCol + len(@0)))
-        execute "normal \"_diw"
-        execute "normal m" . a:markSymbol
+        execute "normal! \"_diw"
+        execute "normal! m" . a:markSymbol
         call cursor(targetRow, targetCol)
     endif
 
@@ -124,38 +124,38 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
     let bak = @0
     let currentFilePath = expand('%')
     if <SID>getFilePathLastInsert() !=# currentFilePath
-        execute "normal gv\"0y"
+        execute "normal! gv\"0y"
         execute "normal! gv\"_d"
         execute "e " . s:getFilePathLastInsert()
-        execute "normal gi\<C-R>0"
+        call <SID>putStrToLastInsertPoint(@0)
         let @0 = bak
         return
     endif
 
-    execute "normal gv\"0y"
+    execute "normal! gv\"0y"
     let currentRow = line('.')
     let currentCol = col('.')
-    execute "normal gi"
+    execute "normal! gi"
     call <SID>shiftBasedDel('right')
     let targetRow = line('.')
     let targetCol = col('.')
     if currentRow !=# targetRow
-        execute "normal gi\<C-R>0"
+        call <SID>putStrToLastInsertPoint(@0)
         call cursor(currentRow, currentCol)
-        execute "normal gv\"_d"
-        execute "normal m" . a:markSymbol
+        execute "normal! gv\"_d"
+        execute "normal! m" . a:markSymbol
         call cursor(targetRow, targetCol)
     elseif currentCol < targetCol
-        execute "normal gi\<C-R>0"
+        call <SID>putStrToLastInsertPoint(@0)
         call cursor(currentRow, currentCol)
-        execute "normal gv\"_d"
-        execute "normal m" . a:markSymbol
+        execute "normal! gv\"_d"
+        execute "normal! m" . a:markSymbol
         call cursor(targetRow, (targetCol - len(@0)))
     elseif currentCol > targetCol
-        execute "normal gi\<C-R>0"
+        call <SID>putStrToLastInsertPoint(@0)
         call cursor(currentRow, (currentCol + len(@0)))
-        execute "normal v" . (len(@0) - 1) . "l" . "\"_d"
-        execute "normal m" . a:markSymbol
+        execute "normal! v" . (len(@0) - 1) . "l" . "\"_d"
+        execute "normal! m" . a:markSymbol
         call cursor(targetRow, targetCol)
     endif
 
@@ -174,32 +174,32 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
         execute "normal! gv\"0y"
         execute "normal! gv\"_d"
         execute "e " . s:getFilePathLastInsert()
-        execute "normal gi\<C-R>\<C-P>0"
-        execute "normal ddk\$"
-        execute "normal m" . a:markSymbol
+        execute "normal! gi\<C-R>\<C-P>0"
+        execute "normal! ddk\$"
+        execute "normal! m" . a:markSymbol
         let @0 = bak
         return
     endif
 
-    execute "normal `<"
+    execute "normal! `<"
     let currentRow = line('.')
     let currentCol = col('.')
-    execute "normal gv\"0y"
+    execute "normal! gv\"0y"
     let rowFirst = currentRow
-    execute "normal `>"
+    execute "normal! `>"
     let rowLast  = line('.')
     let rowCnt   = (rowLast - rowFirst + 1)
     call cursor(currentRow, currentCol)
 
-    execute "normal gi"
+    execute "normal! gi"
     call <SID>shiftBasedDel('right')
     let targetRow = line('.')
     let targetCol = col('.')
 
-    execute "normal gi\<C-R>\<C-P>0"
-    execute "normal ddk\$"
-    execute "normal gv\"_d"
-    execute "normal m" . a:markSymbol
+    execute "normal! gi\<C-R>\<C-P>0"
+    execute "normal! ddk\$"
+    execute "normal! gv\"_d"
+    execute "normal! m" . a:markSymbol
 
     if currentRow < targetRow
         call cursor((targetRow - rowCnt), targetCol)
@@ -213,11 +213,11 @@ endfunction
 
 function! s:delInVmode(vmodeType)
     if a:vmodeType ==# 'v'
-        execute "normal `<v`>\"_c"
+        execute "normal! `<v`>\"_c"
         call <SID>shiftBasedDel('right')
     elseif a:vmodeType ==# 'V'
-        execute "normal `<V`>\"_c\<Esc>dd"
-        execute "normal \<S-^>i"
+        execute "normal! `<V`>\"_c\<Esc>dd"
+        execute "normal! \<S-^>i"
         call <SID>shiftBasedDel('right')
     endif
 endfunction
@@ -225,7 +225,7 @@ endfunction
 function! s:shiftBasedDel(dirction)
     if a:dirction ==# 'right'
         if col('.') !=# 1
-            execute "normal l"
+            execute "normal! l"
         endif
     endif
 endfunction
@@ -372,8 +372,8 @@ nnoremap <leader>s :%s///g<Left><Left>
 vnoremap <leader>s :s///g<Left><Left>
 nnoremap <leader>a gv:s///g<Left><Left>
 nnoremap <leader>e gv:<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
-nnoremap <leader>q :normal @q<CR>
-vnoremap <leader>q :normal @q<CR>
+nnoremap <leader>q :normal! @q<CR>
+vnoremap <leader>q :normal! @q<CR>
 nnoremap <C-^> <C-^>`"
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-H><Esc>
