@@ -1,5 +1,3 @@
-" can't use dot key -> dd
-" can't use <leader>j when vmode
 let mapleader            = "\<Space>"
 let s:filePathLastInsert = ""
 
