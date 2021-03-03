@@ -44,7 +44,7 @@ let g:clang_format#style_options = {
                                                          \"AfterFunction" : "true",
                                                      \},
             \"BreakBeforeBinaryOperators"          : "All",
-            \"ColumnLimit"                         : "0",
+            \"ColumnLimit"                         : "120",
             \"IndentCaseLabels"                    : "false",
             \"AlignConsecutiveAssignments"         : "true",
 \}
