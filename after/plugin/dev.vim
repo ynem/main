@@ -41,7 +41,7 @@ let g:clang_format#style_options = {
             \"Standard"                            : "C++11",
             \"BreakBeforeBraces"                   : "Custom",
             \"BraceWrapping"                       : {
-                                                         \"AfterFunction"         : "true",
+                                                         \"AfterFunction" : "true",
                                                      \},
             \"BreakBeforeBinaryOperators"          : "All",
             \"ColumnLimit"                         : "0",
