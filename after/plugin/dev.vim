@@ -32,12 +32,21 @@ set updatetime=100
 nnoremap <leader>f :Files<CR>
 
 " https://github.com/rhysd/vim-clang-format
+" https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+" https://stackoverflow.com/questions/56881048/how-to-get-clang-format-to-break-on-and
 let g:clang_format#style_options = {
-            \ "AccessModifierOffset"                : -4,
-            \ "AllowShortIfStatementsOnASingleLine" : "true",
-            \ "AlwaysBreakTemplateDeclarations"     : "true",
-            \ "Standard"                            : "C++11",
-            \ "BreakBeforeBraces"                   : "Custom",
-            \ "BraceWrapping"                       : {"AfterFunction" : "true"}
+            \"AccessModifierOffset"                : -4,
+            \"AllowShortIfStatementsOnASingleLine" : "true",
+            \"AlwaysBreakTemplateDeclarations"     : "true",
+            \"Standard"                            : "C++11",
+            \"BreakBeforeBraces"                   : "Custom",
+            \"BraceWrapping"                       : {
+                                                         \"AfterFunction"         : "true",
+                                                         \"AfterControlStatement" : "Never",
+                                                     \},
+            \"BreakBeforeBinaryOperators"          : "All",
+            \"ColumnLimit"                         : "0",
+            \"IndentCaseLabels"                    : "false",
+            \"AlignConsecutiveAssignments"         : "true",
 \}
 
