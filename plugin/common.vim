@@ -375,6 +375,7 @@ vnoremap <leader>; <Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap <leader>; <C-^>`"
 nnoremap <leader>k gv
+vnoremap <leader>k <Esc>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>h <Nop>
