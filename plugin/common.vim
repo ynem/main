@@ -1,5 +1,6 @@
 let mapleader            = "\<Space>"
 let s:filePathLastInsert = ""
+let s:filePathLastSelect = ""
 
 function! s:setFilePathLastInsert(filePath)
     let s:filePathLastInsert = a:filePath
@@ -7,6 +8,25 @@ endfunction
 
 function! s:getFilePathLastInsert()
     return s:filePathLastInsert
+endfunction
+
+function! s:setFilePathLastSelect(filePath)
+    let s:filePathLastSelect = a:filePath
+endfunction
+
+function! s:getFilePathLastSelect()
+    return s:filePathLastSelect
+endfunction
+
+function! s:openFileLastSelect()
+    if <SID>getFilePathLastSelect() ==# ""
+        return
+    endif
+
+    let currentFilePath = expand('%')
+    if <SID>getFilePathLastSelect() !=# currentFilePath
+        execute "e " . s:getFilePathLastSelect()
+    endif
 endfunction
 
 function! s:putStrToLastInsertPoint(str)
@@ -318,6 +338,9 @@ nnoremap D :call <SID>setFilePathLastInsert(expand('%'))<CR>"_C<Esc>
 vnoremap d :<C-U>call <SID>setFilePathLastInsert(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
 nnoremap X :call <SID>setFilePathLastInsert(expand('%'))<CR>V"0di<Esc>`<
 vnoremap x :<C-U>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"0di<Esc>`<
+nnoremap v :call <SID>setFilePathLastSelect(expand('%'))<CR>v
+nnoremap V :call <SID>setFilePathLastSelect(expand('%'))<CR>V
+nnoremap <C-V> :call <SID>setFilePathLastSelect(expand('%'))<CR><C-V>
 nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
 vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
 nnoremap <leader>i "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>a
@@ -382,7 +405,7 @@ inoremap jk <C-]><C-]><Space><C-H><Esc>
 vnoremap <leader>; <Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap <leader>; <C-^>`"
-nnoremap <leader>k gv
+nnoremap <leader>k :call <SID>openFileLastSelect()<CR>gv
 vnoremap <leader>k <Esc>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
