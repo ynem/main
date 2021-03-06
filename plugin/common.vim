@@ -86,18 +86,22 @@ function! s:moveToLastInsertPoint(markSymbol)
         call cursor(currentRow, currentCol)
         execute "normal! \"_diw"
         execute "normal! m" . a:markSymbol
+        execute "normal! i"
         call cursor(targetRow, targetCol)
     elseif currentCol < targetCol
         call <SID>putStrToLastInsertPoint(@0)
         call cursor(currentRow, currentCol)
         execute "normal! \"_diw"
         execute "normal! m" . a:markSymbol
+        call cursor(currentRow, currentCol)
+        execute "normal! i"
         call cursor(targetRow, (targetCol - len(@0)))
     elseif currentCol > targetCol
         call <SID>putStrToLastInsertPoint(@0)
         call cursor(currentRow, (currentCol + len(@0)))
         execute "normal! \"_diw"
         execute "normal! m" . a:markSymbol
+        execute "normal! i"
         call cursor(targetRow, targetCol)
     endif
 
@@ -140,18 +144,21 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
         call cursor(currentRow, currentCol)
         execute "normal! gv\"_d"
         execute "normal! m" . a:markSymbol
+        execute "normal! i"
         call cursor(targetRow, targetCol)
     elseif currentCol < targetCol
         call <SID>putStrToLastInsertPoint(@0)
         call cursor(currentRow, currentCol)
         execute "normal! gv\"_d"
         execute "normal! m" . a:markSymbol
+        execute "normal! i"
         call cursor(targetRow, (targetCol - len(@0)))
     elseif currentCol > targetCol
         call <SID>putStrToLastInsertPoint(@0)
         call cursor(currentRow, (currentCol + len(@0)))
         execute "normal! v" . (len(@0) - 1) . "l" . "\"_d"
         execute "normal! m" . a:markSymbol
+        execute "normal! i"
         call cursor(targetRow, targetCol)
     endif
 
