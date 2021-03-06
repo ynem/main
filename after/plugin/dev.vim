@@ -42,6 +42,7 @@ let g:clang_format#style_options = {
             \"BreakBeforeBraces"                   : "Custom",
             \"BraceWrapping"                       : {
                                                          \"AfterFunction" : "true",
+                                                         \"AfterClass"    : "true",
                                                      \},
             \"BreakBeforeBinaryOperators"          : "All",
             \"ColumnLimit"                         : "120",
