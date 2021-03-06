@@ -202,6 +202,7 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
     execute "normal! ddk\$"
     execute "normal! gv\"_d"
     execute "normal! m" . a:markSymbol
+    execute "normal! i"
 
     if currentRow < targetRow
         call cursor((targetRow - rowCnt), targetCol)
