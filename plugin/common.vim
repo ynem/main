@@ -195,10 +195,13 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
     if <SID>getFilePathLastInsert() !=# currentFilePath
         execute "normal! gv\"0y"
         execute "normal! gv\"_d"
+        execute "normal! i"
+        call <SID>shiftBasedDel('right')
+        execute "normal! m" . a:markSymbol
         execute "e " . s:getFilePathLastInsert()
+        call <SID>setFilePathLastInsert(currentFilePath)
         execute "normal! gi\<C-R>\<C-P>0"
         execute "normal! ddk\$"
-        execute "normal! m" . a:markSymbol
         let @0 = bak
         return
     endif
