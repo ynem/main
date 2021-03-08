@@ -392,8 +392,8 @@ nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
 nnoremap <leader>Q :qall!<CR>
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-xnoremap * mL:<C-U>call <SID>searchInVmode()<CR>/<C-R>=@/<CR><CR>N
-xnoremap # :<C-U>call <SID>searchInVmode()<CR>?<C-R>=@/<CR><CR>N
+xnoremap * mL:<C-U>call <SID>searchInVmode()<CR>/<C-R>=@/ . '\C'<CR><CR>N
+xnoremap # mL:<C-U>call <SID>searchInVmode()<CR>?<C-R>=@/ . '\C'<CR><CR>N
 nnoremap <leader>r :call <SID>replaceToRegister()<CR>
 vnoremap <leader>r :<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
