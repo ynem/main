@@ -413,6 +413,7 @@ vnoremap <leader>k <Esc>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>h <Nop>
+nnoremap <leader>m <Nop>
 nnoremap <leader>z <Nop>
 nnoremap <leader>x <Nop>
 nnoremap <leader>v <Nop>
