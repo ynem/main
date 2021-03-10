@@ -19,9 +19,9 @@ let euc_project = ['/home/yuta/repo/trade-V2',
 augroup format-unix
     autocmd!
     if <SID>inTargetProject(euc_project)
-        autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp | syntax enable
+        autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp
     else
-        autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=utf-8 | syntax enable
+        autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=utf-8
     endif
 augroup END
 
