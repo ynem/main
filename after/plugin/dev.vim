@@ -16,14 +16,15 @@ set history=100
 " web
 let euc_project = ['/home/yuta/repo/trade-V2',
                   \'/home/yuta/repo/jobm']
+" https://stackoverflow.com/questions/39635841/vim-use-if-in-augroup
 augroup format-unix
     autocmd!
-    if <SID>inTargetProject(euc_project)
-        autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp
-    else
-        autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=utf-8
-    endif
 augroup END
+if <SID>inTargetProject(euc_project)
+    autocmd format-unix BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp
+else
+    autocmd format-unix BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=utf-8
+endif
 
 " vba
 autocmd BufNewFile,BufRead *.bas,*.cls,*.frm e ++ff=dos ++enc=sjis
