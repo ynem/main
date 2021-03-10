@@ -1,4 +1,4 @@
-function! s:inTargetProject(targetDir)
+function! s:isCwdInProjectList(targetDir)
     let currentDir = getcwd()
     for p in a:targetDir
         " if p ==# currentDir
@@ -14,12 +14,12 @@ endfunction
 set history=100
 
 " web
-let euc_project = ['/home/yuta/repo/trade-V2',
+let euc_projects = ['/home/yuta/repo/trade-V2',
                   \'/home/yuta/repo/jobm']
 " https://stackoverflow.com/questions/39635841/vim-use-if-in-augroup
 augroup format-unix
     autocmd!
-    if <SID>inTargetProject(euc_project)
+    if <SID>isCwdInProjectList(euc_projects)
         autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp
     else
         autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=utf-8
