@@ -1,16 +1,26 @@
-function! s:isInTargetDir(targetDir)
+function! s:inTargetProject(targetDir)
     let currentDir = getcwd()
-    return (currentDir ==# a:targetDir ? 1 : 0)
+    for p in a:targetDir
+        if p ==# currentDir
+            return 1
+        endif
+    endfor
+
+    return 0
 endfunction
 
 " vim
 set history=100
 
 " web
+let euc_project = ['/home/yuta/repo/trade-V2',
+                  \'/home/yuta/repo/jobm']
 augroup format-unix
     autocmd!
-    if <SID>isInTargetDir('/home/yuta/repo/trade-V2')
+    if <SID>inTargetProject(euc_project)
         autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp | syntax enable
+    else
+        autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=utf-8 | syntax enable
     endif
 augroup END
 
