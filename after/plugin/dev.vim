@@ -1,10 +1,17 @@
+function! s:isInTargetDir(targetDir)
+    let currentDir = getcwd()
+    return (currentDir ==# a:targetDir ? 1 : 0)
+endfunction
+
 " vim
 set history=100
 
 " web
 augroup format-unix
     autocmd!
-    autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp | syntax enable
+    if <SID>isInTargetDir('/home/yuta/repo/trade-V2')
+        autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp | syntax enable
+    endif
 augroup END
 
 " vba
