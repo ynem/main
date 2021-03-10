@@ -1,7 +1,8 @@
 function! s:inTargetProject(targetDir)
     let currentDir = getcwd()
     for p in a:targetDir
-        if p ==# currentDir
+        " if p ==# currentDir
+        if match(currentDir, p) !=# -1
             return 1
         endif
     endfor
