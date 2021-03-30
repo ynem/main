@@ -405,9 +405,8 @@ vnoremap <leader>q :normal! @q<CR>
 nnoremap <C-^> <C-^>`"
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-H><Esc>
-vnoremap <leader>; <Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap <leader>; <C-^>`"
+nnoremap <leader>; <C-^>`"zz
 nnoremap <leader>k :call <SID>openFileLastSelect()<CR>gv
 vnoremap <leader>k <Esc>
 nnoremap <leader>u <Nop>
