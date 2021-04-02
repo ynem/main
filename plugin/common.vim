@@ -336,6 +336,12 @@ nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
 nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
+nnoremap di( "_ci(<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
+nnoremap di) "_ci)<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
+nnoremap di[ "_ci[<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
+nnoremap di] "_ci]<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
+nnoremap di< "_ci<<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
+nnoremap di> "_ci><Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap df "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
 nnoremap D :call <SID>setFilePathLastInsert(expand('%'))<CR>"_C<Esc>
 vnoremap d :<C-U>call <SID>setFilePathLastInsert(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
