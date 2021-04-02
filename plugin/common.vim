@@ -403,12 +403,12 @@ nnoremap <leader>e gv:<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
 nnoremap <leader>q :normal! @q<CR>
 vnoremap <leader>q :normal! @q<CR>
 nnoremap <C-^> <C-^>`"
-" for abbreviation
-inoremap jk <C-]><C-]><Space><C-H><Esc>
-nnoremap <Del> :bdelete<CR>
-nnoremap <leader>; <C-^>`"zz
-nnoremap <leader>k :call <SID>openFileLastSelect()<CR>gv
-vnoremap <leader>k <Esc>
+" need bash setting -> stty start(stop) undef
+nnoremap <C-S> <Nop>
+vnoremap <C-S> <Nop>
+nnoremap <C-Q> %
+vnoremap <C-Q> %
+" disabled
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>h <Nop>
@@ -417,6 +417,12 @@ nnoremap <leader>z <Nop>
 nnoremap <leader>x <Nop>
 nnoremap <leader>v <Nop>
 nnoremap <leader>' <Nop>
+" for abbreviation
+inoremap jk <C-]><C-]><Space><C-H><Esc>
+nnoremap <Del> :bdelete<CR>
+nnoremap <leader>; <C-^>`"zz
+nnoremap <leader>k :call <SID>openFileLastSelect()<CR>gv
+vnoremap <leader>k <Esc>
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
 nmap - <Plug>NetrwBrowseUpDir
 nnoremap <leader>/ @:
