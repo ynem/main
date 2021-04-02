@@ -414,6 +414,8 @@ nnoremap <C-S> <Nop>
 vnoremap <C-S> <Nop>
 nnoremap <C-Q> %
 vnoremap <C-Q> %
+nnoremap <leader>, :
+nnoremap : ,
 " disabled
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
@@ -466,8 +468,7 @@ for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
     execute "nnoremap '" . l . " `" . u . "`\"m" . u . "zz"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
-    let u = toupper(l)
-    execute "nnoremap `" . l . " `" . l . "zz"
+    execute "nnoremap ," . l . " `" . l . "zz"
 endfor
 " for abbreiviation.(conflict with autocomplete)
 inoremap <CR> <C-]><C-]><CR>
