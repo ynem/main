@@ -288,6 +288,10 @@ highlight CursorColumn cterm=NONE      ctermfg=NONE   ctermbg=238
 highlight CursorLine   cterm=underline ctermfg=NONE   ctermbg=NONE
 highlight incsearch                    ctermfg=Yellow ctermbg=Black
 highlight Search                       ctermfg=Black  ctermbg=Yellow
+if has('win32')
+    set backspace=2
+    set backspace=indent,eol,start
+endif
 set autoindent
 set autoread
 set cursorcolumn
