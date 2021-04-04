@@ -422,6 +422,7 @@ nnoremap <leader>, :
 nnoremap : ,
 " disabled
 nnoremap <leader>a <Nop>
+nnoremap <leader>b <Nop>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>h <Nop>
