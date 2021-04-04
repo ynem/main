@@ -413,6 +413,7 @@ nnoremap <leader>e gv:<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
 nnoremap <leader>q :normal! @q<CR>
 vnoremap <leader>q :normal! @q<CR>
 nnoremap <C-^> <C-^>`"
+vnoremap b ge
 " need bash setting -> stty start(stop) undef
 nnoremap <C-S> <Nop>
 vnoremap <C-S> <Nop>
@@ -421,6 +422,8 @@ vnoremap <C-Q> %
 nnoremap <leader>, :
 nnoremap : ,
 " disabled
+nnoremap <CR> <Nop>
+vnoremap <CR> <Nop>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>h <Nop>
