@@ -422,8 +422,6 @@ vnoremap <C-Q> %
 nnoremap <leader>, :
 nnoremap : ,
 " disabled
-nnoremap <CR> <Nop>
-vnoremap <CR> <Nop>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>h <Nop>
