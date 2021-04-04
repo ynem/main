@@ -421,6 +421,10 @@ vnoremap <C-Q> %
 nnoremap <leader>, :
 nnoremap : ,
 " disabled
+nnoremap R <Nop>
+nnoremap U <Nop>
+nnoremap Y <Nop>
+nnoremap Z <Nop>
 nnoremap <leader>a <Nop>
 nnoremap <leader>b <Nop>
 nnoremap <leader>u <Nop>
