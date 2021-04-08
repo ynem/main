@@ -367,7 +367,9 @@ cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 nnoremap / /\v
 nnoremap * mL*N/<C-R>=@/ . '\C'<CR><CR>N
+xnoremap * mL:<C-U>call <SID>searchInVmode()<CR>/<C-R>=@/ . '\C'<CR><CR>N
 nnoremap # mL#N?<C-R>=@/ . '\C'<CR><CR>N
+xnoremap # mL:<C-U>call <SID>searchInVmode()<CR>?<C-R>=@/ . '\C'<CR><CR>N
 nnoremap <C-P> "0p
 vnoremap <C-P> "0p
 nnoremap j gj
@@ -394,16 +396,11 @@ vnoremap <C-H> g<S-^>
 vnoremap <C-N> g<S-$><Left>
 nnoremap <leader>n g<S-$>F
 vnoremap <leader>n g<S-$><Left>F
-nnoremap ml mL
-nnoremap <leader>l `L
-nnoremap <leader>o `O
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
 nnoremap <leader>Q :qall!<CR>
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-xnoremap * mL:<C-U>call <SID>searchInVmode()<CR>/<C-R>=@/ . '\C'<CR><CR>N
-xnoremap # mL:<C-U>call <SID>searchInVmode()<CR>?<C-R>=@/ . '\C'<CR><CR>N
 nnoremap <leader>r :call <SID>replaceToRegister()<CR>
 vnoremap <leader>r :<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
@@ -433,6 +430,8 @@ nnoremap <leader>h <Nop>
 nnoremap <leader>m <Nop>
 nnoremap <leader>z <Nop>
 nnoremap <leader>x <Nop>
+nnoremap <leader>l <Nop>
+nnoremap <leader>o <Nop>
 nnoremap <leader>v <Nop>
 nnoremap <leader>' <Nop>
 " for abbreviation
