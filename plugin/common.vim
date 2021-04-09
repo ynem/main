@@ -411,8 +411,6 @@ vnoremap <leader>q :normal! @q<CR>
 nnoremap <C-^> <C-^>`"
 vnoremap b ge
 " need bash setting -> stty start(stop) undef
-nnoremap <C-S> <Nop>
-vnoremap <C-S> <Nop>
 nnoremap <C-Q> %
 vnoremap <C-Q> %
 nnoremap <leader>, :
@@ -422,6 +420,9 @@ nnoremap R <Nop>
 nnoremap U <Nop>
 nnoremap Y <Nop>
 nnoremap Z <Nop>
+"     need bash setting -> stty start(stop) undef
+nnoremap <C-S> <Nop>
+vnoremap <C-S> <Nop>
 nnoremap <leader>a <Nop>
 nnoremap <leader>b <Nop>
 nnoremap <leader>u <Nop>
