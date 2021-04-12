@@ -279,6 +279,21 @@ function! s:replaceToRegisterInLastSelected()
     execute "'<,'>s//" . escape(@0, '/\') . "/g"
 endfunction
 
+function! s:identifySID()
+    return matchstr(expand('<sfile>'), '.\+<SNR>\zs\d\+\ze.\+SID$')
+endfunction
+
+function! s:jumpToUpperMark(markSymbol)
+    let currentFilePath = expand('%')
+    let upperCase = toupper(a:markSymbol)
+    execute 'normal! `' . upperCase
+    let jumpedFilePath = expand('%')
+    if jumpedFilePath !=# currentFilePath
+        execute "normal! `\"m" . upperCase . "zz"
+        return
+    endif
+endfunction
+
 runtime   macros/matchit.vim
 filetype  plugin indent on
 syntax    enable
@@ -475,7 +490,7 @@ for k in split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_', '\zs')
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
     let u = toupper(l)
-    execute "nnoremap '" . l . " `" . u . "`\"m" . u . "zz"
+    execut "nnoremap '" . l " :call " . "<SNR>" . s:identifySID() . "_" . "jumpToUpperMark(" . string(u) . ")" . "<CR>"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
     execute "nnoremap ," . l . " `" . l . "zz"
