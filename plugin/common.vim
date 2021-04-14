@@ -431,6 +431,7 @@ vnoremap <C-Q> %
 nnoremap <leader>, :
 vnoremap <leader>, :
 nnoremap : ,
+vnoremap : ,
 " disabled
 nnoremap R <Nop>
 nnoremap U <Nop>
