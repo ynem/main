@@ -429,6 +429,7 @@ vnoremap b ge
 nnoremap <C-Q> %
 vnoremap <C-Q> %
 nnoremap <leader>, :
+vnoremap <leader>, :
 nnoremap : ,
 " disabled
 nnoremap R <Nop>
