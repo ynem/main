@@ -15,7 +15,8 @@ set history=100
 
 " web
 let euc_projects = ['/home/yuta/repo/trade-V2',
-                   \'/home/yuta/repo/jobm']
+                   \'/home/yuta/repo/jobm',
+                   \'/home/yuta/repo/hall']
 " https://stackoverflow.com/questions/39635841/vim-use-if-in-augroup
 augroup format-unix
     autocmd!
