@@ -311,7 +311,6 @@ set autoindent
 set autoread
 set cursorcolumn
 set cursorline
-set expandtab
 set fileencodings=utf-8,sjis,euc-jp,latin1
 set fileformats=unix,dos,mac
 set hlsearch
@@ -319,18 +318,20 @@ set ignorecase
 set incsearch
 set laststatus=2
 set list
-set listchars=tab:>-,trail:-,nbsp:%
+set listchars=tab:__,nbsp:%
+highlight WhiteSpaceBol ctermbg=blue
+match WhiteSpaceBol /^\t*\zs \+\ze\t*\|[^ ]*\zs \+\ze$/
 set matchtime=1
 set nobackup
 set nocompatible
 set number
 set pastetoggle=<f5>
 set ruler
-set shiftwidth=4
 set showcmd
 set showmatch
 set smartcase
-set tabstop=4
+set tabstop=8
+set shiftwidth=8
 set title
 set wildmenu
 set wildmode=full
