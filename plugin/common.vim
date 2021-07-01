@@ -1,311 +1,311 @@
-let mapleader            = "\<Space>"
+let mapleader			= "\<Space>"
 let s:filePathLastInsert = ""
 let s:filePathLastSelect = ""
 
 function! s:setFilePathLastInsert(filePath)
-    let s:filePathLastInsert = a:filePath
+	let s:filePathLastInsert = a:filePath
 endfunction
 
 function! s:getFilePathLastInsert()
-    return s:filePathLastInsert
+	return s:filePathLastInsert
 endfunction
 
 function! s:setFilePathLastSelect(filePath)
-    let s:filePathLastSelect = a:filePath
+	let s:filePathLastSelect = a:filePath
 endfunction
 
 function! s:getFilePathLastSelect()
-    return s:filePathLastSelect
+	return s:filePathLastSelect
 endfunction
 
 function! s:openFileLastSelect()
-    if <SID>getFilePathLastSelect() ==# ""
-        return
-    endif
+	if <SID>getFilePathLastSelect() ==# ""
+		return
+	endif
 
-    let currentFilePath = expand('%')
-    if <SID>getFilePathLastSelect() !=# currentFilePath
-        execute "e " . s:getFilePathLastSelect()
-    endif
+	let currentFilePath = expand('%')
+	if <SID>getFilePathLastSelect() !=# currentFilePath
+		execute "e " . s:getFilePathLastSelect()
+	endif
 endfunction
 
 function! s:putStrToLastInsertPoint(str)
-    if <SID>getFilePathLastInsert() ==# ""
-        return
-    endif
+	if <SID>getFilePathLastInsert() ==# ""
+		return
+	endif
 
-    let currentFilePath = expand('%')
-    if <SID>getFilePathLastInsert() !=# currentFilePath
-        execute "e " . s:getFilePathLastInsert()
-    endif
+	let currentFilePath = expand('%')
+	if <SID>getFilePathLastInsert() !=# currentFilePath
+		execute "e " . s:getFilePathLastInsert()
+	endif
 
-    let bak = @0
-    let @0 = a:str
-    execute "normal! gi\<C-R>0"
-    let @0 = bak
+	let bak = @0
+	let @0 = a:str
+	execute "normal! gi\<C-R>0"
+	let @0 = bak
 endfunction
 
 function! s:putStrToLastInsertPointInVmode(str, vmodeType)
-    if <SID>getFilePathLastInsert() ==# ""
-        return
-    endif
+	if <SID>getFilePathLastInsert() ==# ""
+		return
+	endif
 
-    let currentFilePath = expand('%')
-    if <SID>getFilePathLastInsert() !=# currentFilePath
-        execute "e " . s:getFilePathLastInsert()
-    endif
+	let currentFilePath = expand('%')
+	if <SID>getFilePathLastInsert() !=# currentFilePath
+		execute "e " . s:getFilePathLastInsert()
+	endif
 
-    let bak = @0
-    let @0 = a:str
-    if a:vmodeType ==# 'V'
-        execute "normal! gi\<C-R>\<C-P>0"
-        execute "normal! ddk\$"
-    elseif a:vmodeType ==# 'v'
-        execute "normal! gi\<C-R>0"
-    endif
+	let bak = @0
+	let @0 = a:str
+	if a:vmodeType ==# 'V'
+		execute "normal! gi\<C-R>\<C-P>0"
+		execute "normal! ddk\$"
+	elseif a:vmodeType ==# 'v'
+		execute "normal! gi\<C-R>0"
+	endif
 
-    let @0 = bak
+	let @0 = bak
 endfunction
 
 function! s:openLastInsertPoint()
-    if <SID>getFilePathLastInsert() ==# ""
-        return
-    endif
+	if <SID>getFilePathLastInsert() ==# ""
+		return
+	endif
 
-    let currentFilePath = expand('%')
-    if <SID>getFilePathLastInsert() !=# currentFilePath
-        execute "e " . s:getFilePathLastInsert()
-    endif
+	let currentFilePath = expand('%')
+	if <SID>getFilePathLastInsert() !=# currentFilePath
+		execute "e " . s:getFilePathLastInsert()
+	endif
 endfunction
 
 function! s:moveToLastInsertPoint(markSymbol)
-    if <SID>getFilePathLastInsert() ==# ""
-        return
-    endif
+	if <SID>getFilePathLastInsert() ==# ""
+		return
+	endif
 
-    let bak = @0
-    let currentFilePath = expand('%')
-    if <SID>getFilePathLastInsert() !=# currentFilePath
-        execute "normal! yiw"
-        execute "normal! \"_diw"
-        execute "e " . s:getFilePathLastInsert()
-        call <SID>putStrToLastInsertPoint(@0)
-        let @0 = bak
-        return
-    endif
+	let bak = @0
+	let currentFilePath = expand('%')
+	if <SID>getFilePathLastInsert() !=# currentFilePath
+		execute "normal! yiw"
+		execute "normal! \"_diw"
+		execute "e " . s:getFilePathLastInsert()
+		call <SID>putStrToLastInsertPoint(@0)
+		let @0 = bak
+		return
+	endif
 
-    execute "normal! yiw"
-    let currentRow = line('.')
-    let currentCol = col('.')
-    execute "normal! gi"
-    call <SID>shiftBasedDel('right')
-    let targetRow = line('.')
-    let targetCol = col('.')
-    if currentRow !=# targetRow
-        call <SID>putStrToLastInsertPoint(@0)
-        call cursor(currentRow, currentCol)
-        execute "normal! \"_diw"
-        execute "normal! m" . a:markSymbol
-        execute "normal! i"
-        call cursor(targetRow, targetCol)
-    elseif currentCol < targetCol
-        call <SID>putStrToLastInsertPoint(@0)
-        call cursor(currentRow, currentCol)
-        execute "normal! \"_diw"
-        execute "normal! m" . a:markSymbol
-        call cursor(currentRow, currentCol)
-        execute "normal! i"
-        call cursor(targetRow, (targetCol - len(@0)))
-    elseif currentCol > targetCol
-        call <SID>putStrToLastInsertPoint(@0)
-        call cursor(currentRow, (currentCol + len(@0)))
-        execute "normal! \"_diw"
-        execute "normal! m" . a:markSymbol
-        execute "normal! i"
-        call cursor(targetRow, targetCol)
-    endif
+	execute "normal! yiw"
+	let currentRow = line('.')
+	let currentCol = col('.')
+	execute "normal! gi"
+	call <SID>shiftBasedDel('right')
+	let targetRow = line('.')
+	let targetCol = col('.')
+	if currentRow !=# targetRow
+		call <SID>putStrToLastInsertPoint(@0)
+		call cursor(currentRow, currentCol)
+		execute "normal! \"_diw"
+		execute "normal! m" . a:markSymbol
+		execute "normal! i"
+		call cursor(targetRow, targetCol)
+	elseif currentCol < targetCol
+		call <SID>putStrToLastInsertPoint(@0)
+		call cursor(currentRow, currentCol)
+		execute "normal! \"_diw"
+		execute "normal! m" . a:markSymbol
+		call cursor(currentRow, currentCol)
+		execute "normal! i"
+		call cursor(targetRow, (targetCol - len(@0)))
+	elseif currentCol > targetCol
+		call <SID>putStrToLastInsertPoint(@0)
+		call cursor(currentRow, (currentCol + len(@0)))
+		execute "normal! \"_diw"
+		execute "normal! m" . a:markSymbol
+		execute "normal! i"
+		call cursor(targetRow, targetCol)
+	endif
 
-    let @0 = bak
+	let @0 = bak
 endfunction
 
 function! s:moveToLastInsertPointInVmode(markSymbol, vmodeType)
-    if a:vmodeType ==# 'v'
-        call <SID>moveToLastInsertPointInVmodeCharWise(a:markSymbol)
-    elseif a:vmodeType ==# 'V'
-        call <SID>moveToLastInsertPointInVmodeLineWise(a:markSymbol)
-    endif
+	if a:vmodeType ==# 'v'
+		call <SID>moveToLastInsertPointInVmodeCharWise(a:markSymbol)
+	elseif a:vmodeType ==# 'V'
+		call <SID>moveToLastInsertPointInVmodeLineWise(a:markSymbol)
+	endif
 endfunction
 
 function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
-    if <SID>getFilePathLastInsert() ==# ""
-        return
-    endif
+	if <SID>getFilePathLastInsert() ==# ""
+		return
+	endif
 
-    let bak = @0
-    let currentFilePath = expand('%')
-    if <SID>getFilePathLastInsert() !=# currentFilePath
-        execute "normal! gv\"0y"
-        execute "normal! gv\"_d"
-        execute "e " . s:getFilePathLastInsert()
-        call <SID>putStrToLastInsertPoint(@0)
-        let @0 = bak
-        return
-    endif
+	let bak = @0
+	let currentFilePath = expand('%')
+	if <SID>getFilePathLastInsert() !=# currentFilePath
+		execute "normal! gv\"0y"
+		execute "normal! gv\"_d"
+		execute "e " . s:getFilePathLastInsert()
+		call <SID>putStrToLastInsertPoint(@0)
+		let @0 = bak
+		return
+	endif
 
-    execute "normal! gv\"0y"
-    let currentRow = line('.')
-    let currentCol = col('.')
-    execute "normal! gi"
-    call <SID>shiftBasedDel('right')
-    let targetRow = line('.')
-    let targetCol = col('.')
-    if currentRow !=# targetRow
-        call <SID>putStrToLastInsertPoint(@0)
-        call cursor(currentRow, currentCol)
-        execute "normal! gv\"_d"
-        execute "normal! m" . a:markSymbol
-        execute "normal! i"
-        call cursor(targetRow, targetCol)
-    elseif currentCol < targetCol
-        call <SID>putStrToLastInsertPoint(@0)
-        call cursor(currentRow, currentCol)
-        execute "normal! gv\"_d"
-        execute "normal! m" . a:markSymbol
-        execute "normal! i"
-        call cursor(targetRow, (targetCol - len(@0)))
-    elseif currentCol > targetCol
-        call <SID>putStrToLastInsertPoint(@0)
-        call cursor(currentRow, (currentCol + len(@0)))
-        execute "normal! v" . (len(@0) - 1) . "l" . "\"_d"
-        execute "normal! m" . a:markSymbol
-        execute "normal! i"
-        call cursor(targetRow, targetCol)
-    endif
+	execute "normal! gv\"0y"
+	let currentRow = line('.')
+	let currentCol = col('.')
+	execute "normal! gi"
+	call <SID>shiftBasedDel('right')
+	let targetRow = line('.')
+	let targetCol = col('.')
+	if currentRow !=# targetRow
+		call <SID>putStrToLastInsertPoint(@0)
+		call cursor(currentRow, currentCol)
+		execute "normal! gv\"_d"
+		execute "normal! m" . a:markSymbol
+		execute "normal! i"
+		call cursor(targetRow, targetCol)
+	elseif currentCol < targetCol
+		call <SID>putStrToLastInsertPoint(@0)
+		call cursor(currentRow, currentCol)
+		execute "normal! gv\"_d"
+		execute "normal! m" . a:markSymbol
+		execute "normal! i"
+		call cursor(targetRow, (targetCol - len(@0)))
+	elseif currentCol > targetCol
+		call <SID>putStrToLastInsertPoint(@0)
+		call cursor(currentRow, (currentCol + len(@0)))
+		execute "normal! v" . (len(@0) - 1) . "l" . "\"_d"
+		execute "normal! m" . a:markSymbol
+		execute "normal! i"
+		call cursor(targetRow, targetCol)
+	endif
 
-    let @0 = bak
+	let @0 = bak
 endfunction
 
 function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
-    if <SID>getFilePathLastInsert() ==# ""
-        return
-    endif
+	if <SID>getFilePathLastInsert() ==# ""
+		return
+	endif
 
-    let bak = @0
-    let currentFilePath = expand('%')
-    if <SID>getFilePathLastInsert() !=# currentFilePath
-        execute "normal! gv\"0y"
-        execute "normal! gv\"_d"
-        execute "normal! i"
-        call <SID>shiftBasedDel('right')
-        execute "normal! m" . a:markSymbol
-        execute "e " . s:getFilePathLastInsert()
-        call <SID>setFilePathLastInsert(currentFilePath)
-        execute "normal! gi\<C-R>\<C-P>0"
-        execute "normal! ddk\$"
-        let @0 = bak
-        return
-    endif
+	let bak = @0
+	let currentFilePath = expand('%')
+	if <SID>getFilePathLastInsert() !=# currentFilePath
+		execute "normal! gv\"0y"
+		execute "normal! gv\"_d"
+		execute "normal! i"
+		call <SID>shiftBasedDel('right')
+		execute "normal! m" . a:markSymbol
+		execute "e " . s:getFilePathLastInsert()
+		call <SID>setFilePathLastInsert(currentFilePath)
+		execute "normal! gi\<C-R>\<C-P>0"
+		execute "normal! ddk\$"
+		let @0 = bak
+		return
+	endif
 
-    execute "normal! `<"
-    let currentRow = line('.')
-    let currentCol = col('.')
-    execute "normal! gv\"0y"
-    let rowFirst = currentRow
-    execute "normal! `>"
-    let rowLast  = line('.')
-    let rowCnt   = (rowLast - rowFirst + 1)
-    call cursor(currentRow, currentCol)
+	execute "normal! `<"
+	let currentRow = line('.')
+	let currentCol = col('.')
+	execute "normal! gv\"0y"
+	let rowFirst = currentRow
+	execute "normal! `>"
+	let rowLast  = line('.')
+	let rowCnt   = (rowLast - rowFirst + 1)
+	call cursor(currentRow, currentCol)
 
-    execute "normal! gi"
-    call <SID>shiftBasedDel('right')
-    let targetRow = line('.')
-    let targetCol = col('.')
+	execute "normal! gi"
+	call <SID>shiftBasedDel('right')
+	let targetRow = line('.')
+	let targetCol = col('.')
 
-    execute "normal! gi\<C-R>\<C-P>0"
-    execute "normal! ddk\$"
-    execute "normal! gv\"_d"
-    execute "normal! m" . a:markSymbol
-    execute "normal! i"
+	execute "normal! gi\<C-R>\<C-P>0"
+	execute "normal! ddk\$"
+	execute "normal! gv\"_d"
+	execute "normal! m" . a:markSymbol
+	execute "normal! i"
 
-    if currentRow < targetRow
-        call cursor((targetRow - rowCnt), targetCol)
-    elseif targetRow < currentRow
-        call cursor(targetRow, targetCol)
-    endif
+	if currentRow < targetRow
+		call cursor((targetRow - rowCnt), targetCol)
+	elseif targetRow < currentRow
+		call cursor(targetRow, targetCol)
+	endif
 
-    let @0 = bak
+	let @0 = bak
 endfunction
 
 function! s:delInVmode(vmodeType)
-    if a:vmodeType ==# 'v'
-        execute "normal! `<v`>\"_c"
-        call <SID>shiftBasedDel('right')
-    elseif a:vmodeType ==# 'V'
-        execute "normal! `<V`>\"_c\<Esc>dd"
-        execute "normal! \<S-^>i"
-        call <SID>shiftBasedDel('right')
-    endif
+	if a:vmodeType ==# 'v'
+		execute "normal! `<v`>\"_c"
+		call <SID>shiftBasedDel('right')
+	elseif a:vmodeType ==# 'V'
+		execute "normal! `<V`>\"_c\<Esc>dd"
+		execute "normal! \<S-^>i"
+		call <SID>shiftBasedDel('right')
+	endif
 endfunction
 
 function! s:shiftBasedDel(dirction)
-    if a:dirction ==# 'right'
-        if col('.') !=# 1
-            execute "normal! l"
-        endif
-    endif
+	if a:dirction ==# 'right'
+		if col('.') !=# 1
+			execute "normal! l"
+		endif
+	endif
 endfunction
 
 function! s:attachAltKeyNotation(keyNotation)
-    if has('unix')
-        " check what key is alt by [Ctrl+V] and [Alt+f]
-        return "" . a:keyNotation
-    elseif has('win32')
-        return '<M-' . a:keyNotation . '>'
-    endif
+	if has('unix')
+		" check what key is alt by [Ctrl+V] and [Alt+f]
+		return "" . a:keyNotation
+	elseif has('win32')
+		return '<M-' . a:keyNotation . '>'
+	endif
 endfunction
 
 function! s:searchInVmode()
-    let temp = @s
-    norm! gv"sy
-    let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
-    let @s = temp
+	let temp = @s
+	norm! gv"sy
+	let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
+	let @s = temp
 endfunction
 
 function! s:replaceToRegister()
-    execute "%s//" . escape(@0, '/\') . "/g"
+	execute "%s//" . escape(@0, '/\') . "/g"
 endfunction
 
 function! s:replaceToRegisterInLastSelected()
-    execute "'<,'>s//" . escape(@0, '/\') . "/g"
+	execute "'<,'>s//" . escape(@0, '/\') . "/g"
 endfunction
 
 function! s:identifySID()
-    return matchstr(expand('<sfile>'), '.\+<SNR>\zs\d\+\ze.\+SID$')
+	return matchstr(expand('<sfile>'), '.\+<SNR>\zs\d\+\ze.\+SID$')
 endfunction
 
 function! s:jumpToUpperMark(markSymbol)
-    let currentFilePath = expand('%')
-    let upperCase = toupper(a:markSymbol)
-    execute 'normal! `' . upperCase
-    let jumpedFilePath = expand('%')
-    if jumpedFilePath !=# currentFilePath
-        execute "normal! `\"m" . upperCase . "zz"
-        return
-    endif
+	let currentFilePath = expand('%')
+	let upperCase = toupper(a:markSymbol)
+	execute 'normal! `' . upperCase
+	let jumpedFilePath = expand('%')
+	if jumpedFilePath !=# currentFilePath
+		execute "normal! `\"m" . upperCase . "zz"
+		return
+	endif
 endfunction
 
 runtime   macros/matchit.vim
 filetype  plugin indent on
-syntax    enable
-" highlight incsearch                                   ctermbg=Black
-" highlight Search                                      ctermbg=Yellow
-highlight CursorColumn cterm=NONE      ctermfg=NONE   ctermbg=238
+syntax	enable
+" highlight incsearch								   ctermbg=Black
+" highlight Search									  ctermbg=Yellow
+highlight CursorColumn cterm=NONE	  ctermfg=NONE   ctermbg=238
 highlight CursorLine   cterm=underline ctermfg=NONE   ctermbg=NONE
-highlight incsearch                    ctermfg=Yellow ctermbg=Black
-highlight Search                       ctermfg=Black  ctermbg=Yellow
+highlight incsearch					ctermfg=Yellow ctermbg=Black
+highlight Search					   ctermfg=Black  ctermbg=Yellow
 if has('win32')
-    set backspace=2
-    set backspace=indent,eol,start
+	set backspace=2
+	set backspace=indent,eol,start
 endif
 set autoindent
 set autoread
@@ -318,8 +318,8 @@ set ignorecase
 set incsearch
 set laststatus=2
 set list
-set listchars=tab:__,nbsp:%
-highlight WhiteSpaceBol ctermbg=blue
+set listchars=tab:\ \ ,nbsp:%
+highlight WhiteSpaceBol ctermbg=red
 match WhiteSpaceBol /^\t*\zs \+\ze\t*\|[^ ]*\zs \+\ze$/
 set matchtime=1
 set nobackup
@@ -438,7 +438,7 @@ nnoremap R <Nop>
 nnoremap U <Nop>
 nnoremap Y <Nop>
 nnoremap Z <Nop>
-"     need bash setting -> stty start(stop) undef
+"	 need bash setting -> stty start(stop) undef
 nnoremap <C-S> <Nop>
 vnoremap <C-S> <Nop>
 nnoremap <leader>a <Nop>
@@ -487,16 +487,16 @@ inoremap <expr> <C-K>   pumvisible() ? '<C-P>' : '<C-K>'
 inoremap <expr> <C-P>   pumvisible() ? '<C-P><C-P><C-P>' : '<C-P>'
 inoremap <expr> <C-N>   pumvisible() ? '<C-N><C-N><C-N>' : '<C-N>'
 for k in split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_', '\zs')
-    let t = string(k)
-    let f = string(k . "\<C-N>\<C-P>")
-    execute "inoremap <expr> " . k . " pumvisible() ? " . t . " : " . f
+	let t = string(k)
+	let f = string(k . "\<C-N>\<C-P>")
+	execute "inoremap <expr> " . k . " pumvisible() ? " . t . " : " . f
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
-    let u = toupper(l)
-    execut "nnoremap '" . l " :call " . "<SNR>" . s:identifySID() . "_" . "jumpToUpperMark(" . string(u) . ")" . "<CR>"
+	let u = toupper(l)
+	execut "nnoremap '" . l " :call " . "<SNR>" . s:identifySID() . "_" . "jumpToUpperMark(" . string(u) . ")" . "<CR>"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
-    execute "nnoremap ," . l . " `" . l . "zz"
+	execute "nnoremap ," . l . " `" . l . "zz"
 endfor
 " for abbreiviation.(conflict with autocomplete)
 inoremap <CR> <C-]><C-]><CR>
