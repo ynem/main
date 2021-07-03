@@ -1,30 +1,33 @@
 function! s:isCwdInProjectList(targetDir)
-    let currentDir = getcwd()
-    for p in a:targetDir
-        " if p ==# currentDir
-        if match(currentDir, p) !=# -1
-            return 1
-        endif
-    endfor
+	let currentDir = getcwd()
+	for p in a:targetDir
+		" if p ==# currentDir
+		if match(currentDir, p) !=# -1
+			return 1
+		endif
+	endfor
 
-    return 0
+	return 0
 endfunction
 
 " vim
 set history=100
 
 " web
-let euc_projects = ['/home/yuta/repo/trade-V2',
-                   \'/home/yuta/repo/jobm',
-                   \'/home/yuta/repo/hall']
+let euc_projects = [
+	\'/home/yuta/repo/trade-V2',
+	\'/home/yuta/repo/jobm',
+	\'/home/yuta/repo/hall'
+\]
+
 " https://stackoverflow.com/questions/39635841/vim-use-if-in-augroup
 augroup format-unix
-    autocmd!
-    if <SID>isCwdInProjectList(euc_projects)
-        autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp
-    else
-        autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=utf-8
-    endif
+	autocmd!
+	if <SID>isCwdInProjectList(euc_projects)
+		autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=euc-jp
+	else
+		autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=utf-8
+	endif
 augroup END
 
 " vba
@@ -41,8 +44,8 @@ nmap ga <Plug>(EasyAlign)
 
 " https://github.com/tpope/vim-commentary
 augroup comment_string
-    autocmd!
-    autocmd FileType vba setlocal commentstring='\ %s
+	autocmd!
+	autocmd FileType vba setlocal commentstring='\ %s
 augroup END
 
 " https://github.com/airblade/vim-gitgutter
@@ -55,18 +58,18 @@ nnoremap <leader>f :Files<CR>
 " https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 " https://stackoverflow.com/questions/56881048/how-to-get-clang-format-to-break-on-and
 let g:clang_format#style_options = {
-            \"AccessModifierOffset"                : -4,
-            \"AllowShortIfStatementsOnASingleLine" : "true",
-            \"AlwaysBreakTemplateDeclarations"     : "true",
-            \"Standard"                            : "C++11",
-            \"BreakBeforeBraces"                   : "Custom",
-            \"BraceWrapping"                       : {
-                                                         \"AfterFunction" : "true",
-                                                         \"AfterClass"    : "true",
-                                                     \},
-            \"BreakBeforeBinaryOperators"          : "All",
-            \"ColumnLimit"                         : "120",
-            \"IndentCaseLabels"                    : "false",
-            \"AlignConsecutiveAssignments"         : "true",
+\"AccessModifierOffset"			: -4,
+\"AllowShortIfStatementsOnASingleLine"	: "true",
+\"AlwaysBreakTemplateDeclarations"	: "true",
+\"Standard"				: "C++11",
+\"BreakBeforeBraces"			: "Custom",
+\"BraceWrapping"			: {
+						\"AfterFunction" : "true",
+						\"AfterClass"	 : "true",
+					\},
+\"BreakBeforeBinaryOperators"		: "All",
+\"ColumnLimit"				: "120",
+\"IndentCaseLabels"			: "false",
+\"AlignConsecutiveAssignments"		: "true",
 \}
 
