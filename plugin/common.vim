@@ -338,6 +338,7 @@ set wildmode=full
 set statusline=%f\ [%l/%L]
 set hidden
 set completeopt=menuone
+set mouse=c
 nnoremap i :call <SID>setFilePathLastInsert(expand('%'))<CR>i
 nnoremap I :call <SID>setFilePathLastInsert(expand('%'))<CR>I
 nnoremap a :call <SID>setFilePathLastInsert(expand('%'))<CR>a
