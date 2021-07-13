@@ -383,10 +383,10 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 nnoremap / /\v
-nnoremap * mm*N/<C-R>=@/ . '\C'<CR><CR>N
-xnoremap * mm:<C-U>call <SID>searchInVmode()<CR>/<C-R>=@/ . '\C'<CR><CR>N
+nnoremap * mI*N/<C-R>=@/ . '\C'<CR><CR>N
+xnoremap * mI:<C-U>call <SID>searchInVmode()<CR>/<C-R>=@/ . '\C'<CR><CR>N
 nnoremap # mm#N?<C-R>=@/ . '\C'<CR><CR>N
-xnoremap # mm:<C-U>call <SID>searchInVmode()<CR>?<C-R>=@/ . '\C'<CR><CR>N
+xnoremap # mI:<C-U>call <SID>searchInVmode()<CR>?<C-R>=@/ . '\C'<CR><CR>N
 nnoremap <C-P> "0p
 vnoremap <C-P> "0p
 nnoremap j gj
