@@ -499,6 +499,7 @@ for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	execute "nnoremap ," . l . " `" . l . "zz"
+	execute "vnoremap ," . l . " `" . l . "zz"
 endfor
 " for abbreiviation.(conflict with autocomplete)
 inoremap <CR> <C-]><C-]><CR>
