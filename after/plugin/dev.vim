@@ -1,13 +1,23 @@
-function! s:isCwdInProjectList(targetDir)
+function! s:isCwdInProjectList(projectList)
 	let currentDir = getcwd()
-	for p in a:targetDir
-		" if p ==# currentDir
-		if match(currentDir, p) !=# -1
+	for projectDir in a:projectList
+		" if projectDir ==# currentDir
+		if match(currentDir, projectDir) !=# -1
 			return 1
 		endif
 	endfor
 
 	return 0
+endfunction
+
+function! s:indentCheckConfig()
+	highlight WhiteSpaceBol ctermbg=red
+	let extension = expand('%:e')
+	if extension ==# 'htm'
+		match WhiteSpaceBol /^ *\zs\t\+\ze *\|[^\t]*\zs \+\ze$/
+	else
+		match WhiteSpaceBol /^\t*\zs \+\ze\t*\|[^ ]*\zs \+\ze$/
+	endif
 endfunction
 
 " vim
@@ -26,6 +36,8 @@ augroup format-unix
 		autocmd BufNewFile,BufRead *.php,*.js,*.html,*.htm e ++ff=unix ++enc=utf-8
 	endif
 augroup END
+
+autocmd BufEnter * call <SID>indentCheckConfig()
 
 " vba
 autocmd BufNewFile,BufRead *.bas,*.cls,*.frm e ++ff=dos ++enc=sjis
@@ -49,7 +61,7 @@ augroup END
 set updatetime=100
 
 " https://github.com/junegunn/fzf.vim
-nnoremap <leader>f :Files<CR>
+nnoremap <S-F> :Files<CR>
 
 " https://github.com/rhysd/vim-clang-format
 " https://clang.llvm.org/docs/ClangFormatStyleOptions.html

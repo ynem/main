@@ -29,7 +29,7 @@ function! s:openFileLastSelect()
 	endif
 endfunction
 
-function! s:putStrToLastInsertPoint(str)
+function! s:putStrToLastInsertPosition(str)
 	if <SID>getFilePathLastInsert() ==# ""
 		return
 	endif
@@ -45,7 +45,7 @@ function! s:putStrToLastInsertPoint(str)
 	let @0 = bak
 endfunction
 
-function! s:putStrToLastInsertPointInVmode(str, vmodeType)
+function! s:putStrToLastInsertPositionInVmode(str, vmodeType)
 	if <SID>getFilePathLastInsert() ==# ""
 		return
 	endif
@@ -89,7 +89,7 @@ function! s:moveToLastInsertPoint(markSymbol)
 		execute "normal! yiw"
 		execute "normal! \"_diw"
 		execute "e " . s:getFilePathLastInsert()
-		call <SID>putStrToLastInsertPoint(@0)
+		call <SID>putStrToLastInsertPosition(@0)
 		let @0 = bak
 		return
 	endif
@@ -102,14 +102,14 @@ function! s:moveToLastInsertPoint(markSymbol)
 	let targetRow = line('.')
 	let targetCol = col('.')
 	if currentRow !=# targetRow
-		call <SID>putStrToLastInsertPoint(@0)
+		call <SID>putStrToLastInsertPosition(@0)
 		call cursor(currentRow, currentCol)
 		execute "normal! \"_diw"
 		execute "normal! m" . a:markSymbol
 		execute "normal! i"
 		call cursor(targetRow, targetCol)
 	elseif currentCol < targetCol
-		call <SID>putStrToLastInsertPoint(@0)
+		call <SID>putStrToLastInsertPosition(@0)
 		call cursor(currentRow, currentCol)
 		execute "normal! \"_diw"
 		execute "normal! m" . a:markSymbol
@@ -117,7 +117,7 @@ function! s:moveToLastInsertPoint(markSymbol)
 		execute "normal! i"
 		call cursor(targetRow, (targetCol - len(@0)))
 	elseif currentCol > targetCol
-		call <SID>putStrToLastInsertPoint(@0)
+		call <SID>putStrToLastInsertPosition(@0)
 		call cursor(currentRow, (currentCol + len(@0)))
 		execute "normal! \"_diw"
 		execute "normal! m" . a:markSymbol
@@ -147,7 +147,7 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
 		execute "normal! gv\"0y"
 		execute "normal! gv\"_d"
 		execute "e " . s:getFilePathLastInsert()
-		call <SID>putStrToLastInsertPoint(@0)
+		call <SID>putStrToLastInsertPosition(@0)
 		let @0 = bak
 		return
 	endif
@@ -160,21 +160,21 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
 	let targetRow = line('.')
 	let targetCol = col('.')
 	if currentRow !=# targetRow
-		call <SID>putStrToLastInsertPoint(@0)
+		call <SID>putStrToLastInsertPosition(@0)
 		call cursor(currentRow, currentCol)
 		execute "normal! gv\"_d"
 		execute "normal! m" . a:markSymbol
 		execute "normal! i"
 		call cursor(targetRow, targetCol)
 	elseif currentCol < targetCol
-		call <SID>putStrToLastInsertPoint(@0)
+		call <SID>putStrToLastInsertPosition(@0)
 		call cursor(currentRow, currentCol)
 		execute "normal! gv\"_d"
 		execute "normal! m" . a:markSymbol
 		execute "normal! i"
 		call cursor(targetRow, (targetCol - len(@0)))
 	elseif currentCol > targetCol
-		call <SID>putStrToLastInsertPoint(@0)
+		call <SID>putStrToLastInsertPosition(@0)
 		call cursor(currentRow, (currentCol + len(@0)))
 		execute "normal! v" . (len(@0) - 1) . "l" . "\"_d"
 		execute "normal! m" . a:markSymbol
@@ -319,8 +319,6 @@ set incsearch
 set laststatus=2
 set list
 set listchars=tab:\ \ ,nbsp:%
-highlight WhiteSpaceBol ctermbg=red
-match WhiteSpaceBol /^\t*\zs \+\ze\t*\|[^ ]*\zs \+\ze$/
 set matchtime=1
 set nobackup
 set nocompatible
@@ -371,10 +369,10 @@ vnoremap x :<C-U>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"0di<Esc>`<
 nnoremap v :call <SID>setFilePathLastSelect(expand('%'))<CR>v
 nnoremap V :call <SID>setFilePathLastSelect(expand('%'))<CR>V
 nnoremap <C-V> :call <SID>setFilePathLastSelect(expand('%'))<CR><C-V>
-nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>
-vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>
-nnoremap <leader>i "0yiwmO:call <SID>putStrToLastInsertPoint(@0)<CR>a
-vnoremap <leader>i "0ymO:call <SID>putStrToLastInsertPointInVmode(@0, visualmode())<CR>a
+nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInsertPosition(@0)<CR>
+vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertPositionInVmode(@0, visualmode())<CR>
+nnoremap <leader>i "0yiwmO:call <SID>putStrToLastInsertPosition(@0)<CR>a
+vnoremap <leader>i "0ymO:call <SID>putStrToLastInsertPositionInVmode(@0, visualmode())<CR>a
 nnoremap <leader>j "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`O
 vnoremap <leader>j "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`O
 nnoremap <leader>c :call <SID>moveToLastInsertPoint('O')<CR>
@@ -394,7 +392,7 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 nnoremap <leader>y <S-j>
-nnoremap <leader>f :find *
+nnoremap <S-F> :find *
 nnoremap <S-j> 10gj
 nnoremap <S-k> 10gk
 vnoremap <S-j> 10gj
@@ -413,6 +411,8 @@ vnoremap <C-H> g<S-^>
 vnoremap <C-N> g<S-$><Left>
 nnoremap <leader>n g<S-$>F
 vnoremap <leader>n g<S-$><Left>F
+nnoremap <leader>f F
+vnoremap <leader>f F
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
