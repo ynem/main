@@ -1,3 +1,10 @@
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+" Avoid side effects when it was already reset.
+if &compatible
+	set nocompatible
+endif
+
 let mapleader			= "\<Space>"
 let s:filePathLastInsert = ""
 let s:filePathLastSelect = ""
@@ -297,16 +304,11 @@ endfunction
 runtime   macros/matchit.vim
 filetype  plugin indent on
 syntax	enable
-" highlight incsearch								   ctermbg=Black
-" highlight Search									  ctermbg=Yellow
-highlight CursorColumn cterm=NONE	  ctermfg=NONE   ctermbg=238
+highlight CursorColumn cterm=NONE      ctermfg=NONE   ctermbg=238
 highlight CursorLine   cterm=underline ctermfg=NONE   ctermbg=NONE
-highlight incsearch					ctermfg=Yellow ctermbg=Black
-highlight Search					   ctermfg=Black  ctermbg=Yellow
-if has('win32')
-	set backspace=2
-	set backspace=indent,eol,start
-endif
+highlight incsearch                    ctermfg=Yellow ctermbg=Black
+highlight Search                       ctermfg=Black  ctermbg=Yellow
+set backspace=indent,eol,start
 set autoindent
 set autoread
 set cursorcolumn
@@ -321,7 +323,6 @@ set list
 set listchars=tab:\ \ ,nbsp:%
 set matchtime=1
 set nobackup
-set nocompatible
 set number
 set pastetoggle=<f5>
 set ruler

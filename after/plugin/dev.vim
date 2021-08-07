@@ -21,7 +21,7 @@ function! s:indentCheckConfig()
 endfunction
 
 " vim
-set history=100
+set history=200
 
 " web
 let euc_projects = [
