@@ -61,7 +61,7 @@ augroup END
 set updatetime=100
 
 " https://github.com/junegunn/fzf.vim
-nnoremap <S-F> :Files<CR>
+nnoremap F :Files<CR>
 
 " https://github.com/rhysd/vim-clang-format
 " https://clang.llvm.org/docs/ClangFormatStyleOptions.html
