@@ -6,44 +6,44 @@ if &compatible
 endif
 
 let mapleader            = "\<Space>"
-let s:filePathLastInsert = ""
-let s:filePathLastSelect = ""
+let s:filePathInsertedAtLast = ""
+let s:filePathSelectedAtLast = ""
 
-function! s:setFilePathLastInsert(filePath)
-	let s:filePathLastInsert = a:filePath
+function! s:setFilePathInsertedAtLast(filePath)
+	let s:filePathInsertedAtLast = a:filePath
 endfunction
 
-function! s:getFilePathLastInsert()
-	return s:filePathLastInsert
+function! s:getFilePathInsertedAtLast()
+	return s:filePathInsertedAtLast
 endfunction
 
 function! s:setFilePathLastSelect(filePath)
-	let s:filePathLastSelect = a:filePath
+	let s:filePathSelectedAtLast = a:filePath
 endfunction
 
-function! s:getFilePathLastSelect()
-	return s:filePathLastSelect
+function! s:getFilePathSelectedAtLast()
+	return s:filePathSelectedAtLast
 endfunction
 
-function! s:openFileLastSelect()
-	if <SID>getFilePathLastSelect() ==# ""
+function! s:openFileSelectedAtLast()
+	if <SID>getFilePathSelectedAtLast() ==# ""
 		return
 	endif
 
 	let currentFilePath = expand('%')
-	if <SID>getFilePathLastSelect() !=# currentFilePath
-		execute "e " . s:getFilePathLastSelect()
+	if <SID>getFilePathSelectedAtLast() !=# currentFilePath
+		execute "e " . s:getFilePathSelectedAtLast()
 	endif
 endfunction
 
-function! s:putStrToLastInsertPosition(str)
-	if <SID>getFilePathLastInsert() ==# ""
+function! s:putStrToLastInserted(str)
+	if <SID>getFilePathInsertedAtLast() ==# ""
 		return
 	endif
 
 	let currentFilePath = expand('%')
-	if <SID>getFilePathLastInsert() !=# currentFilePath
-		execute "e " . s:getFilePathLastInsert()
+	if <SID>getFilePathInsertedAtLast() !=# currentFilePath
+		execute "e " . s:getFilePathInsertedAtLast()
 	endif
 
 	let bak = @0
@@ -52,14 +52,14 @@ function! s:putStrToLastInsertPosition(str)
 	let @0 = bak
 endfunction
 
-function! s:putStrToLastInsertPositionInVmode(str, vmodeType)
-	if <SID>getFilePathLastInsert() ==# ""
+function! s:putStrToLastInsertedInVmode(str, vmodeType)
+	if <SID>getFilePathInsertedAtLast() ==# ""
 		return
 	endif
 
 	let currentFilePath = expand('%')
-	if <SID>getFilePathLastInsert() !=# currentFilePath
-		execute "e " . s:getFilePathLastInsert()
+	if <SID>getFilePathInsertedAtLast() !=# currentFilePath
+		execute "e " . s:getFilePathInsertedAtLast()
 	endif
 
 	let bak = @0
@@ -74,29 +74,18 @@ function! s:putStrToLastInsertPositionInVmode(str, vmodeType)
 	let @0 = bak
 endfunction
 
-function! s:openLastInsertPoint()
-	if <SID>getFilePathLastInsert() ==# ""
-		return
-	endif
-
-	let currentFilePath = expand('%')
-	if <SID>getFilePathLastInsert() !=# currentFilePath
-		execute "e " . s:getFilePathLastInsert()
-	endif
-endfunction
-
-function! s:moveToLastInsertPoint(markSymbol)
-	if <SID>getFilePathLastInsert() ==# ""
+function! s:moveToLastInserted(markSymbol)
+	if <SID>getFilePathInsertedAtLast() ==# ""
 		return
 	endif
 
 	let bak = @0
 	let currentFilePath = expand('%')
-	if <SID>getFilePathLastInsert() !=# currentFilePath
+	if <SID>getFilePathInsertedAtLast() !=# currentFilePath
 		execute "normal! yiw"
 		execute "normal! \"_diw"
-		execute "e " . s:getFilePathLastInsert()
-		call <SID>putStrToLastInsertPosition(@0)
+		execute "e " . s:getFilePathInsertedAtLast()
+		call <SID>putStrToLastInserted(@0)
 		let @0 = bak
 		return
 	endif
@@ -105,18 +94,18 @@ function! s:moveToLastInsertPoint(markSymbol)
 	let currentRow = line('.')
 	let currentCol = col('.')
 	execute "normal! gi"
-	call <SID>shiftBasedDel('right')
+	call <SID>adjustPositionBasedDel('right')
 	let targetRow = line('.')
 	let targetCol = col('.')
 	if currentRow !=# targetRow
-		call <SID>putStrToLastInsertPosition(@0)
+		call <SID>putStrToLastInserted(@0)
 		call cursor(currentRow, currentCol)
 		execute "normal! \"_diw"
 		execute "normal! m" . a:markSymbol
 		execute "normal! i"
 		call cursor(targetRow, targetCol)
 	elseif currentCol < targetCol
-		call <SID>putStrToLastInsertPosition(@0)
+		call <SID>putStrToLastInserted(@0)
 		call cursor(currentRow, currentCol)
 		execute "normal! \"_diw"
 		execute "normal! m" . a:markSymbol
@@ -124,7 +113,7 @@ function! s:moveToLastInsertPoint(markSymbol)
 		execute "normal! i"
 		call cursor(targetRow, (targetCol - len(@0)))
 	elseif currentCol > targetCol
-		call <SID>putStrToLastInsertPosition(@0)
+		call <SID>putStrToLastInserted(@0)
 		call cursor(currentRow, (currentCol + len(@0)))
 		execute "normal! \"_diw"
 		execute "normal! m" . a:markSymbol
@@ -135,26 +124,26 @@ function! s:moveToLastInsertPoint(markSymbol)
 	let @0 = bak
 endfunction
 
-function! s:moveToLastInsertPointInVmode(markSymbol, vmodeType)
+function! s:moveToLastInsertedInVmode(markSymbol, vmodeType)
 	if a:vmodeType ==# 'v'
-		call <SID>moveToLastInsertPointInVmodeCharWise(a:markSymbol)
+		call <SID>moveToLastInseredInVmodeCharWise(a:markSymbol)
 	elseif a:vmodeType ==# 'V'
-		call <SID>moveToLastInsertPointInVmodeLineWise(a:markSymbol)
+		call <SID>moveToLastInsertedInVmodeLineWise(a:markSymbol)
 	endif
 endfunction
 
-function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
-	if <SID>getFilePathLastInsert() ==# ""
+function! s:moveToLastInseredInVmodeCharWise(markSymbol)
+	if <SID>getFilePathInsertedAtLast() ==# ""
 		return
 	endif
 
 	let bak = @0
 	let currentFilePath = expand('%')
-	if <SID>getFilePathLastInsert() !=# currentFilePath
+	if <SID>getFilePathInsertedAtLast() !=# currentFilePath
 		execute "normal! gv\"0y"
 		execute "normal! gv\"_d"
-		execute "e " . s:getFilePathLastInsert()
-		call <SID>putStrToLastInsertPosition(@0)
+		execute "e " . s:getFilePathInsertedAtLast()
+		call <SID>putStrToLastInserted(@0)
 		let @0 = bak
 		return
 	endif
@@ -163,25 +152,25 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
 	let currentRow = line('.')
 	let currentCol = col('.')
 	execute "normal! gi"
-	call <SID>shiftBasedDel('right')
+	call <SID>adjustPositionBasedDel('right')
 	let targetRow = line('.')
 	let targetCol = col('.')
 	if currentRow !=# targetRow
-		call <SID>putStrToLastInsertPosition(@0)
+		call <SID>putStrToLastInserted(@0)
 		call cursor(currentRow, currentCol)
 		execute "normal! gv\"_d"
 		execute "normal! m" . a:markSymbol
 		execute "normal! i"
 		call cursor(targetRow, targetCol)
 	elseif currentCol < targetCol
-		call <SID>putStrToLastInsertPosition(@0)
+		call <SID>putStrToLastInserted(@0)
 		call cursor(currentRow, currentCol)
 		execute "normal! gv\"_d"
 		execute "normal! m" . a:markSymbol
 		execute "normal! i"
 		call cursor(targetRow, (targetCol - len(@0)))
 	elseif currentCol > targetCol
-		call <SID>putStrToLastInsertPosition(@0)
+		call <SID>putStrToLastInserted(@0)
 		call cursor(currentRow, (currentCol + len(@0)))
 		execute "normal! v" . (len(@0) - 1) . "l" . "\"_d"
 		execute "normal! m" . a:markSymbol
@@ -192,21 +181,21 @@ function! s:moveToLastInsertPointInVmodeCharWise(markSymbol)
 	let @0 = bak
 endfunction
 
-function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
-	if <SID>getFilePathLastInsert() ==# ""
+function! s:moveToLastInsertedInVmodeLineWise(markSymbol)
+	if <SID>getFilePathInsertedAtLast() ==# ""
 		return
 	endif
 
 	let bak = @0
 	let currentFilePath = expand('%')
-	if <SID>getFilePathLastInsert() !=# currentFilePath
+	if <SID>getFilePathInsertedAtLast() !=# currentFilePath
 		execute "normal! gv\"0y"
 		execute "normal! gv\"_d"
 		execute "normal! i"
-		call <SID>shiftBasedDel('right')
+		call <SID>adjustPositionBasedDel('right')
 		execute "normal! m" . a:markSymbol
-		execute "e " . s:getFilePathLastInsert()
-		call <SID>setFilePathLastInsert(currentFilePath)
+		execute "e " . s:getFilePathInsertedAtLast()
+		call <SID>setFilePathInsertedAtLast(currentFilePath)
 		execute "normal! gi\<C-R>\<C-P>0"
 		execute "normal! ddk\$"
 		let @0 = bak
@@ -224,7 +213,7 @@ function! s:moveToLastInsertPointInVmodeLineWise(markSymbol)
 	call cursor(currentRow, currentCol)
 
 	execute "normal! gi"
-	call <SID>shiftBasedDel('right')
+	call <SID>adjustPositionBasedDel('right')
 	let targetRow = line('.')
 	let targetCol = col('.')
 
@@ -246,15 +235,15 @@ endfunction
 function! s:delInVmode(vmodeType)
 	if a:vmodeType ==# 'v'
 		execute "normal! `<v`>\"_c"
-		call <SID>shiftBasedDel('right')
+		call <SID>adjustPositionBasedDel('right')
 	elseif a:vmodeType ==# 'V'
 		execute "normal! `<V`>\"_c\<Esc>dd"
 		execute "normal! \<S-^>i"
-		call <SID>shiftBasedDel('right')
+		call <SID>adjustPositionBasedDel('right')
 	endif
 endfunction
 
-function! s:shiftBasedDel(dirction)
+function! s:adjustPositionBasedDel(dirction)
 	if a:dirction ==# 'right'
 		if col('.') !=# 1
 			execute "normal! l"
@@ -262,7 +251,7 @@ function! s:shiftBasedDel(dirction)
 	endif
 endfunction
 
-function! s:attachAltKeyNotation(keyNotation)
+function! s:createKeyNotationWithAlt(keyNotation)
 	if has('unix')
 		" check what key is alt by [Ctrl+V] and [Alt+f]
 		return "" . a:keyNotation
@@ -301,9 +290,9 @@ function! s:jumpToUpperMark(markSymbol)
 	endif
 endfunction
 
-runtime   macros/matchit.vim
-filetype  plugin indent on
-syntax	enable
+runtime macros/matchit.vim
+filetype plugin indent on
+syntax enable
 highlight CursorColumn cterm=NONE      ctermfg=NONE   ctermbg=238
 highlight CursorLine   cterm=underline ctermfg=NONE   ctermbg=NONE
 highlight incsearch                    ctermfg=Yellow ctermbg=Black
@@ -338,46 +327,46 @@ set statusline=%f\ [%l/%L]
 set hidden
 set completeopt=menuone
 set mouse=c
-nnoremap i :call <SID>setFilePathLastInsert(expand('%'))<CR>i
-nnoremap I :call <SID>setFilePathLastInsert(expand('%'))<CR>I
-nnoremap a :call <SID>setFilePathLastInsert(expand('%'))<CR>a
-nnoremap A :call <SID>setFilePathLastInsert(expand('%'))<CR>A
-nnoremap gi :call <SID>setFilePathLastInsert(expand('%'))<CR>gi
-nnoremap cv :call <SID>setFilePathLastInsert(expand('%'))<CR>ciw
-nnoremap cw :call <SID>setFilePathLastInsert(expand('%'))<CR>cw
-nnoremap ciw :call <SID>setFilePathLastInsert(expand('%'))<CR>ciw
-nnoremap cc :call <SID>setFilePathLastInsert(expand('%'))<CR>cc
-nnoremap C :call <SID>setFilePathLastInsert(expand('%'))<CR>C
-vnoremap c :<C-U>call <SID>setFilePathLastInsert(expand('%'))<CR>gvc
-nnoremap s :call <SID>setFilePathLastInsert(expand('%'))<CR>s
-nnoremap S :call <SID>setFilePathLastInsert(expand('%'))<CR>S
-vnoremap s :<C-U>call <SID>setFilePathLastInsert(expand('%'))<CR>gvs
-nnoremap o :call <SID>setFilePathLastInsert(expand('%'))<CR>o
-nnoremap O :call <SID>setFilePathLastInsert(expand('%'))<CR>O
-nnoremap dw "_cw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
-nnoremap diw "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
-nnoremap di( "_ci(<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
-nnoremap di) "_ci)<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
-nnoremap di[ "_ci[<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
-nnoremap di] "_ci]<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
-nnoremap di< "_ci<<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
-nnoremap di> "_ci><Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
-nnoremap df "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%')) \| call <SID>shiftBasedDel('right')<CR>
-nnoremap D :call <SID>setFilePathLastInsert(expand('%'))<CR>"_C<Esc>
-vnoremap d :<C-U>call <SID>setFilePathLastInsert(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
-nnoremap X :call <SID>setFilePathLastInsert(expand('%'))<CR>V"0di<Esc>`<
-vnoremap x :<C-U>call <SID>setFilePathLastInsert(expand('%'))<CR>gv"0di<Esc>`<
+nnoremap i :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>i
+nnoremap I :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>I
+nnoremap a :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>a
+nnoremap A :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>A
+nnoremap gi :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>gi
+nnoremap cv :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>ciw
+nnoremap cw :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>cw
+nnoremap ciw :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>ciw
+nnoremap cc :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>cc
+nnoremap C :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>C
+vnoremap c :<C-U>call <SID>setFilePathInsertedAtLast(expand('%'))<CR>gvc
+nnoremap s :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>s
+nnoremap S :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>S
+vnoremap s :<C-U>call <SID>setFilePathInsertedAtLast(expand('%'))<CR>gvs
+nnoremap o :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>o
+nnoremap O :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>O
+nnoremap dw "_cw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
+nnoremap diw "_ciw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
+nnoremap di( "_ci(<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
+nnoremap di) "_ci)<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
+nnoremap di[ "_ci[<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
+nnoremap di] "_ci]<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
+nnoremap di< "_ci<<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
+nnoremap di> "_ci><Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
+nnoremap df "_ciw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
+nnoremap D :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>"_C<Esc>
+vnoremap d :<C-U>call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
+nnoremap X :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>V"0di<Esc>`<
+vnoremap x :<C-U>call <SID>setFilePathInsertedAtLast(expand('%'))<CR>gv"0di<Esc>`<
 nnoremap v :call <SID>setFilePathLastSelect(expand('%'))<CR>v
 nnoremap V :call <SID>setFilePathLastSelect(expand('%'))<CR>V
 nnoremap <C-V> :call <SID>setFilePathLastSelect(expand('%'))<CR><C-V>
-nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInsertPosition(@0)<CR>
-vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertPositionInVmode(@0, visualmode())<CR>
-nnoremap <leader>i "0yiwmO:call <SID>putStrToLastInsertPosition(@0)<CR>a
-vnoremap <leader>i "0ymO:call <SID>putStrToLastInsertPositionInVmode(@0, visualmode())<CR>a
-nnoremap <leader>j "_ciw<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`O
-vnoremap <leader>j "_c<Esc>:call <SID>setFilePathLastInsert(expand('%'))<CR>`O
-nnoremap <leader>c :call <SID>moveToLastInsertPoint('O')<CR>
-vnoremap <leader>c :<C-U>call <SID>moveToLastInsertPointInVmode('O', visualmode())<CR>
+nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInserted(@0)<CR>
+vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertedInVmode(@0, visualmode())<CR>
+nnoremap <leader>i "0yiwmO:call <SID>putStrToLastInserted(@0)<CR>a
+vnoremap <leader>i "0ymO:call <SID>putStrToLastInsertedInVmode(@0, visualmode())<CR>a
+nnoremap <leader>j "_ciw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%'))<CR>`O
+vnoremap <leader>j "_c<Esc>:call <SID>setFilePathInsertedAtLast(expand('%'))<CR>`O
+nnoremap <leader>c :call <SID>moveToLastInserted('O')<CR>
+vnoremap <leader>c :<C-U>call <SID>moveToLastInsertedInVmode('O', visualmode())<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
@@ -460,7 +449,7 @@ nnoremap <leader>' <Nop>
 inoremap jk <C-]><C-]><Space><C-H><Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap <leader>; <C-^>`"zz
-nnoremap <leader>k :call <SID>openFileLastSelect()<CR>gv
+nnoremap <leader>k :call <SID>openFileSelectedAtLast()<CR>gv
 vnoremap <leader>k <Esc>
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
 nmap - <Plug>NetrwBrowseUpDir
@@ -474,14 +463,14 @@ cnoremap <C-B> <Left>
 cnoremap <C-F> <Right>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
-execute "cnoremap " . s:attachAltKeyNotation('b') . " <C-Left>"
-execute "cnoremap " . s:attachAltKeyNotation('f') . " <C-Right>"
+execute "cnoremap " . s:createKeyNotationWithAlt('b') . " <C-Left>"
+execute "cnoremap " . s:createKeyNotationWithAlt('f') . " <C-Right>"
 cnoremap <C-O> <C-F>
 " buf control map
-execute "nnoremap <silent>" . s:attachAltKeyNotation('k') . " :bprevious\<CR>"
-execute "nnoremap <silent>" . s:attachAltKeyNotation('j') . " :bnext\<CR>"
-execute "nnoremap <silent>" . s:attachAltKeyNotation('h') . " :bfirst\<CR>"
-execute "nnoremap <silent>" . s:attachAltKeyNotation('n') . " :blast\<CR>"
+execute "nnoremap <silent>" . s:createKeyNotationWithAlt('k') . " :bprevious\<CR>"
+execute "nnoremap <silent>" . s:createKeyNotationWithAlt('j') . " :bnext\<CR>"
+execute "nnoremap <silent>" . s:createKeyNotationWithAlt('h') . " :bfirst\<CR>"
+execute "nnoremap <silent>" . s:createKeyNotationWithAlt('n') . " :blast\<CR>"
 " complete
 inoremap <expr> <Tab>   pumvisible() ? '<C-N>' : '<Tab>'
 inoremap <expr> <S-Tab> pumvisible() ? '<C-P>' : '<Tab>'
