@@ -5,7 +5,7 @@ if &compatible
 	set nocompatible
 endif
 
-let mapleader			= "\<Space>"
+let mapleader            = "\<Space>"
 let s:filePathLastInsert = ""
 let s:filePathLastSelect = ""
 
