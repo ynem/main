@@ -338,7 +338,7 @@ nnoremap ciw :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>ciw
 nnoremap cc :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>cc
 nnoremap C :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>C
 vnoremap c :<C-U>call <SID>setFilePathInsertedAtLast(expand('%'))<CR>gvc
-nnoremap s :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>s
+" nnoremap s :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>s
 nnoremap S :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>S
 vnoremap s :<C-U>call <SID>setFilePathInsertedAtLast(expand('%'))<CR>gvs
 nnoremap o :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>o
@@ -358,6 +358,7 @@ nnoremap X :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>V"0di<Esc>`<
 vnoremap x :<C-U>call <SID>setFilePathInsertedAtLast(expand('%'))<CR>gv"0di<Esc>`<
 nnoremap v :call <SID>setFilePathSelectedAtLast(expand('%'))<CR>v
 nnoremap V :call <SID>setFilePathSelectedAtLast(expand('%'))<CR>V
+nnoremap s F
 nnoremap <C-V> :call <SID>setFilePathSelectedAtLast(expand('%'))<CR><C-V>
 nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInserted(@0)<CR>
 vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertedInVmode(@0, visualmode())<CR>
