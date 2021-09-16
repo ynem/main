@@ -43,7 +43,7 @@ autocmd BufEnter * call <SID>indentCheckConfig()
 autocmd BufNewFile,BufRead *.bas,*.cls,*.frm e ++ff=dos ++enc=sjis
 
 " grep
-nnoremap <leader>d :call grep#do('', '.')<Left><Left><Left><Left><Left><Left><Left>
+nnoremap S :call grep#do('', '.')<Left><Left><Left><Left><Left><Left><Left>
 nnoremap <leader>g :set operatorfunc=grep#doByOperator<cr>g@
 vnoremap <leader>g :<c-u>call grep#doByOperator(visualmode())<cr>
 

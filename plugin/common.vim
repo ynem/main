@@ -359,6 +359,7 @@ vnoremap x :<C-U>call <SID>setFilePathInsertedAtLast(expand('%'))<CR>gv"0di<Esc>
 nnoremap v :call <SID>setFilePathSelectedAtLast(expand('%'))<CR>v
 nnoremap V :call <SID>setFilePathSelectedAtLast(expand('%'))<CR>V
 nnoremap s F
+vnoremap s F
 nnoremap <C-V> :call <SID>setFilePathSelectedAtLast(expand('%'))<CR><C-V>
 nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInserted(@0)<CR>
 vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertedInVmode(@0, visualmode())<CR>
@@ -402,8 +403,6 @@ vnoremap <C-H> g<S-^>
 vnoremap <C-N> g<S-$><Left>
 nnoremap <leader>n g<S-$>F
 vnoremap <leader>n g<S-$><Left>F
-nnoremap <leader>f F
-vnoremap <leader>f F
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
@@ -437,6 +436,7 @@ nnoremap <C-S> <Nop>
 vnoremap <C-S> <Nop>
 nnoremap <leader>a <Nop>
 nnoremap <leader>b <Nop>
+nnoremap <leader>f <Nop>
 nnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 nnoremap <leader>h <Nop>
