@@ -492,7 +492,10 @@ for k in split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_', '\zs')
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	let u = toupper(l)
-	execut "nnoremap '" . l " :call " . "<SNR>" . s:identifySID() . "_" . "jumpToUpperMark(" . string(u) . ")" . "<CR>" . " " . "26\<C-E>"
+	execut
+		\ "nnoremap '" . l . " " .
+		\ ":call <SNR>" . s:identifySID() . "_" .
+		\ "jumpToUpperMark(" . string(u) . ")" . "<CR>" . " " . "26\<C-E>"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	execute "nnoremap ," . l . " `" . l . "zz" . ":call " . "<SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
