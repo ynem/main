@@ -488,8 +488,8 @@ for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	execut "nnoremap '" . l " :call " . "<SNR>" . s:identifySID() . "_" . "jumpToUpperMark(" . string(u) . ")" . "<CR>"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
-	execute "nnoremap ," . l . " `" . l . "zz"
-	execute "vnoremap ," . l . " `" . l . "zz"
+	execute "nnoremap ," . l . " `" . l . "zz" . "26\<C-E>"
+	execute "vnoremap ," . l . " `" . l . "zz" . "26\<C-E>"
 endfor
 " for abbreiviation.(conflict with autocomplete)
 inoremap <CR> <C-]><C-]><CR>
