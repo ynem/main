@@ -94,7 +94,7 @@ function! s:moveToLastInserted(markSymbol)
 	let currentRow = line('.')
 	let currentCol = col('.')
 	execute "normal! gi"
-	call <SID>adjustPositionBasedDel('right')
+	call <SID>adjustColPositionBasedDel('right')
 	let targetRow = line('.')
 	let targetCol = col('.')
 	if currentRow !=# targetRow
@@ -152,7 +152,7 @@ function! s:moveToLastInseredInVmodeCharWise(markSymbol)
 	let currentRow = line('.')
 	let currentCol = col('.')
 	execute "normal! gi"
-	call <SID>adjustPositionBasedDel('right')
+	call <SID>adjustColPositionBasedDel('right')
 	let targetRow = line('.')
 	let targetCol = col('.')
 	if currentRow !=# targetRow
@@ -192,7 +192,7 @@ function! s:moveToLastInsertedInVmodeLineWise(markSymbol)
 		execute "normal! gv\"0y"
 		execute "normal! gv\"_d"
 		execute "normal! i"
-		call <SID>adjustPositionBasedDel('right')
+		call <SID>adjustColPositionBasedDel('right')
 		execute "normal! m" . a:markSymbol
 		execute "e " . s:getFilePathInsertedAtLast()
 		call <SID>setFilePathInsertedAtLast(currentFilePath)
@@ -213,7 +213,7 @@ function! s:moveToLastInsertedInVmodeLineWise(markSymbol)
 	call cursor(currentRow, currentCol)
 
 	execute "normal! gi"
-	call <SID>adjustPositionBasedDel('right')
+	call <SID>adjustColPositionBasedDel('right')
 	let targetRow = line('.')
 	let targetCol = col('.')
 
@@ -235,15 +235,15 @@ endfunction
 function! s:delInVmode(vmodeType)
 	if a:vmodeType ==# 'v'
 		execute "normal! `<v`>\"_c"
-		call <SID>adjustPositionBasedDel('right')
+		call <SID>adjustColPositionBasedDel('right')
 	elseif a:vmodeType ==# 'V'
 		execute "normal! `<V`>\"_c\<Esc>dd"
 		execute "normal! \<S-^>i"
-		call <SID>adjustPositionBasedDel('right')
+		call <SID>adjustColPositionBasedDel('right')
 	endif
 endfunction
 
-function! s:adjustPositionBasedDel(dirction)
+function! s:adjustColPositionBasedDel(dirction)
 	if a:dirction ==# 'right'
 		if col('.') !=# 1
 			execute "normal! l"
@@ -286,6 +286,13 @@ function! s:jumpToUpperMark(markSymbol)
 	let jumpedFilePath = expand('%')
 	if jumpedFilePath !=# currentFilePath
 		execute "normal! `\"m" . upperCase . "zz"
+		return
+	endif
+endfunction
+
+function! s:adjustRowPosition()
+	if line('.') > 30
+		execute "normal! 30\<C-E>"
 		return
 	endif
 endfunction
@@ -343,15 +350,15 @@ nnoremap S :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>S
 vnoremap s :<C-U>call <SID>setFilePathInsertedAtLast(expand('%'))<CR>gvs
 nnoremap o :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>o
 nnoremap O :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>O
-nnoremap dw "_cw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
-nnoremap diw "_ciw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
-nnoremap di( "_ci(<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
-nnoremap di) "_ci)<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
-nnoremap di[ "_ci[<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
-nnoremap di] "_ci]<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
-nnoremap di< "_ci<<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
-nnoremap di> "_ci><Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
-nnoremap df "_ciw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustPositionBasedDel('right')<CR>
+nnoremap dw "_cw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
+nnoremap diw "_ciw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
+nnoremap di( "_ci(<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
+nnoremap di) "_ci)<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
+nnoremap di[ "_ci[<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
+nnoremap di] "_ci]<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
+nnoremap di< "_ci<<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
+nnoremap di> "_ci><Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
+nnoremap df "_ciw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
 nnoremap D :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>"_C<Esc>
 vnoremap d :<C-U>call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
 nnoremap X :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>V"0di<Esc>`<
@@ -485,11 +492,11 @@ for k in split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_', '\zs')
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	let u = toupper(l)
-	execut "nnoremap '" . l " :call " . "<SNR>" . s:identifySID() . "_" . "jumpToUpperMark(" . string(u) . ")" . "<CR>"
+	execut "nnoremap '" . l " :call " . "<SNR>" . s:identifySID() . "_" . "jumpToUpperMark(" . string(u) . ")" . "<CR>" . " " . "26\<C-E>"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
-	execute "nnoremap ," . l . " `" . l . "zz" . "26\<C-E>"
-	execute "vnoremap ," . l . " `" . l . "zz" . "26\<C-E>"
+	execute "nnoremap ," . l . " `" . l . "zz" . ":call " . "<SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
+	execute "vnoremap ," . l . " `" . l . "zz" . ":call " . "<SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
 endfor
 " for abbreiviation.(conflict with autocomplete)
 inoremap <CR> <C-]><C-]><CR>
