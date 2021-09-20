@@ -498,8 +498,12 @@ for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 		\ "jumpToUpperMark(" . string(u) . ")" . "<CR>" . " " . "26\<C-E>"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
-	execute "nnoremap ," . l . " `" . l . "zz" . ":call " . "<SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
-	execute "vnoremap ," . l . " `" . l . "zz" . ":call " . "<SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
+	execute
+		\ "nnoremap ," . l . " `" . l . "zz" .
+		\ ":call " . "<SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
+	execute
+		\ "vnoremap ," . l . " `" . l . "zz" .
+		\ ":call " . "<SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
 endfor
 " for abbreiviation.(conflict with autocomplete)
 inoremap <CR> <C-]><C-]><CR>
