@@ -495,7 +495,8 @@ for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	execut
 		\ "nnoremap '" . l . " " .
 		\ ":call <SNR>" . s:identifySID() . "_" .
-		\ "jumpToUpperMark(" . string(u) . ")" . "<CR>" . " " . "26\<C-E>"
+		\ "jumpToUpperMark(" . string(u) . ")" . "<CR>"
+		\ ":call <SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	execute
