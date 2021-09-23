@@ -368,12 +368,12 @@ nnoremap V :call <SID>setFilePathSelectedAtLast(expand('%'))<CR>V
 nnoremap s F
 vnoremap s F
 nnoremap <C-V> :call <SID>setFilePathSelectedAtLast(expand('%'))<CR><C-V>
-nnoremap <leader>p "0yiwmO:call <SID>putStrToLastInserted(@0)<CR>
-vnoremap <leader>p "0ymO:call <SID>putStrToLastInsertedInVmode(@0, visualmode())<CR>
-nnoremap <leader>i "0yiwmO:call <SID>putStrToLastInserted(@0)<CR>a
-vnoremap <leader>i "0ymO:call <SID>putStrToLastInsertedInVmode(@0, visualmode())<CR>a
-nnoremap <leader>j "_ciw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%'))<CR>`O
-vnoremap <leader>j "_c<Esc>:call <SID>setFilePathInsertedAtLast(expand('%'))<CR>`O
+nnoremap <leader>k "0yiwmO:call <SID>putStrToLastInserted(@0)<CR>
+vnoremap <leader>k "0ymO:call <SID>putStrToLastInsertedInVmode(@0, visualmode())<CR>
+nnoremap <leader>j "0yiwmO:call <SID>putStrToLastInserted(@0)<CR>a
+vnoremap <leader>j "0ymO:call <SID>putStrToLastInsertedInVmode(@0, visualmode())<CR>a
+" nnoremap <leader>j "_ciw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%'))<CR>`O
+" vnoremap <leader>j "_c<Esc>:call <SID>setFilePathInsertedAtLast(expand('%'))<CR>`O
 nnoremap <leader>c :call <SID>moveToLastInserted('O')<CR>
 vnoremap <leader>c :<C-U>call <SID>moveToLastInsertedInVmode('O', visualmode())<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
@@ -442,22 +442,35 @@ nnoremap Z <Nop>
 nnoremap <C-S> <Nop>
 vnoremap <C-S> <Nop>
 nnoremap <leader>a <Nop>
+vnoremap <leader>a <Nop>
 nnoremap <leader>b <Nop>
+vnoremap <leader>b <Nop>
 nnoremap <leader>u <Nop>
+vnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
+vnoremap <leader>t <Nop>
 nnoremap <leader>h <Nop>
+vnoremap <leader>h <Nop>
 nnoremap <leader>m <Nop>
+vnoremap <leader>m <Nop>
 nnoremap <leader>z <Nop>
+vnoremap <leader>z <Nop>
 nnoremap <leader>x <Nop>
+vnoremap <leader>x <Nop>
 nnoremap <leader>o <Nop>
+vnoremap <leader>o <Nop>
 nnoremap <leader>v <Nop>
+vnoremap <leader>v <Nop>
 nnoremap <leader>' <Nop>
+vnoremap <leader>' <Nop>
+nnoremap <leader>p <Nop>
+vnoremap <leader>p <Nop>
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-H><Esc>
 nnoremap <Del> :bdelete<CR>
 nnoremap <leader>; <C-^>`"zz
-nnoremap <leader>k :call <SID>openFileSelectedAtLast()<CR>gv
-vnoremap <leader>k <Esc>
+nnoremap <leader>i :call <SID>openFileSelectedAtLast()<CR>gv
+vnoremap <leader>i <Esc>
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
 nmap - <Plug>NetrwBrowseUpDir
 nnoremap <leader>/ @:
