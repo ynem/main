@@ -82,3 +82,6 @@ let g:clang_format#style_options = {
 \"AlignConsecutiveAssignments"		: "true",
 \}
 
+" for google-vim-codefmt(css, html)
+Glaive codefmt js_beautify_executable='js-beautify --indent-size 2'
+
