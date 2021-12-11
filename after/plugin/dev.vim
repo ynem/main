@@ -13,7 +13,7 @@ endfunction
 function! s:indentCheckConfig()
 	highlight WhiteSpaceBol ctermbg=red
 	let extension = expand('%:e')
-	if extension ==# 'htm' || extension ==# 'html'
+	if extension ==# 'htm' || extension ==# 'html' || extension ==# 'css'
 		match WhiteSpaceBol /^ *\zs\t\+\ze *\|[^\t]*\zs \+\ze$/
 	else
 		match WhiteSpaceBol /^\t*\zs \+\ze\t*\|[^ ]*\zs \+\ze$/
