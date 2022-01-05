@@ -291,10 +291,7 @@ function! s:jumpToUpperMark(markSymbol)
 endfunction
 
 function! s:adjustRowPosition()
-	if line('.') > 30
-		execute "normal! 30\<C-E>"
-		return
-	endif
+	execute "normal! zt5\<C-Y>"
 endfunction
 
 runtime macros/matchit.vim

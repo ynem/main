@@ -22,6 +22,7 @@ endfunction
 
 " vim
 set history=200
+autocmd BufEnter * :syntax sync minlines=10000
 
 " web
 let euc_projects = [
