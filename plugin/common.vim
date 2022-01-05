@@ -291,7 +291,7 @@ function! s:jumpToUpperMark(markSymbol)
 endfunction
 
 function! s:adjustRowPosition()
-	execute "normal! zt5\<C-Y>"
+	execute "normal! zt10\<C-Y>"
 endfunction
 
 runtime macros/matchit.vim
@@ -357,7 +357,7 @@ nnoremap di< "_ci<<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call
 nnoremap di> "_ci><Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
 nnoremap df "_ciw<Esc>:call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>adjustColPositionBasedDel('right')<CR>
 nnoremap D :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>"_C<Esc>
-vnoremap d :<C-U>call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>delInVmode(visualmode())<CR>
+vnoremap d :<C-U>call <SID>setFilePathInsertedAtLast(expand('%')) \| call <SID>delInVmode(visualmode()) \| redraw<CR>
 nnoremap X :call <SID>setFilePathInsertedAtLast(expand('%'))<CR>V"0di<Esc>`<
 vnoremap x :<C-U>call <SID>setFilePathInsertedAtLast(expand('%'))<CR>gv"0di<Esc>`<
 nnoremap v :call <SID>setFilePathSelectedAtLast(expand('%'))<CR>v
