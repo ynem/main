@@ -285,7 +285,7 @@ function! s:jumpToUpperMark(markSymbol)
 	execute 'normal! `' . upperCase
 	let jumpedFilePath = expand('%')
 	if jumpedFilePath !=# currentFilePath
-		execute "normal! `\"m" . upperCase . "zz"
+		execute "normal! `\"m" . upperCase
 		return
 	endif
 endfunction
@@ -502,18 +502,18 @@ for k in split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_', '\zs')
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	let u = toupper(l)
-	execut
-		\ "nnoremap '" . l . " " .
-		\ ":call <SNR>" . s:identifySID() . "_" .
-		\ "jumpToUpperMark(" . string(u) . ")" . "<CR>"
-		\ ":call <SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
+	execute
+		\ "nnoremap '" . l . " :" .
+		\ "call <SNR>" . s:identifySID() . "_" . "jumpToUpperMark(" . string(u) . ")" .
+		\ " \\| " .
+		\ "call <SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	execute
-		\ "nnoremap ," . l . " `" . l . "zz" .
+		\ "nnoremap ," . l . " `" . l .
 		\ ":call " . "<SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
 	execute
-		\ "vnoremap ," . l . " `" . l . "zz" .
+		\ "vnoremap ," . l . " `" . l .
 		\ ":call " . "<SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
 endfor
 " for abbreiviation.(conflict with autocomplete)
