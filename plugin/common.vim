@@ -298,7 +298,8 @@ runtime macros/matchit.vim
 filetype plugin indent on
 syntax enable
 highlight CursorColumn cterm=NONE      ctermfg=NONE   ctermbg=238
-highlight CursorLine   cterm=underline ctermfg=NONE   ctermbg=NONE
+highlight CursorLine   cterm=NONE      ctermfg=NONE   ctermbg=235
+" highlight CursorLine   cterm=underline ctermfg=NONE   ctermbg=NONE
 highlight incsearch                    ctermfg=Yellow ctermbg=Black
 highlight Search                       ctermfg=Black  ctermbg=Yellow
 set backspace=indent,eol,start
