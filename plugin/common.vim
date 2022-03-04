@@ -279,6 +279,15 @@ function! s:identifySID()
 	return matchstr(expand('<sfile>'), '.\+<SNR>\zs\d\+\ze.\+SID$')
 endfunction
 
+" TODO: include lower case jump
+function! s:handleJumpToMark(mark)
+	let state = <SID>jumpToUpperMark(a:mark)
+	if state !== "jumped to another file"
+		call <SID>adjustRowPosition()
+		return
+	endif
+endfunction
+
 function! s:jumpToUpperMark(mark)
 	let currentFilePath = expand('%')
 	let upperMark       = toupper(a:mark)
@@ -286,8 +295,10 @@ function! s:jumpToUpperMark(mark)
 	let jumpedFilePath = expand('%')
 	if jumpedFilePath !=# currentFilePath
 		execute "normal! `\"m" . upperMark
-		return
+		return "jumped to another file"
 	endif
+
+	return "jumped to same file"
 endfunction
 
 function! s:adjustRowPosition()
@@ -505,9 +516,7 @@ for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	let u = toupper(l)
 	execute
 		\ "nnoremap '" . l . " :" .
-		\ "call <SNR>" . s:identifySID() . "_" . "jumpToUpperMark(" . string(u) . ")" .
-		\ " \\| " .
-		\ "call <SNR>" . s:identifySID() . "_" . "adjustRowPosition()" . "<CR>"
+		\ "call <SNR>" . s:identifySID() . "_" . "handleJumpToMark(" . string(u) . ")" . "<CR>"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	execute
