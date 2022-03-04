@@ -279,13 +279,13 @@ function! s:identifySID()
 	return matchstr(expand('<sfile>'), '.\+<SNR>\zs\d\+\ze.\+SID$')
 endfunction
 
-function! s:jumpToUpperMark(markSymbol)
+function! s:jumpToUpperMark(mark)
 	let currentFilePath = expand('%')
-	let upperSymbol     = toupper(a:markSymbol)
-	execute 'normal! `' . upperSymbol
+	let upperMark       = toupper(a:mark)
+	execute 'normal! `' . upperMark
 	let jumpedFilePath = expand('%')
 	if jumpedFilePath !=# currentFilePath
-		execute "normal! `\"m" . upperSymbol
+		execute "normal! `\"m" . upperMark
 		return
 	endif
 endfunction
