@@ -282,7 +282,7 @@ endfunction
 " TODO: include lower case jump
 function! s:handleJumpToMark(mark)
 	let state = <SID>jumpToUpperMark(a:mark)
-	if state !== "jumped to another file"
+	if state ==# "jumped to another file"
 		call <SID>adjustRowPosition()
 		return
 	endif
