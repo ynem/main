@@ -281,7 +281,7 @@ endfunction
 
 function! s:jumpToUpperMark(markSymbol)
 	let currentFilePath = expand('%')
-	let upperCase = toupper(a:markSymbol)
+	let upperCase       = toupper(a:markSymbol)
 	execute 'normal! `' . upperCase
 	let jumpedFilePath = expand('%')
 	if jumpedFilePath !=# currentFilePath
