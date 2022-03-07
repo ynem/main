@@ -305,7 +305,7 @@ function! s:adjustRowPosition()
 	execute "normal! zt10\<C-Y>"
 endfunction
 
-function! s:updateGlobalMark()
+function! UpdateGlobalMark()
 	let currentPath = expand("%:p")
 	for mk in getmarklist()
 		let pathMarked = expand(mk['file'])
@@ -490,7 +490,7 @@ vnoremap <leader>p <Nop>
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-H><Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap <leader>; :call <SID>updateGlobalMark()<CR><C-^>`"zz
+nnoremap <leader>; :call UpdateGlobalMark()<CR><C-^>`"zz
 nnoremap <leader>i :call <SID>openFileSelectedAtLast()<CR>gv
 vnoremap <leader>i <Esc>
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
@@ -529,7 +529,7 @@ for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	let u = toupper(l)
 	execute
 		\ "nnoremap '" . l . " :" .
-		\ "call <SNR>" . s:identifySID() . "_" . "updateGlobalMark()"
+		\ "call UpdateGlobalMark()"
 		\ " \\| "
 		\ "call <SNR>" . s:identifySID() . "_" . "handleJumpToMark(" . string(u) . ")" . "<CR>"
 endfor
