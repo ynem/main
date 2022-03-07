@@ -490,7 +490,7 @@ vnoremap <leader>p <Nop>
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-H><Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap <leader>; <C-^>`"zz
+nnoremap <leader>; :call <SID>updateGlobalMark()<CR><C-^>`"zz
 nnoremap <leader>i :call <SID>openFileSelectedAtLast()<CR>gv
 vnoremap <leader>i <Esc>
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
@@ -529,6 +529,8 @@ for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
 	let u = toupper(l)
 	execute
 		\ "nnoremap '" . l . " :" .
+		\ "call <SNR>" . s:identifySID() . "_" . "updateGlobalMark()"
+		\ " \\| "
 		\ "call <SNR>" . s:identifySID() . "_" . "handleJumpToMark(" . string(u) . ")" . "<CR>"
 endfor
 for l in split('abcdefghijklmnopqrstuvwxyz', '\zs')
@@ -542,6 +544,3 @@ endfor
 " for abbreiviation.(conflict with autocomplete)
 inoremap <CR> <C-]><C-]><CR>
 
-execute
-	\ "nnoremap <leader>9"
-	\ ":call " . "<SNR>" . s:identifySID() . "_" . "updateGlobalMark()" . "<CR>"
