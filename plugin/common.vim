@@ -305,6 +305,19 @@ function! s:adjustRowPosition()
 	execute "normal! zt10\<C-Y>"
 endfunction
 
+function! s:updateGlobalMark()
+	let currentPath = expand("%:p")
+	for mk in getmarklist()
+		let pathMarked = expand(mk['file'])
+
+		" update mark
+		if pathMarked ==# currentPath
+			let markPath = substitute(mk['mark'], "^'\\+", "", "")
+			execute "normal! " . "m" . markPath
+		endif
+	endfor
+endfunction
+
 runtime macros/matchit.vim
 filetype plugin indent on
 syntax enable
@@ -529,3 +542,6 @@ endfor
 " for abbreiviation.(conflict with autocomplete)
 inoremap <CR> <C-]><C-]><CR>
 
+execute
+	\ "nnoremap <leader>9"
+	\ ":call " . "<SNR>" . s:identifySID() . "_" . "updateGlobalMark()" . "<CR>"
