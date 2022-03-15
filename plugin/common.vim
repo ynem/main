@@ -311,8 +311,12 @@ function! UpdateGlobalMark()
 		let pathMarked = expand(mk['file'])
 
 		" update mark
+		let markPath = substitute(mk['mark'], "^'\\+", "", "")
+		if markPath ==# 'U' || markPath ==# 'I'
+			continue
+		endif
+
 		if pathMarked ==# currentPath
-			let markPath = substitute(mk['mark'], "^'\\+", "", "")
 			execute "normal! " . "m" . markPath
 		endif
 	endfor
