@@ -26,6 +26,10 @@ autocmd BufEnter * :syntax sync minlines=10000
 
 " web
 let euc_projects = [
+	\ '/home/yuta/repo/anzen',
+	\ '/home/yuta/repo/hall',
+	\ '/home/yuta/repo/trade-V2',
+	\ '/home/yuta/repo/jobm',
 \]
 
 " https://stackoverflow.com/questions/39635841/vim-use-if-in-augroup

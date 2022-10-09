@@ -445,7 +445,7 @@ nnoremap <leader>r :call <SID>replaceToRegister()<CR>
 vnoremap <leader>r :<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
 vnoremap <leader>s :s///g<Left><Left>
-nnoremap <leader>e gv:<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
+" nnoremap <leader>e gv:<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
 nnoremap <leader>q :normal! @q<CR>
 vnoremap <leader>q :normal! @q<CR>
 nnoremap <C-^> <C-^>`"
