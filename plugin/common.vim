@@ -434,8 +434,6 @@ nnoremap <C-H> g<S-^>
 nnoremap <C-N> g<S-$>
 vnoremap <C-H> g<S-^>
 vnoremap <C-N> g<S-$><Left>
-nnoremap <leader>f g<S-$>F
-vnoremap <leader>f g<S-$><Left>F
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :Explore<CR>
 nnoremap <leader>E :e!<CR>
@@ -471,6 +469,8 @@ nnoremap <leader>a <Nop>
 vnoremap <leader>a <Nop>
 nnoremap <leader>b <Nop>
 vnoremap <leader>b <Nop>
+nnoremap <leader>f <Nop>
+vnoremap <leader>f <Nop>
 nnoremap <leader>u <Nop>
 vnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
@@ -485,7 +485,7 @@ nnoremap <leader>x <Nop>
 vnoremap <leader>x <Nop>
 nnoremap <leader>o <Nop>
 vnoremap <leader>o <Nop>
-nnoremap <leader>v <Nop>
+" nnoremap <leader>v <Nop>
 vnoremap <leader>v <Nop>
 nnoremap <leader>' <Nop>
 vnoremap <leader>' <Nop>
