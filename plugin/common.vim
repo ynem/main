@@ -494,7 +494,7 @@ vnoremap <leader>p <Nop>
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-H><Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap <leader>; :call UpdateGlobalMark()<CR><C-^>`"zz
+nnoremap <leader>; :call UpdateGlobalMark()<CR><C-6>`":call <SID>adjustRowPosition()<CR>
 nnoremap <leader>i :call <SID>openFileSelectedAtLast()<CR>gv
 vnoremap <leader>i <Esc>
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
