@@ -423,9 +423,9 @@ nnoremap <S-k> 10gk
 vnoremap <S-j> 10gj
 vnoremap <S-k> 10gk
 nnoremap <C-J> 5gj
-nnoremap <C-K> 3gk
+nnoremap <C-K> 5gk
 vnoremap <C-J> 5gj
-vnoremap <C-K> 3gk
+vnoremap <C-K> 5gk
 nnoremap <C-E> 5<C-E>
 nnoremap <C-Y> 5<C-Y>
 vnoremap <C-E> 5<C-E>
