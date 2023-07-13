@@ -443,8 +443,6 @@ nnoremap <leader>r :call <SID>replaceToRegister()<CR>
 vnoremap <leader>r :<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
 nnoremap <leader>s :%s///g<Left><Left>
 vnoremap <leader>s :s///g<Left><Left>
-nnoremap <leader>f zo
-vnoremap <leader>f zf
 " nnoremap <leader>e gv:<C-U>call <SID>replaceToRegisterInLastSelected()<CR>
 nnoremap <leader>q :normal! @q<CR>
 vnoremap <leader>q :normal! @q<CR>
@@ -459,6 +457,13 @@ nnoremap <leader>, :
 vnoremap <leader>, :
 nnoremap : ,
 vnoremap : ,
+" folding
+set foldmethod=indent
+nnoremap <leader>a zO
+vnoremap <leader>a zO
+nnoremap <leader>; zc
+nnoremap <leader>u :loadview<CR>
+nnoremap <leader>o :mkview<CR>
 " disabled
 nnoremap R <Nop>
 nnoremap U <Nop>
@@ -467,11 +472,10 @@ nnoremap Z <Nop>
 "	 need bash setting -> stty start(stop) undef
 nnoremap <C-S> <Nop>
 vnoremap <C-S> <Nop>
-nnoremap <leader>a <Nop>
-vnoremap <leader>a <Nop>
 nnoremap <leader>b <Nop>
 vnoremap <leader>b <Nop>
-nnoremap <leader>u <Nop>
+nnoremap <leader>f <Nop>
+vnoremap <leader>f <Nop>
 vnoremap <leader>u <Nop>
 nnoremap <leader>t <Nop>
 vnoremap <leader>t <Nop>
@@ -483,18 +487,16 @@ nnoremap <leader>z <Nop>
 vnoremap <leader>z <Nop>
 nnoremap <leader>x <Nop>
 vnoremap <leader>x <Nop>
-nnoremap <leader>o <Nop>
 vnoremap <leader>o <Nop>
-" nnoremap <leader>v <Nop>
+nnoremap <leader>v <Nop>
 vnoremap <leader>v <Nop>
-nnoremap <leader>' <Nop>
 vnoremap <leader>' <Nop>
 nnoremap <leader>p <Nop>
 vnoremap <leader>p <Nop>
 " for abbreviation
 inoremap jk <C-]><C-]><Space><C-H><Esc>
 nnoremap <Del> :bdelete<CR>
-nnoremap <leader>; :call UpdateGlobalMark()<CR><C-6>`":call <SID>adjustRowPosition()<CR>
+nnoremap <leader>' :call UpdateGlobalMark()<CR><C-6>`":call <SID>adjustRowPosition()<CR>
 nnoremap <leader>i :call <SID>openFileSelectedAtLast()<CR>gv
 vnoremap <leader>i <Esc>
 " https://stackoverflow.com/questions/58330034/unexpected-space-character-while-in-explore-when-hitting-minus-key-in-neovi
